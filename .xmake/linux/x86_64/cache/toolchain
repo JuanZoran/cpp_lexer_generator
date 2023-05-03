@@ -1,0 +1,18 @@
+{
+    tool_target_lexer_generator_linux_x86_64_cxx = {
+        toolname = "gcc",
+        toolchain_info = {
+            plat = "linux",
+            name = "gcc",
+            arch = "x86_64",
+            cachekey = "gcc_arch_x86_64_plat_linux"
+        },
+        program = "/usr/bin/gcc"
+    },
+    zig_arch_x86_64_plat_linux = {
+        plat = "linux",
+        __global = true,
+        arch = "x86_64",
+        zig = "/snap/bin/zig"
+    }
+}
