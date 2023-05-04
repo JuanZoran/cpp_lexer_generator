@@ -1,5 +1,7 @@
 add_rules('mode.debug', 'mode.release')
 
+set_toolchains('clang')
+
 ---@format disable
 target("lexer_generator")
     set_kind("binary")

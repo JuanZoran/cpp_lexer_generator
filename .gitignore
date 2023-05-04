@@ -1,3 +1,4 @@
 # Xmake cache
-.xmake/
-build/
+.xmake
+.cache
+build
