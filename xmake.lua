@@ -1,13 +1,25 @@
-add_rules('mode.debug', 'mode.release')
+set_project 'cpp_lexer_generator'
+set_toolchains 'clang'
 
-set_toolchains('clang')
+
+add_rules("plugin.compile_commands.autoupdate")
+add_rules('mode.debug', 'mode.release')
+add_requires('fmt', 'gtest')
+add_includedirs 'include'
+set_languages 'cxx23'
 
 ---@format disable
 target("lexer_generator")
     set_kind("binary")
-    add_includedirs("include")
     add_files("src/*.cpp")
-    add_cxxflags("-std=c++20")
+    add_packages("fmt")
+
+
+target('test_postfix')
+    set_kind('binary')
+    set_group('test')
+    add_files('test/test_postfix.cpp')
+    add_packages('gtest')
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
