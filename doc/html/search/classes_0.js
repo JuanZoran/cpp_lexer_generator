@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['postfix_1',['Postfix',['../classPostfix.html',1,'']]]
+  ['postfix_2',['Postfix',['../classPostfix.html',1,'']]]
 ];

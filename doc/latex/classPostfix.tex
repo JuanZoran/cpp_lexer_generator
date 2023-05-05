@@ -1,5 +1,14 @@
 \hypertarget{classPostfix}{}\doxysection{Postfix Class Reference}
 \label{classPostfix}\index{Postfix@{Postfix}}
+
+
+This class is used to convert infix RE to postfix RE.  
+
+
+
+
+{\ttfamily \#include $<$Postfix.\+hpp$>$}
+
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
@@ -12,9 +21,8 @@ using {\bfseries map} = std\+::map$<$ char, int $>$
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classPostfix_a7c509e7ee3970092313a66914b277827}\label{classPostfix_a7c509e7ee3970092313a66914b277827}} 
-{\bfseries Postfix} (const std\+::string \&infix)
-\item 
+\mbox{\hyperlink{classPostfix_a7c509e7ee3970092313a66914b277827}{Postfix}} (const std\+::string \&infix)
+\begin{DoxyCompactList}\small\item\em Build a new \mbox{\hyperlink{classPostfix}{Postfix}} object with infix RE. \end{DoxyCompactList}\item 
 \mbox{\Hypertarget{classPostfix_abe55b13e8c7f943fcb849855576ea739}\label{classPostfix_abe55b13e8c7f943fcb849855576ea739}} 
 \mbox{\hyperlink{classPostfix}{Postfix}} \& {\bfseries operator=} (\mbox{\hyperlink{classPostfix}{Postfix}} \&\&)=default
 \item 
@@ -27,18 +35,71 @@ using {\bfseries map} = std\+::map$<$ char, int $>$
 \mbox{\Hypertarget{classPostfix_a0828e90af39693f36b61ff691e2bbf5f}\label{classPostfix_a0828e90af39693f36b61ff691e2bbf5f}} 
 {\bfseries Postfix} (const \mbox{\hyperlink{classPostfix}{Postfix}} \&)=default
 \item 
-\mbox{\Hypertarget{classPostfix_a678fc4fb48fcd29e71d48308f764d534}\label{classPostfix_a678fc4fb48fcd29e71d48308f764d534}} 
-const str \& {\bfseries get\+Postfix} () const
-\item 
-\mbox{\Hypertarget{classPostfix_a6510a50f5a4ebcb43551291f326945a4}\label{classPostfix_a6510a50f5a4ebcb43551291f326945a4}} 
-const str \& {\bfseries get\+Postfix} (const std\+::string infix)
-\end{DoxyCompactItemize}
+const str \& \mbox{\hyperlink{classPostfix_a678fc4fb48fcd29e71d48308f764d534}{get\+Postfix}} () const
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{classPostfix}{Postfix}} object \mbox{[}Must be called after Constructor with infix\mbox{]}. \end{DoxyCompactList}\item 
+const str \& \mbox{\hyperlink{classPostfix_a6510a50f5a4ebcb43551291f326945a4}{get\+Postfix}} (const std\+::string infix)
+\begin{DoxyCompactList}\small\item\em Get the \mbox{\hyperlink{classPostfix}{Postfix}} object. \end{DoxyCompactList}\end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classPostfix_a11df03ac1ecdc07a21ddad8201df9d33}\label{classPostfix_a11df03ac1ecdc07a21ddad8201df9d33}} 
 std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&os, const \mbox{\hyperlink{classPostfix}{Postfix}} \&postfix)
 \end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+This class is used to convert infix RE to postfix RE. 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPostfix_a7c509e7ee3970092313a66914b277827}\label{classPostfix_a7c509e7ee3970092313a66914b277827}} 
+\index{Postfix@{Postfix}!Postfix@{Postfix}}
+\index{Postfix@{Postfix}!Postfix@{Postfix}}
+\doxysubsubsection{\texorpdfstring{Postfix()}{Postfix()}}
+{\footnotesize\ttfamily Postfix\+::\+Postfix (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{infix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Build a new \mbox{\hyperlink{classPostfix}{Postfix}} object with infix RE. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em infix} & \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPostfix_a678fc4fb48fcd29e71d48308f764d534}\label{classPostfix_a678fc4fb48fcd29e71d48308f764d534}} 
+\index{Postfix@{Postfix}!getPostfix@{getPostfix}}
+\index{getPostfix@{getPostfix}!Postfix@{Postfix}}
+\doxysubsubsection{\texorpdfstring{getPostfix()}{getPostfix()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily const Postfix\+::str \& Postfix\+::get\+Postfix (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the \mbox{\hyperlink{classPostfix}{Postfix}} object \mbox{[}Must be called after Constructor with infix\mbox{]}. 
+
+\begin{DoxyReturn}{Returns}
+Postfix\+::str 
+\end{DoxyReturn}
+\mbox{\Hypertarget{classPostfix_a6510a50f5a4ebcb43551291f326945a4}\label{classPostfix_a6510a50f5a4ebcb43551291f326945a4}} 
+\index{Postfix@{Postfix}!getPostfix@{getPostfix}}
+\index{getPostfix@{getPostfix}!Postfix@{Postfix}}
+\doxysubsubsection{\texorpdfstring{getPostfix()}{getPostfix()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const Postfix\+::str \& Postfix\+::get\+Postfix (\begin{DoxyParamCaption}\item[{const std\+::string}]{infix }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Get the \mbox{\hyperlink{classPostfix}{Postfix}} object. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em infix} & be converted \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Postfix\+::str 
+\end{DoxyReturn}
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

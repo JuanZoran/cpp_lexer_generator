@@ -70,6 +70,11 @@ $(function() {
 <div class="title">Postfix Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class is used to convert infix RE to postfix RE.  
+ <a href="classPostfix.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="Postfix_8hpp_source.html">Postfix.hpp</a>&gt;</code></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
@@ -82,8 +87,8 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>map</b> = std::map&l
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a7c509e7ee3970092313a66914b277827"><td class="memItemLeft" align="right" valign="top"><a id="a7c509e7ee3970092313a66914b277827"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Postfix</b> (const std::string &amp;infix)</td></tr>
+<tr class="memitem:a7c509e7ee3970092313a66914b277827"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostfix.html#a7c509e7ee3970092313a66914b277827">Postfix</a> (const std::string &amp;infix)</td></tr>
+<tr class="memdesc:a7c509e7ee3970092313a66914b277827"><td class="mdescLeft">&#160;</td><td class="mdescRight">Build a new <a class="el" href="classPostfix.html" title="This class is used to convert infix RE to postfix RE.">Postfix</a> object with infix RE.  <a href="classPostfix.html#a7c509e7ee3970092313a66914b277827">More...</a><br /></td></tr>
 <tr class="separator:a7c509e7ee3970092313a66914b277827"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abe55b13e8c7f943fcb849855576ea739"><td class="memItemLeft" align="right" valign="top"><a id="abe55b13e8c7f943fcb849855576ea739"></a>
 <a class="el" href="classPostfix.html">Postfix</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classPostfix.html">Postfix</a> &amp;&amp;)=default</td></tr>
@@ -97,11 +102,11 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0828e90af39693f36b61ff691e2bbf5f"><td class="memItemLeft" align="right" valign="top"><a id="a0828e90af39693f36b61ff691e2bbf5f"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Postfix</b> (const <a class="el" href="classPostfix.html">Postfix</a> &amp;)=default</td></tr>
 <tr class="separator:a0828e90af39693f36b61ff691e2bbf5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a678fc4fb48fcd29e71d48308f764d534"><td class="memItemLeft" align="right" valign="top"><a id="a678fc4fb48fcd29e71d48308f764d534"></a>
-const str &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getPostfix</b> () const</td></tr>
+<tr class="memitem:a678fc4fb48fcd29e71d48308f764d534"><td class="memItemLeft" align="right" valign="top">const str &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostfix.html#a678fc4fb48fcd29e71d48308f764d534">getPostfix</a> () const</td></tr>
+<tr class="memdesc:a678fc4fb48fcd29e71d48308f764d534"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="classPostfix.html" title="This class is used to convert infix RE to postfix RE.">Postfix</a> object [Must be called after Constructor with infix].  <a href="classPostfix.html#a678fc4fb48fcd29e71d48308f764d534">More...</a><br /></td></tr>
 <tr class="separator:a678fc4fb48fcd29e71d48308f764d534"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6510a50f5a4ebcb43551291f326945a4"><td class="memItemLeft" align="right" valign="top"><a id="a6510a50f5a4ebcb43551291f326945a4"></a>
-const str &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>getPostfix</b> (const std::string infix)</td></tr>
+<tr class="memitem:a6510a50f5a4ebcb43551291f326945a4"><td class="memItemLeft" align="right" valign="top">const str &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPostfix.html#a6510a50f5a4ebcb43551291f326945a4">getPostfix</a> (const std::string infix)</td></tr>
+<tr class="memdesc:a6510a50f5a4ebcb43551291f326945a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the <a class="el" href="classPostfix.html" title="This class is used to convert infix RE to postfix RE.">Postfix</a> object.  <a href="classPostfix.html#a6510a50f5a4ebcb43551291f326945a4">More...</a><br /></td></tr>
 <tr class="separator:a6510a50f5a4ebcb43551291f326945a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
@@ -110,6 +115,107 @@ Friends</h2></td></tr>
 std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;&lt;</b> (std::ostream &amp;os, const <a class="el" href="classPostfix.html">Postfix</a> &amp;postfix)</td></tr>
 <tr class="separator:a11df03ac1ecdc07a21ddad8201df9d33"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>This class is used to convert infix RE to postfix RE. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a7c509e7ee3970092313a66914b277827"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c509e7ee3970092313a66914b277827">&#9670;&nbsp;</a></span>Postfix()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Postfix::Postfix </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>infix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Build a new <a class="el" href="classPostfix.html" title="This class is used to convert infix RE to postfix RE.">Postfix</a> object with infix RE. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">infix</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a678fc4fb48fcd29e71d48308f764d534"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a678fc4fb48fcd29e71d48308f764d534">&#9670;&nbsp;</a></span>getPostfix() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Postfix::str &amp; Postfix::getPostfix </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the <a class="el" href="classPostfix.html" title="This class is used to convert infix RE to postfix RE.">Postfix</a> object [Must be called after Constructor with infix]. </p>
+<dl class="section return"><dt>Returns</dt><dd>Postfix::str </dd></dl>
+
+</div>
+</div>
+<a id="a6510a50f5a4ebcb43551291f326945a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6510a50f5a4ebcb43551291f326945a4">&#9670;&nbsp;</a></span>getPostfix() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const Postfix::str &amp; Postfix::getPostfix </td>
+          <td>(</td>
+          <td class="paramtype">const std::string&#160;</td>
+          <td class="paramname"><em>infix</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the <a class="el" href="classPostfix.html" title="This class is used to convert infix RE to postfix RE.">Postfix</a> object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">infix</td><td>be converted </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Postfix::str </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/<a class="el" href="Postfix_8hpp_source.html">Postfix.hpp</a></li>
 </ul>

@@ -9,32 +9,34 @@ namespace Util {
  *
  * @param str Regex string
  */
-inline void addConcatOperator(const Type::str_c auto& str) {
-    constexpr auto concatOperator = "^";
+// inline void addConcatOperator(const Type::str_c auto& str) {
+inline void addConcatOperator(Type::str_c auto& str) {
+    constexpr auto concatOperator = '^';
 
-    auto isOperator = [](const char ch) {
+    // left join unary operator: *, )
+    // right join unary operator: (
+    // binary operator: |, ^
+    auto is_operator = [](const char ch) {
         switch (ch) {
+            case '*':
+            case ')':
+            case '(':
             case '|':
             case '^':
-            case '*':
-                // case '(':
-                // case ')':
                 return true;
-                break;
-
             default:
                 return false;
-                break;
         }
     };
 
     auto end = str.size() - 1;
-    for (auto i = 0; i < end; ++i) {
-        if (!isOperator(str[i])) {
-            if (!isOperator(str[i + 1])) {
-                str.insert(++i, concatOperator);
-                ++end;
-            }
+    for (size_t i = 0; i < end; ++i) {
+        auto ch = str[i];
+        auto next_ch = str[i + 1];
+
+        if ((!is_operator(ch) || ch == '*' || ch == ')') && (!is_operator(next_ch) || next_ch == '(')) {
+            str.insert(++i, 1, concatOperator);
+            ++end;
         }
     }
 }

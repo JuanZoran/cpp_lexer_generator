@@ -1,9 +1,14 @@
 #pragma once
+#include <Type.hpp>
 #include <cassert>
 #include <map>
 #include <stack>
-#include <type.hpp>
 
+/**
+ * @class Postfix
+ * @brief This class is used to convert infix RE to postfix RE
+ *
+ */
 class Postfix
 {
 public:
@@ -12,6 +17,11 @@ public:
 
 public:
     Postfix() = default;
+    /**
+     * @brief Build a new Postfix object with infix RE
+     *
+     * @param infix
+     */
     Postfix(const std::string& infix);
     ~Postfix() = default;
 
@@ -25,7 +35,19 @@ public:
         return os;
     }
 
+    /**
+     * @brief Get the Postfix object [Must be called after Constructor with infix]
+     *
+     * @return Postfix::str
+     */
     const str& getPostfix() const;
+
+    /**
+     * @brief Get the Postfix object
+     *
+     * @param infix be converted
+     * @return Postfix::str
+     */
     const str& getPostfix(const std::string infix);
 
 

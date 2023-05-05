@@ -2,11 +2,25 @@ set_project 'cpp_lexer_generator'
 set_toolchains 'clang'
 
 
-add_rules("plugin.compile_commands.autoupdate")
+add_rules 'plugin.compile_commands.autoupdate'
 add_rules('mode.debug', 'mode.release')
 add_requires('fmt', 'gtest')
 add_includedirs 'include'
 set_languages 'cxx23'
+
+-- Debug模式设置
+if is_mode 'debug' then
+    set_optimize 'none'
+    set_symbols 'debug'
+end
+
+-- Release模式设置
+if is_mode 'release' then
+    set_optimize 'fastest'
+    set_symbols 'hidden'
+    set_strip 'all'
+end
+
 
 ---@format disable
 target("lexer_generator")
@@ -19,6 +33,12 @@ target('test_postfix')
     set_kind('binary')
     set_group('test')
     add_files('test/test_postfix.cpp')
+    add_packages('gtest')
+
+target('test_util')
+    set_kind('binary')
+    set_group('test')
+    add_files('test/test_util.cpp')
     add_packages('gtest')
 
 --
