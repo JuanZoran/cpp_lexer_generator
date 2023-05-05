@@ -29,12 +29,6 @@ target("lexer_generator")
     add_packages("fmt")
 
 
-target('test_postfix')
-    set_kind('binary')
-    set_group('test')
-    add_files('test/test_postfix.cpp')
-    add_packages('gtest')
-
 target('test_util')
     set_kind('binary')
     set_group('test')

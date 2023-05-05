@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
 
 
 TEST(Util, addConcatOperator) {
-    const vector<pair<Type::str, Type::str>> all_tests {
+    const vector<pair<Util::str, Util::str>> all_tests {
         {"ab",         "a^b"        },
         { "a|b",       "a|b"        },
         { "a*b",       "a*^b"       },
@@ -38,10 +38,23 @@ TEST(Util, addConcatOperator) {
     };
 
 
-
     for (auto& [input, right] : all_tests) {
         auto left = std::move(input);
         addConcatOperator(left);
         EXPECT_EQ(right, left);
+    }
+}
+
+TEST(Util, toPostfix) {
+    const std::vector<pair<Util::str, Util::str>> all_test {
+        {"(a|b)",    "ab|"  },
+        { "(ab)*",   "ab*"  },
+        { "(a|b)*",  "ab|*" },
+        { "ab(c|d)", "abcd|"},
+        { "c*(a|b)", "c*ab|"},
+    };
+
+    for (auto& [input, expected] : all_test) {
+        EXPECT_EQ(expected, toPostfix(input));
     }
 }

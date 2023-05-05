@@ -1,6 +1,5 @@
 #include <color.h>
 #include <Util.hpp>
-#include <Postfix.hpp>
 
 using namespace std;
 using namespace Zoran;
