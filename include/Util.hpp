@@ -12,10 +12,9 @@ using str = std::string;
  *
  * @param str Regex string
  */
-// inline void addConcatOperator(const Type::str_c auto& str) {
-inline void addConcatOperator(str& str) {
+inline void addConcatOperator(str& str)
+{
     constexpr auto concatOperator = '^';
-
     // left join unary operator: *, )
     // right join unary operator: (
     // binary operator: |, ^
@@ -45,18 +44,18 @@ inline void addConcatOperator(str& str) {
     }
 }
 
-
 /**
  * @brief Convert infix expression to postfix expression
  *
  * @param infix expression
  * @return postfix expression
  */
-inline str toPostfix(const str& infix) {
+inline void toPostfix(str& infix)
+{
     static const std::map<char, int> Priorities = {
         {'|',  2},
-        { '^', 2},
-        { '*', 4},
+        { '^', 4},
+        { '*', 8},
         { '(', 0},
         { ')', 0}
     };
@@ -66,12 +65,13 @@ inline str toPostfix(const str& infix) {
     };
 
     str postfix {};
-
-    postfix.clear();
     stack st;
 
     auto processOperators = [&st, &postfix](const char ch) {
-        if (ch == ')') {
+        if (ch == '(') {
+            st.push(ch);
+        }
+        else if (ch == ')') {
             // WARNING : if there is no '(' in the stack, it will cause an error
             while (st.top() != '(') {
                 postfix.push_back(st.top());
@@ -80,9 +80,7 @@ inline str toPostfix(const str& infix) {
 
             st.pop();
         }
-        else if (st.empty()) {
-            st.push(ch);
-        }
+
         else {
             while (!st.empty() && Priorities.at(st.top()) >= Priorities.at(ch)) {
                 postfix.push_back(st.top());
@@ -108,6 +106,6 @@ inline str toPostfix(const str& infix) {
         st.pop();
     }
 
-    return postfix;
+    infix = std::move(postfix);
 }
 } // namespace Util

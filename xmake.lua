@@ -4,9 +4,12 @@ set_toolchains 'clang'
 
 add_rules 'plugin.compile_commands.autoupdate'
 add_rules('mode.debug', 'mode.release')
-add_requires('fmt', 'gtest')
+-- add_requires('fmt', 'gtest', 'doctest')
+add_requires('fmt'--[[ , 'gtest' ]], 'doctest')
 add_includedirs 'include'
-set_languages 'cxx23'
+set_languages 'cxx20'
+set_targetdir '$(projectdir)/bin'
+
 
 -- Debug模式设置
 if is_mode 'debug' then
@@ -33,8 +36,7 @@ target('test_util')
     set_kind('binary')
     set_group('test')
     add_files('test/test_util.cpp')
-    add_packages('gtest')
-
+    add_packages('doctest')
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
 --

@@ -1,11 +1,73 @@
+#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <Util.hpp>
-#include <gtest/gtest.h>
+#include <array>
+#include <doctest/doctest.h>
 #include <vector>
 
 using namespace Util;
 using namespace std;
 
-int main(int argc, char** argv) {
+// TEST : Origin -> addConcatOperator -> toPostfix
+// metadata:
+// * -> 0 or more
+// | -> or
+// ^ -> concat
+const std::vector<std::array<Util::str, 3>> all_test {
+    {"ab",         "a^b",         "ab^"      },
+    { "a|b",       "a|b",         "ab|"      },
+    { "a*b",       "a*^b",        "a*b^"     },
+    { "(a)b",      "(a)^b",       "ab^"      },
+    { "a(b)",      "a^(b)",       "ab^"      },
+    { "a|b*c",     "a|b*^c",      "ab*c^|"   },
+    { "a*b|c",     "a*^b|c",      "a*b^c|"   },
+    { "a*(b|c)",   "a*^(b|c)",    "a*bc|^"   },
+    { "(a|b)c*",   "(a|b)^c*",    "ab|c*^"   },
+    { "(a*b)|c",   "(a*^b)|c",    "a*b^c|"   },
+    { "a*(b*c)",   "a*^(b*^c)",   "a*b*c^^"  },
+    { "a|b|c",     "a|b|c",       "ab|c|"    },
+    { "a*b*c",     "a*^b*^c",     "a*b*^c^"  },
+    { "a|b*c|d",   "a|b*^c|d",    "ab*c^|d|" },
+    { "a*(b|c)*d", "a*^(b|c)*^d", "a*bc|*^d^"},
+    { "(a*b*)*",   "(a*^b*)*",    "a*b*^*"   },
+    { "a|b|(cd)*", "a|b|(c^d)*",  "ab|cd^*|" },
+};
+
+TEST_CASE("Util")
+{
+    SUBCASE("addConcatOperator")
+    {
+        for (auto test : all_test) {
+            str input = test[0];
+            str right = test[1];
+
+            addConcatOperator(input);
+            CHECK_EQ(right, input);
+        }
+    }
+
+    SUBCASE("toPostfix")
+    {
+        for (auto test : all_test) {
+            str input = test[0];
+            str right = test[2];
+
+            addConcatOperator(input);
+            toPostfix(input);
+            CHECK_EQ(right, input);
+        }
+    }
+}
+
+#if 0
+#include <Util.hpp>
+#include <array>
+#include <gtest/gtest.h>
+#include <vector>
+
+
+    int
+    main(int argc, char** argv)
+{
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
@@ -16,7 +78,29 @@ int main(int argc, char** argv) {
 // }
 
 
-TEST(Util, addConcatOperator) {
+const vector<array<Util::str, 3>> all_tests {
+ {"ab",         "a^b"        },
+  { "a|b",       "a|b"        },
+  { "a*b",       "a*^b"       },
+  { "(a)b",      "(a)^b"      },
+  { "a(b)",      "a^(b)"      },
+  { "a(b)",      "a^(b)"      },
+  { "a|b*c",     "a|b*^c"     },
+  { "a*b|c",     "a*^b|c"     },
+  { "a*(b|c)",   "a*^(b|c)"   },
+  { "(a|b)c*",   "(a|b)^c*"   },
+  { "(a*b)|c",   "(a*^b)|c"   },
+  { "a*(b*c)",   "a*^(b*^c)"  },
+  { "a|b|c",     "a|b|c"      },
+  { "a*b*c",     "a*^b*^c"    },
+  { "a|b*c|d",   "a|b*^c|d"   },
+  { "a*(b|c)*d", "a*^(b|c)*^d"},
+  { "(a*b*)*",   "(a*^b*)*"   },
+  { "a|b|(cd)*", "a|b|(c^d)*" },
+};
+
+TEST(Util, addConcatOperator)
+{
     const vector<pair<Util::str, Util::str>> all_tests {
         {"ab",         "a^b"        },
         { "a|b",       "a|b"        },
@@ -35,6 +119,8 @@ TEST(Util, addConcatOperator) {
         { "a|b*c|d",   "a|b*^c|d"   },
         { "a*(b|c)*d", "a*^(b|c)*^d"},
         { "(a*b*)*",   "(a*^b*)*"   },
+
+        { "a|b|(cd)*", "a|b|(c^d)*" },
     };
 
 
@@ -45,7 +131,8 @@ TEST(Util, addConcatOperator) {
     }
 }
 
-TEST(Util, toPostfix) {
+TEST(Util, toPostfix)
+{
     const std::vector<pair<Util::str, Util::str>> all_test {
         {"(a|b)",    "ab|"  },
         { "(ab)*",   "ab*"  },
@@ -58,3 +145,5 @@ TEST(Util, toPostfix) {
         EXPECT_EQ(expected, toPostfix(input));
     }
 }
+
+#endif
