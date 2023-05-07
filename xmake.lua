@@ -4,7 +4,6 @@ set_toolchains 'clang'
 
 add_rules 'plugin.compile_commands.autoupdate'
 add_rules('mode.debug', 'mode.release')
--- add_requires('fmt', 'gtest', 'doctest')
 add_requires('fmt'--[[ , 'gtest' ]], 'doctest')
 add_includedirs 'include'
 set_languages 'cxx20'

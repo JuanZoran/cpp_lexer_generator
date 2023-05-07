@@ -2,11 +2,15 @@
 #include <Util.hpp>
 #include <cassert>
 #include <color.h>
+#include <cstdint>
+#include <fmt/format.h>
 #include <fstream>
 #include <map>
 #include <set>
 #include <stack>
 #include <string>
+#include <string_view>
+#include <utility>
 
 /**
  * @class NFA
@@ -16,13 +20,22 @@
 class NFA
 {
 public:
-    using state = int;
+    using state = uint32_t;
+    using size_t = uint32_t;
     using str = std::string;
+    using priority_t = uint32_t;
+    using str_view = std::string_view;
 
 public:
     NFA() = default;
-    explicit NFA(const char ch) noexcept;
-    explicit NFA(const str& RE) noexcept;
+    /**
+     * @brief The wrapper of parse function
+     *
+     * @tparam Args see parse function
+     * @param args parse method's arguments
+     */
+    template <typename... Args>
+    explicit NFA(Args&&... args) noexcept;
     NFA(NFA&&) = default;
     NFA(const NFA&) = default;
     NFA& operator= (NFA&&) = default;
@@ -30,12 +43,18 @@ public:
     ~NFA() = default;
 
 public:
-    void toDiagram(const std::string& filename, const std::ios_base::openmode flag = std::ios::app)
-        const noexcept;
-    void parse(const str RE) noexcept;
-
+    void toDiagram(
+        const str& filename, const std::ios_base::openmode flag = std::ios::app) const noexcept;
+    void parse(const str RE, str&& info = "", NFA::priority_t priority = 1) noexcept;
     void clear() noexcept;
     friend std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept;
+    NFA& operator+ (NFA& rhs) noexcept;
+
+    bool match(const str_view& str) const noexcept;
+
+
+public:
+    static NFA::str stateInfo() noexcept;
 
 private:
     static state new_state()
@@ -51,15 +70,15 @@ private:
 
 
 private:
+    static std::map<state, std::pair<priority_t, str>> state_info;
     static size_t _size;
-    static std::map<state, str> state_info;
     str RE {};
     str postfix {};
-    str preProcess {};
+    str pre_process {};
 };
 
-inline size_t NFA::_size {};
-inline std::map<NFA::state, NFA::str> NFA::state_info {};
+inline NFA::size_t NFA::_size {};
+inline std::map<NFA::state, std::pair<NFA::priority_t, NFA::str>> NFA::state_info {};
 
 /*
  *
@@ -67,16 +86,10 @@ inline std::map<NFA::state, NFA::str> NFA::state_info {};
  * Thompson algorithm
  * meta characters : ( ) | * + ?
  */
-inline NFA::NFA(const NFA::str& postfix) noexcept
+template <typename... Args>
+inline NFA::NFA(Args&&... args) noexcept
 {
-    parse(postfix);
-}
-
-inline NFA::NFA(const char ch) noexcept:
-    _start { new_state() },
-    _end { new_state() }
-{
-    transition[{ _start, ch }] = _end;
+    parse(std::forward<Args>(args)...);
 }
 
 inline std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept
@@ -112,29 +125,31 @@ inline void
     os out { filename, flag };
     assert(out.is_open());
 
-    out << "## " << RE << '\n';
-    out << "### Preprocess : " << preProcess << '\n';
-    out << "### Postfix : " << postfix << '\n';
-
-    out << "```dot\n";
-
-    out << "digraph G {\n";
-    out << "rankdir=LR;\n";
-    out << "node [shape = doublecircle]; " << _end << ";\n";
-    out << "node [shape = circle];\n";
+    out << fmt::format(
+        "## RE: {}\n"
+        "### Preprocess : {}\n"
+        "### Postfix : {}\n"
+        "```dot\n"
+        "digraph G {{\n"
+        "rankdir=LR;\n"
+        "{} [shape = doublecircle];\n"
+        "node [shape = circle];\n",
+        RE,
+        pre_process,
+        postfix,
+        _end);
 
     for (const auto& [key, value] : transition) {
-        out << key.first << " -> " << value << " [ label = \"" << key.second << "\" ];\n";
+        out << fmt::format("{} -> {} [label = \"{}\"];\n", key.first, value, key.second);
     }
 
     for (const auto& [key, value] : epsilon_transition) {
         for (const auto& v : value) {
-            out << key << " -> " << v << " [ label = \"ε\" ];\n";
+            out << fmt::format("{} -> {} [ label = \"ε\" ];\n", key, v);
         }
     }
-
-    out << "}\n";
-    out << "```\n";
+    out << "}\n"
+           "```\n";
 }
 
 inline void NFA::clear() noexcept
@@ -142,10 +157,13 @@ inline void NFA::clear() noexcept
     transition.clear();
     epsilon_transition.clear();
     _start = _end = 0;
-    _size = 0;
+    RE.clear();
+    postfix.clear();
+    pre_process.clear();
+    state_info.erase(this->_end);
 }
 
-inline void NFA::parse(NFA::str RE) noexcept
+inline void NFA::parse(NFA::str RE, str&& info, NFA::priority_t priority) noexcept
 {
     using stack = std::stack<std::pair<state, state>>;
     this->clear();
@@ -153,7 +171,7 @@ inline void NFA::parse(NFA::str RE) noexcept
 
     this->RE = RE;
     Util::addConcatOperator(RE);
-    this->preProcess = RE;
+    this->pre_process = RE;
     Util::toPostfix(RE);
     this->postfix = RE;
 
@@ -226,4 +244,47 @@ inline void NFA::parse(NFA::str RE) noexcept
     assert(st.size() == 1);
     _start = st.top().first;
     _end = st.top().second;
+
+    if (info.size() > 0)
+        state_info[_end] = { priority, info };
+}
+
+inline NFA& NFA::operator+ (NFA& other) noexcept
+{
+    transition.merge(other.transition);
+    epsilon_transition.merge(other.epsilon_transition);
+
+
+    auto new_start = new_state();
+    auto new_end = new_state();
+
+    epsilon_transition[new_start].emplace(_start);
+    epsilon_transition[new_start].emplace(other._start);
+    epsilon_transition[_end].emplace(new_end);
+    epsilon_transition[other._end].emplace(new_end);
+
+    _start = new_start;
+    _end = new_end;
+    return *this;
+}
+
+inline bool NFA::match(const NFA::str_view& str) const noexcept
+{
+    fmt::print("TODO: {}", __func__);
+    return false;
+}
+
+inline NFA::str NFA::stateInfo() noexcept
+{
+    NFA::str info;
+    for (const auto& [key, value] : NFA::state_info) {
+        info += fmt::format(
+            "Index: {} \n"
+            "\tpriority : {} \n",
+            "\tinfo: {} \n",
+            key,
+            value.first,
+            value.second);
+    }
+    return info;
 }

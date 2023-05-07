@@ -1,9 +1,11 @@
 #include <NFA.hpp>
 #include <Util.hpp>
 #include <cstdio>
+#include <fmt/format.h>
 #include <vector>
 
 using namespace std;
+using namespace fmt;
 
 /**
  * @brief Test doxygen
@@ -24,7 +26,7 @@ int main(int argc, char* argv[])
 
     NFA nfa;
     for (auto& test : tests) {
-        cout << "Current: " << test << endl;
+        print("Current: {}\n", test);
         nfa.parse(test);
         nfa.toDiagram(filename);
     }
