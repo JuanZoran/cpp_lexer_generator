@@ -3,4 +3,5 @@
 .cache
 build
 bin
+help
 compile_commands.json

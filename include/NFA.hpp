@@ -31,6 +31,13 @@ public: // INFO : type alias
     using str_view_t = std::string_view;
     // clang-format on
 
+
+    enum class diagram_fmt {
+        Markdown = 0,
+        DotFile = 1,
+        Image = 2,
+    };
+
 public: // INFO : built-in method
     NFA() = default;
     /**
@@ -43,12 +50,12 @@ public: // INFO : built-in method
     explicit NFA(Args&&... args) noexcept;
     NFA(NFA&&) = default;
     NFA(const NFA&) = default;
-    NFA& operator= (NFA&&) = default;
-    NFA& operator= (const NFA&) = default;
+    NFA& operator=(NFA&&) = default;
+    NFA& operator=(const NFA&) = default;
     ~NFA() = default;
 
 public: // INFO : member method
-    friend std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept;
+    friend std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept;
 
     /**
      * @brief Generate the diagram of NFA via dot language [markdown format]
@@ -57,10 +64,13 @@ public: // INFO : member method
      * @param flag the open mode
      */
     void toDiagram(
-        const str_t& filename, const std::ios_base::openmode flag = std::ios::app) const noexcept;
+        const str_t& filename,
+        diagram_fmt format = diagram_fmt::Markdown,
+        const std::ios_base::openmode flag = std::ios::app) const noexcept;
+
     void parse(const str_t RE, auto&& info = "", NFA::priority_t priority = 1) noexcept;
     void clear() noexcept;
-    NFA& operator+ (NFA& rhs) noexcept;
+    NFA& operator+(NFA& rhs) noexcept;
 
     bool match(const str_view_t& str) const noexcept;
 
@@ -77,11 +87,15 @@ public: // INFO : member method
 public: // INFO : static method
     static NFA::str_t stateInfo() noexcept;
 
+private: // INFO : private static member method
+    static state_t _newState() { return _size++; }
+
 private: // INFO : private member method
-    static state_t _newState()
-    {
-        return _size++;
-    }
+    void _toMarkdown(const str_t& filename, const std::ios_base::openmode flag) const noexcept;
+    void _toDotFile(const str_t& filename, const std::ios_base::openmode flag) const noexcept;
+    void _toImage(const str_t& filename) const noexcept;
+
+    str_t _getTransitions() const noexcept;
 
 private: // INFO : private member variable
     std::map<std::pair<state_t, Type::char_t>, state_t> _transition {};
@@ -114,7 +128,7 @@ inline NFA::NFA(Args&&... args) noexcept
     parse(std::forward<Args>(args)...);
 }
 
-inline std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept
+inline std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept
 {
     using namespace Color;
 
@@ -140,8 +154,27 @@ inline std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept
     return os;
 }
 
+inline NFA::str_t NFA::_getTransitions() const noexcept
+{
+    str_t transition {};
+
+    for (const auto& [key, value] : _transition) {
+        transition += fmt::format("{} -> {} [ label = \"{}\" ];\n", key.first, value, key.second);
+    }
+
+    for (const auto& [key, value] : _epsilon_transition) {
+        for (const auto& v : value) {
+            transition += fmt::format("{} -> {} [ label = \"ε\" ];\n", key, v);
+        }
+    }
+
+    return transition;
+}
+
+// inline str
+
 inline void
-    NFA::toDiagram(const std::string& filename, const std::ios_base::openmode flag) const noexcept
+    NFA::_toMarkdown(const str_t& filename, const std::ios_base::openmode flag) const noexcept
 {
     using namespace fmt::literals;
     using ofs = std::ofstream;
@@ -149,24 +182,6 @@ inline void
 
     ofs fout { filename, flag };
     assert(fout.is_open());
-
-    auto get_transition = [this]() {
-        str_t transition {};
-
-        for (const auto& [key, value] : _transition) {
-            transition +=
-                fmt::format("{} -> {} [ label = \"{}\" ];\n", key.first, value, key.second);
-        }
-
-        for (const auto& [key, value] : _epsilon_transition) {
-            for (const auto& v : value) {
-                transition += fmt::format("{} -> {} [ label = \"ε\" ];\n", key, v);
-            }
-        }
-
-        return transition;
-    };
-
 
     fout << fmt::format(
         "## RE: {RE}\n"
@@ -194,7 +209,38 @@ inline void
         "postfix"_a = _postfix,
         "start"_a = _start,
         "end"_a = _end,
-        "transition"_a = get_transition());
+        "transition"_a = _getTransitions());
+}
+
+inline void
+    NFA::_toDotFile(const str_t& filename, const std::ios_base::openmode flag) const noexcept
+{
+    // TODO :
+}
+
+inline void NFA::_toImage(const str_t& filename) const noexcept
+{
+    // TODO :
+}
+
+inline void NFA::toDiagram(
+    const std::string& filename,
+    NFA::diagram_fmt format,
+    const std::ios_base::openmode flag) const noexcept
+{
+    switch (format) {
+        case diagram_fmt::Markdown:
+            _toMarkdown(filename, flag);
+            break;
+        case diagram_fmt::DotFile:
+            _toDotFile(filename, flag);
+            break;
+        case diagram_fmt::Image:
+            _toImage(filename);
+            break;
+        default:
+            break;
+    }
 }
 
 inline void NFA::clear() noexcept
@@ -300,11 +346,10 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
     _start = st.top().first;
     _end = st.top().second;
 
-    if (info.size() > 0)
-        _state_info[_end] = { priority, info };
+    if (info.size() > 0) _state_info[_end] = { priority, info };
 }
 
-inline NFA& NFA::operator+ (NFA& other) noexcept
+inline NFA& NFA::operator+(NFA& other) noexcept
 {
     _transition.merge(other._transition);
     _epsilon_transition.merge(other._epsilon_transition);
@@ -354,12 +399,10 @@ inline std::set<NFA::state_t> NFA::getReachedStates(const state_t state) const n
     while (!st.empty()) {
         auto state = st.top();
         st.pop();
-        if (_epsilon_transition.find(state) == _epsilon_transition.end())
-            continue;
+        if (_epsilon_transition.find(state) == _epsilon_transition.end()) continue;
 
         for (const auto& v : _epsilon_transition.at(state)) {
-            if (reached_states.find(v) != reached_states.end())
-                continue;
+            if (reached_states.find(v) != reached_states.end()) continue;
             st.emplace(v);
             reached_states.emplace(v);
         }
@@ -368,6 +411,8 @@ inline std::set<NFA::state_t> NFA::getReachedStates(const state_t state) const n
     return reached_states;
 }
 
-std::set<NFA::state_t> NFA::getReachedStates(const NFA::state_t state, Type::char_t ch) const noexcept {
+inline std::set<NFA::state_t>
+    NFA::getReachedStates(const NFA::state_t state, Type::char_t ch) const noexcept
+{
     // TODO :
 }
