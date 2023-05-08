@@ -16,19 +16,26 @@ using namespace fmt;
  */
 int main(int argc, char* argv[])
 {
-    vector<std::string> tests {
-        "a|b", "a*", "ab", "(a|b)*", "a|b|(cd)*",
+    vector<std::pair<std::string, std::string>> tests {
+        {"a|b",        "测试一"},
+        { "a*",        "测试二"},
+        { "ab",        "测试三"},
+        { "(a|b)*",    "测试四"},
+        { "a|b|(cd)*", "测试五"},
     };
-
 
     constexpr auto filename = "README.md";
     remove(filename);
 
     NFA nfa;
     for (auto& test : tests) {
-        print("Current: {}\n", test);
-        nfa.parse(test);
-        nfa.toDiagram(filename);
+        nfa.parse(test.first, test.second);
+
+        print(
+            "Current RE: {}\n"
+            "StateInfo:\n {}",
+            Color::Green_s(test.first),
+            nfa.stateInfo());
     }
     return 0;
 }

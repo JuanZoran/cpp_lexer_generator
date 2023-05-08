@@ -45,7 +45,7 @@ public:
 public:
     void toDiagram(
         const str& filename, const std::ios_base::openmode flag = std::ios::app) const noexcept;
-    void parse(const str RE, str&& info = "", NFA::priority_t priority = 1) noexcept;
+    void parse(const str RE, auto&& info = "", NFA::priority_t priority = 1) noexcept;
     void clear() noexcept;
     friend std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept;
     NFA& operator+ (NFA& rhs) noexcept;
@@ -129,18 +129,21 @@ inline void
         "## RE: {}\n"
         "### Preprocess : {}\n"
         "### Postfix : {}\n"
+        "\n"
         "```dot\n"
         "digraph G {{\n"
         "rankdir=LR;\n"
         "{} [shape = doublecircle];\n"
+        "{} [color = green];\n"
         "node [shape = circle];\n",
         RE,
         pre_process,
         postfix,
-        _end);
+        _end,
+        _start);
 
     for (const auto& [key, value] : transition) {
-        out << fmt::format("{} -> {} [label = \"{}\"];\n", key.first, value, key.second);
+        out << fmt::format("{} -> {} [ label = \"{}\" ];\n", key.first, value, key.second);
     }
 
     for (const auto& [key, value] : epsilon_transition) {
@@ -163,7 +166,7 @@ inline void NFA::clear() noexcept
     state_info.erase(this->_end);
 }
 
-inline void NFA::parse(NFA::str RE, str&& info, NFA::priority_t priority) noexcept
+inline void NFA::parse(NFA::str RE, auto&& info, NFA::priority_t priority) noexcept
 {
     using stack = std::stack<std::pair<state, state>>;
     this->clear();
@@ -280,7 +283,7 @@ inline NFA::str NFA::stateInfo() noexcept
     for (const auto& [key, value] : NFA::state_info) {
         info += fmt::format(
             "Index: {} \n"
-            "\tpriority : {} \n",
+            "\tpriority : {} \n"
             "\tinfo: {} \n",
             key,
             value.first,
