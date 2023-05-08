@@ -1,5 +1,6 @@
 #pragma once
 #include <NFA.hpp>
+#include <Type.hpp>
 #include <map>
 #include <set>
 #include <string>
@@ -7,10 +8,11 @@
 class DFA
 {
 public:
-    using state = uint32_t;
+    using state_t = Type::state_t;
+    using size_t = uint32_t;
 
 public:
-    DFA(const NFA& nfa) noexcept;
+    DFA(NFA&& nfa) noexcept;
 
 
     // clang-format off
@@ -23,26 +25,76 @@ public:
     // clang-format on
 
 private:
-    std::set<state> _states;
-    std::map<state, std::pair<NFA::priority_t, NFA::str_t>> _state_info;
-    std::map<std::pair<state, char>, state> _transition;
-    std::set<state> _final;
-    state _start;
+    state_t _newState() noexcept
+    {
+        return _size++;
+    }
 
-    // 4 bytes padding
-    state misc;
+
+private:
+    /**
+     * @brief All states of this DFA
+     */
+    std::set<state_t> _states {};
+
+    /**
+     * @brief final state info
+     */
+    std::map<state_t, std::pair<NFA::priority_t, NFA::str_t>> _state_info {};
+
+    /**
+     * @brief state transition map
+     */
+    std::map<std::pair<state_t, Type::char_t>, state_t> _transition {};
+
+    /**
+     * @brief final state set
+     */
+    std::set<state_t> _final {};
+
+    /**
+     * @brief input charset
+     */
+    std::set<Type::char_t> _charset {};
+
+    state_t _start {};
+    size_t _size {};
 };
 
-inline DFA::DFA(const NFA& nfa) noexcept
+inline DFA::DFA(NFA&& nfa) noexcept
 {
-    std::map<std::set<NFA::state_t>, std::set<NFA::state_t>> states;
-    // std::set<NFA::state> start = { nfa._start };
-    // states[start] = nfa._start;
-    // for (auto& [key, value] : states) {
-    //     for (auto& [ch, next] : nfa._states[value]) {
-    //         if (ch == NFA::epsilon) {
-    //             states[key].insert(next);
-    //         }
-    //     }
-    // }
+    using state_set = std::set<state_t>;
+    _start = _newState();
+    auto q0 = nfa.getReachedStates(nfa._start);
+
+    // WARN : this will destroy the nfa charset
+    _charset = std::move(nfa._charset);
+    std::stack<state_set> st;
+    st.push(q0);
+
+    std::map<state_set, state_t> states_map {
+        {
+         q0, _start,
+         }
+    };
+
+    while (!st.empty()) {
+        auto q = st.top();
+        st.pop();
+
+        for (auto c : _charset) {
+            // auto q_next = nfa.getSameStates(q, c);
+            // if (q_next.empty()) {
+            //     continue;
+            // }
+
+            // if (states_map.find(q_next) == states_map.end()) {
+            //     auto new_state = _newState();
+            //     states_map[q_next] = new_state;
+            //     st.push(q_next);
+            // }
+
+            // _transition[{states_map[q], c}] = states_map[q_next];
+        }
+    }
 }

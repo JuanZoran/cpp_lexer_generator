@@ -1,4 +1,5 @@
 #pragma once
+#include <Type.hpp>
 #include <Util.hpp>
 #include <cassert>
 #include <color.h>
@@ -23,11 +24,11 @@ public: // INFO : type alias
     friend class DFA;
 
     // clang-format off
-    using state_t      = uint32_t;
+    using state_t    = Type::state_t;
     using size_t     = uint32_t;
-    using str_t        = std::string;
+    using str_t      = std::string;
     using priority_t = uint32_t;
-    using str_view_t   = std::string_view;
+    using str_view_t = std::string_view;
     // clang-format on
 
 public: // INFO : built-in method
@@ -70,19 +71,20 @@ public: // INFO : member method
      * @param state the start state
      */
     std::set<state_t> getReachedStates(const state_t state) const noexcept;
+    std::set<state_t> getReachedStates(const state_t state, Type::char_t ch) const noexcept;
 
 
 public: // INFO : static method
     static NFA::str_t stateInfo() noexcept;
 
 private: // INFO : private member method
-    static state_t new_state()
+    static state_t _newState()
     {
         return _size++;
     }
 
 private: // INFO : private member variable
-    std::map<std::pair<state_t, char>, state_t> _transition {};
+    std::map<std::pair<state_t, Type::char_t>, state_t> _transition {};
     std::map<state_t, std::set<state_t>> _epsilon_transition {};
     state_t _start {};
     state_t _end {};
@@ -93,6 +95,7 @@ private:
     static size_t _size;
     str_t _RE {};
     str_t _postfix {};
+    std::set<Type::char_t> _charset;
     str_t _pre_process {};
 };
 
@@ -211,14 +214,20 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
     this->clear();
     stack st {};
 
-    this->_RE = RE;
+
+
+    _RE = RE;
+
     Util::addConcatOperator(RE);
-    this->_pre_process = RE;
-    Util::toPostfix(RE);
-    this->_postfix = RE;
+    _pre_process = RE;
+
+    Util::processRegex(RE, _charset);
+    _postfix = RE;
+
+
 
     auto Kleene = [this, &st]() {
-        auto new_start = new_state(), new_end = new_state();
+        auto new_start = _newState(), new_end = _newState();
         auto [start, end] = st.top();
         st.pop();
 
@@ -243,7 +252,7 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
     };
 
     auto Union = [this, &st]() {
-        auto new_start = new_state(), new_end = new_state();
+        auto new_start = _newState(), new_end = _newState();
         auto [start1, end1] = st.top();
         st.pop();
         auto [start2, end2] = st.top();
@@ -258,11 +267,13 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
         st.push({ new_start, new_end });
     };
 
-    auto Char = [this, &st](const char ch) {
-        auto start = new_state(), end = new_state();
+    auto Char = [this, &st](const Type::char_t ch) {
+        auto start = _newState(), end = _newState();
         _transition[{ start, ch }] = end;
         st.push({ start, end });
     };
+
+
 
     for (const auto ch : RE) {
         switch (ch) {
@@ -283,6 +294,8 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
         }
     }
 
+
+
     assert(st.size() == 1);
     _start = st.top().first;
     _end = st.top().second;
@@ -297,8 +310,8 @@ inline NFA& NFA::operator+ (NFA& other) noexcept
     _epsilon_transition.merge(other._epsilon_transition);
 
 
-    auto new_start = new_state();
-    auto new_end = new_state();
+    auto new_start = _newState();
+    auto new_end = _newState();
 
     _epsilon_transition[new_start].emplace(_start);
     _epsilon_transition[new_start].emplace(other._start);
@@ -353,4 +366,8 @@ inline std::set<NFA::state_t> NFA::getReachedStates(const state_t state) const n
     }
 
     return reached_states;
+}
+
+std::set<NFA::state_t> NFA::getReachedStates(const NFA::state_t state, Type::char_t ch) const noexcept {
+    // TODO :
 }

@@ -1,9 +1,9 @@
 #pragma once
 #include <map>
 #include <ranges>
+#include <set>
 #include <stack>
 #include <string>
-
 
 namespace Util {
 using str = std::string;
@@ -45,13 +45,13 @@ inline void addConcatOperator(str& str)
     }
 }
 
-/**
- * @brief Convert infix expression to postfix expression
+/*
+ * @brief Convert infix expression to postfix expression and extract the input character set
  *
  * @param infix expression
- * @return postfix expression
+ * @param inputCharSet reference to a set of characters to store the input character set
  */
-inline void toPostfix(str& infix)
+inline void processRegex(str& infix, std::set<char>& inputCharSet)
 {
     static const std::map<char, int> Priorities = {
         {'|',  2},
@@ -92,15 +92,13 @@ inline void toPostfix(str& infix)
         }
     };
 
-    auto processOperands = [&postfix](const char ch) {
+    auto processOperands = [&postfix, &inputCharSet](const char ch) {
         postfix.push_back(ch);
+        inputCharSet.insert(ch);
     };
 
     for (const auto ch : infix)
-        if (isOperator(ch))
-            processOperators(ch);
-        else
-            processOperands(ch);
+        isOperator(ch) ? processOperators(ch) : processOperands(ch);
 
     while (!st.empty()) {
         postfix.push_back(st.top());

@@ -12,8 +12,8 @@ Thompson algorithm\textquotesingle{}s \mbox{\hyperlink{classNFA}{NFA}}.
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classNFA_a34afaa785f0224ef51cc45f2fd8d6a1b}\label{classNFA_a34afaa785f0224ef51cc45f2fd8d6a1b}} 
-using {\bfseries state\+\_\+t} = uint32\+\_\+t
+\mbox{\Hypertarget{classNFA_a08fe01459c115453621137748473a3ae}\label{classNFA_a08fe01459c115453621137748473a3ae}} 
+using {\bfseries state\+\_\+t} = Type\+::state\+\_\+t
 \item 
 \mbox{\Hypertarget{classNFA_ab4ff263158b3a7217efc40c111fe3112}\label{classNFA_ab4ff263158b3a7217efc40c111fe3112}} 
 using {\bfseries size\+\_\+t} = uint32\+\_\+t
@@ -59,7 +59,10 @@ void {\bfseries clear} () noexcept
 bool {\bfseries match} (const str\+\_\+view\+\_\+t \&str) const noexcept
 \item 
 std\+::set$<$ state\+\_\+t $>$ \mbox{\hyperlink{classNFA_a2139784cbeb0cbe06ab19169ea994ed8}{get\+Reached\+States}} (const state\+\_\+t state) const noexcept
-\begin{DoxyCompactList}\small\item\em Get the set of stated reached by the given string. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em Get the set of stated reached by the given string. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classNFA_a4507dfaff5090865491f2dc8cd3a379f}\label{classNFA_a4507dfaff5090865491f2dc8cd3a379f}} 
+std\+::set$<$ state\+\_\+t $>$ {\bfseries get\+Reached\+States} (const state\+\_\+t state, Type\+::char\+\_\+t ch) const noexcept
+\end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 

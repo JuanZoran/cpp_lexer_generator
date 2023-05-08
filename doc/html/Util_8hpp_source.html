@@ -72,9 +72,9 @@ $(function() {
 <div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;<span class="preprocessor">#pragma once</span></div>
 <div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;<span class="preprocessor">#include &lt;map&gt;</span></div>
 <div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="preprocessor">#include &lt;ranges&gt;</span></div>
-<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;stack&gt;</span></div>
-<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160; </div>
+<div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="preprocessor">#include &lt;set&gt;</span></div>
+<div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="preprocessor">#include &lt;stack&gt;</span></div>
+<div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &lt;string&gt;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="keyword">namespace </span>Util {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="keyword">using</span> str = std::string;</div>
@@ -111,7 +111,13 @@ $(function() {
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    }</div>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160; </div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> toPostfix(str&amp; infix)</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> * @brief Convert infix expression to postfix expression and extract the input character set</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment"> * @param infix expression</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment"> * @param inputCharSet reference to a set of characters to store the input character set</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> processRegex(str&amp; infix, std::set&lt;char&gt;&amp; inputCharSet)</div>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;{</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keyword">static</span> <span class="keyword">const</span> std::map&lt;char, int&gt; Priorities = {</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;        {<span class="charliteral">&#39;|&#39;</span>,  2},</div>
@@ -152,24 +158,22 @@ $(function() {
 <div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        }</div>
 <div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    };</div>
 <div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160; </div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">auto</span> processOperands = [&amp;postfix](<span class="keyword">const</span> <span class="keywordtype">char</span> ch) {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;    <span class="keyword">auto</span> processOperands = [&amp;postfix, &amp;inputCharSet](<span class="keyword">const</span> <span class="keywordtype">char</span> ch) {</div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;        postfix.push_back(ch);</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    };</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160; </div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> ch : infix)</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;        <span class="keywordflow">if</span> (isOperator(ch))</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;            processOperators(ch);</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;        <span class="keywordflow">else</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;            processOperands(ch);</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">while</span> (!st.empty()) {</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;        postfix.push_back(st.top());</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        st.pop();</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160; </div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    infix = std::move(postfix);</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;}</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;} <span class="comment">// namespace Util</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;        inputCharSet.insert(ch);</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    };</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160; </div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> ch : infix)</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;        isOperator(ch) ? processOperators(ch) : processOperands(ch);</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160; </div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="keywordflow">while</span> (!st.empty()) {</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        postfix.push_back(st.top());</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;        st.pop();</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160; </div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    infix = std::move(postfix);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;} <span class="comment">// namespace Util</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

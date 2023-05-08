@@ -12,24 +12,26 @@ using namespace std;
 // * -> 0 or more
 // | -> or
 // ^ -> concat
-const std::vector<std::array<Util::str, 3>> all_test {
-    {"ab",         "a^b",         "ab^"      },
-    { "a|b",       "a|b",         "ab|"      },
-    { "a*b",       "a*^b",        "a*b^"     },
-    { "(a)b",      "(a)^b",       "ab^"      },
-    { "a(b)",      "a^(b)",       "ab^"      },
-    { "a|b*c",     "a|b*^c",      "ab*c^|"   },
-    { "a*b|c",     "a*^b|c",      "a*b^c|"   },
-    { "a*(b|c)",   "a*^(b|c)",    "a*bc|^"   },
-    { "(a|b)c*",   "(a|b)^c*",    "ab|c*^"   },
-    { "(a*b)|c",   "(a*^b)|c",    "a*b^c|"   },
-    { "a*(b*c)",   "a*^(b*^c)",   "a*b*c^^"  },
-    { "a|b|c",     "a|b|c",       "ab|c|"    },
-    { "a*b*c",     "a*^b*^c",     "a*b*^c^"  },
-    { "a|b*c|d",   "a|b*^c|d",    "ab*c^|d|" },
-    { "a*(b|c)*d", "a*^(b|c)*^d", "a*bc|*^d^"},
-    { "(a*b*)*",   "(a*^b*)*",    "a*b*^*"   },
-    { "a|b|(cd)*", "a|b|(c^d)*",  "ab|cd^*|" },
+
+// origin str | addConcatOperator | toPostfix | charSet
+const std::vector<std::array<Util::str, 4>> all_test {
+    {"ab",         "a^b",         "ab^",       "ab"  },
+    { "a|b",       "a|b",         "ab|",       "ab"  },
+    { "a*b",       "a*^b",        "a*b^",      "ab"  },
+    { "(a)b",      "(a)^b",       "ab^",       "ab"  },
+    { "a(b)",      "a^(b)",       "ab^",       "ab"  },
+    { "a|b*c",     "a|b*^c",      "ab*c^|",    "abc" },
+    { "a*b|c",     "a*^b|c",      "a*b^c|",    "abc" },
+    { "a*(b|c)",   "a*^(b|c)",    "a*bc|^",    "abc" },
+    { "(a|b)c*",   "(a|b)^c*",    "ab|c*^",    "abc" },
+    { "(a*b)|c",   "(a*^b)|c",    "a*b^c|",    "abc" },
+    { "a*(b*c)",   "a*^(b*^c)",   "a*b*c^^",   "abc" },
+    { "a|b|c",     "a|b|c",       "ab|c|",     "abc" },
+    { "a*b*c",     "a*^b*^c",     "a*b*^c^",   "abc" },
+    { "a|b*c|d",   "a|b*^c|d",    "ab*c^|d|",  "abcd"},
+    { "a*(b|c)*d", "a*^(b|c)*^d", "a*bc|*^d^", "abcd"},
+    { "(a*b*)*",   "(a*^b*)*",    "a*b*^*",    "ab"  },
+    { "a|b|(cd)*", "a|b|(c^d)*",  "ab|cd^*|",  "abcd"},
 };
 
 TEST_CASE("Util")
@@ -48,12 +50,14 @@ TEST_CASE("Util")
     SUBCASE("toPostfix")
     {
         for (auto test : all_test) {
+            std::set<char> inputCharSet;
             str input = test[0];
             str right = test[2];
 
             addConcatOperator(input);
-            toPostfix(input);
+            processRegex(input, inputCharSet);
             CHECK_EQ(right, input);
+            CHECK_EQ(inputCharSet, std::set<char>(test[3].begin(), test[3].end()));
         }
     }
 }

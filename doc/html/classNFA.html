@@ -79,9 +79,9 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a34afaa785f0224ef51cc45f2fd8d6a1b"><td class="memItemLeft" align="right" valign="top"><a id="a34afaa785f0224ef51cc45f2fd8d6a1b"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>state_t</b> = uint32_t</td></tr>
-<tr class="separator:a34afaa785f0224ef51cc45f2fd8d6a1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a08fe01459c115453621137748473a3ae"><td class="memItemLeft" align="right" valign="top"><a id="a08fe01459c115453621137748473a3ae"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>state_t</b> = Type::state_t</td></tr>
+<tr class="separator:a08fe01459c115453621137748473a3ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab4ff263158b3a7217efc40c111fe3112"><td class="memItemLeft" align="right" valign="top"><a id="ab4ff263158b3a7217efc40c111fe3112"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>size_t</b> = uint32_t</td></tr>
 <tr class="separator:ab4ff263158b3a7217efc40c111fe3112"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -131,6 +131,9 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>match</b> (const str_
 <tr class="memitem:a2139784cbeb0cbe06ab19169ea994ed8"><td class="memItemLeft" align="right" valign="top">std::set&lt; state_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNFA.html#a2139784cbeb0cbe06ab19169ea994ed8">getReachedStates</a> (const state_t state) const noexcept</td></tr>
 <tr class="memdesc:a2139784cbeb0cbe06ab19169ea994ed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the set of stated reached by the given string.  <a href="classNFA.html#a2139784cbeb0cbe06ab19169ea994ed8">More...</a><br /></td></tr>
 <tr class="separator:a2139784cbeb0cbe06ab19169ea994ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4507dfaff5090865491f2dc8cd3a379f"><td class="memItemLeft" align="right" valign="top"><a id="a4507dfaff5090865491f2dc8cd3a379f"></a>
+std::set&lt; state_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getReachedStates</b> (const state_t state, Type::char_t ch) const noexcept</td></tr>
+<tr class="separator:a4507dfaff5090865491f2dc8cd3a379f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
