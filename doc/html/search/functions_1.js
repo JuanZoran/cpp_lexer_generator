@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['postfix_4',['Postfix',['../classPostfix.html#a7c509e7ee3970092313a66914b277827',1,'Postfix']]]
+  ['nfa_8',['NFA',['../classNFA.html#a7e4991fd3e64cf437252defe335cfe09',1,'NFA']]]
 ];

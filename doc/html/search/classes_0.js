@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nfa_1',['NFA',['../classNFA.html',1,'']]]
+  ['dfa_5',['DFA',['../classDFA.html',1,'']]]
 ];

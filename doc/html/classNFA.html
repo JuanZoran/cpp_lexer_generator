@@ -64,6 +64,8 @@ $(function() {
   <div class="summary">
 <a href="#pub-types">Public Types</a> &#124;
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classNFA-members.html">List of all members</a>  </div>
   <div class="headertitle">
 <div class="title">NFA Class Reference</div>  </div>
@@ -77,18 +79,28 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:ae85ac34d6d831f1fc8fa700bfab84b00"><td class="memItemLeft" align="right" valign="top"><a id="ae85ac34d6d831f1fc8fa700bfab84b00"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>state</b> = int</td></tr>
-<tr class="separator:ae85ac34d6d831f1fc8fa700bfab84b00"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb488fc6bfb18daa2449e6b2631d4e75"><td class="memItemLeft" align="right" valign="top"><a id="acb488fc6bfb18daa2449e6b2631d4e75"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>map</b> = std::map&lt; state, std::map&lt; char, state &gt; &gt;</td></tr>
-<tr class="separator:acb488fc6bfb18daa2449e6b2631d4e75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a34afaa785f0224ef51cc45f2fd8d6a1b"><td class="memItemLeft" align="right" valign="top"><a id="a34afaa785f0224ef51cc45f2fd8d6a1b"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>state_t</b> = uint32_t</td></tr>
+<tr class="separator:a34afaa785f0224ef51cc45f2fd8d6a1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4ff263158b3a7217efc40c111fe3112"><td class="memItemLeft" align="right" valign="top"><a id="ab4ff263158b3a7217efc40c111fe3112"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>size_t</b> = uint32_t</td></tr>
+<tr class="separator:ab4ff263158b3a7217efc40c111fe3112"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72aad70bf8a0924e2ea28af61e10e77c"><td class="memItemLeft" align="right" valign="top"><a id="a72aad70bf8a0924e2ea28af61e10e77c"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>str_t</b> = std::string</td></tr>
+<tr class="separator:a72aad70bf8a0924e2ea28af61e10e77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acea6db16b1f17741b28f6eebe7c08a67"><td class="memItemLeft" align="right" valign="top"><a id="acea6db16b1f17741b28f6eebe7c08a67"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>priority_t</b> = uint32_t</td></tr>
+<tr class="separator:acea6db16b1f17741b28f6eebe7c08a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1e8918697c4e3e0e6f7302d9da86ead7"><td class="memItemLeft" align="right" valign="top"><a id="a1e8918697c4e3e0e6f7302d9da86ead7"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>str_view_t</b> = std::string_view</td></tr>
+<tr class="separator:a1e8918697c4e3e0e6f7302d9da86ead7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a543e3ea68e97c616ea33e35402db21ee"><td class="memItemLeft" align="right" valign="top"><a id="a543e3ea68e97c616ea33e35402db21ee"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>NFA</b> (const std::string &amp;postfix)</td></tr>
-<tr class="separator:a543e3ea68e97c616ea33e35402db21ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7e4991fd3e64cf437252defe335cfe09"><td class="memTemplParams" colspan="2">template&lt;typename... Args&gt; </td></tr>
+<tr class="memitem:a7e4991fd3e64cf437252defe335cfe09"><td class="memTemplItemLeft" align="right" valign="top">&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classNFA.html#a7e4991fd3e64cf437252defe335cfe09">NFA</a> (Args &amp;&amp;... args) noexcept</td></tr>
+<tr class="memdesc:a7e4991fd3e64cf437252defe335cfe09"><td class="mdescLeft">&#160;</td><td class="mdescRight">The wrapper of parse function.  <a href="classNFA.html#a7e4991fd3e64cf437252defe335cfe09">More...</a><br /></td></tr>
+<tr class="separator:a7e4991fd3e64cf437252defe335cfe09"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a11b6e271d71412d3414955e3adfd3033"><td class="memItemLeft" align="right" valign="top"><a id="a11b6e271d71412d3414955e3adfd3033"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>NFA</b> (<a class="el" href="classNFA.html">NFA</a> &amp;&amp;)=default</td></tr>
 <tr class="separator:a11b6e271d71412d3414955e3adfd3033"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -101,10 +113,166 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a7589ff31bef9e2806601c182b2e32f68"><td class="memItemLeft" align="right" valign="top"><a id="a7589ff31bef9e2806601c182b2e32f68"></a>
 <a class="el" href="classNFA.html">NFA</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classNFA.html">NFA</a> &amp;)=default</td></tr>
 <tr class="separator:a7589ff31bef9e2806601c182b2e32f68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92db1d4405d808647b1ce34f4bc77bff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNFA.html#a92db1d4405d808647b1ce34f4bc77bff">toDiagram</a> (const str_t &amp;filename, const std::ios_base::openmode flag=std::ios::app) const noexcept</td></tr>
+<tr class="memdesc:a92db1d4405d808647b1ce34f4bc77bff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate the diagram of <a class="el" href="classNFA.html" title="Thompson algorithm&#39;s NFA.">NFA</a> via dot language [markdown format].  <a href="classNFA.html#a92db1d4405d808647b1ce34f4bc77bff">More...</a><br /></td></tr>
+<tr class="separator:a92db1d4405d808647b1ce34f4bc77bff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abaef6735679e41c78577326fd6c537fa"><td class="memItemLeft" align="right" valign="top"><a id="abaef6735679e41c78577326fd6c537fa"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>parse</b> (const str_t RE, auto &amp;&amp;info=&quot;&quot;, NFA::priority_t priority=1) noexcept</td></tr>
+<tr class="separator:abaef6735679e41c78577326fd6c537fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade2bfc58327f41594168dd8e733f3329"><td class="memItemLeft" align="right" valign="top"><a id="ade2bfc58327f41594168dd8e733f3329"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> () noexcept</td></tr>
+<tr class="separator:ade2bfc58327f41594168dd8e733f3329"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1ad6835a68bf3feecf118c4a74c4c34e"><td class="memItemLeft" align="right" valign="top"><a id="a1ad6835a68bf3feecf118c4a74c4c34e"></a>
+<a class="el" href="classNFA.html">NFA</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator+</b> (<a class="el" href="classNFA.html">NFA</a> &amp;rhs) noexcept</td></tr>
+<tr class="separator:a1ad6835a68bf3feecf118c4a74c4c34e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad887fbd02b1bb2f7903247cdb5af0285"><td class="memItemLeft" align="right" valign="top"><a id="ad887fbd02b1bb2f7903247cdb5af0285"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>match</b> (const str_view_t &amp;str) const noexcept</td></tr>
+<tr class="separator:ad887fbd02b1bb2f7903247cdb5af0285"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2139784cbeb0cbe06ab19169ea994ed8"><td class="memItemLeft" align="right" valign="top">std::set&lt; state_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNFA.html#a2139784cbeb0cbe06ab19169ea994ed8">getReachedStates</a> (const state_t state) const noexcept</td></tr>
+<tr class="memdesc:a2139784cbeb0cbe06ab19169ea994ed8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the set of stated reached by the given string.  <a href="classNFA.html#a2139784cbeb0cbe06ab19169ea994ed8">More...</a><br /></td></tr>
+<tr class="separator:a2139784cbeb0cbe06ab19169ea994ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:aead8c02dc791014b75c26f3f640ba545"><td class="memItemLeft" align="right" valign="top"><a id="aead8c02dc791014b75c26f3f640ba545"></a>
+static NFA::str_t&#160;</td><td class="memItemRight" valign="bottom"><b>stateInfo</b> () noexcept</td></tr>
+<tr class="separator:aead8c02dc791014b75c26f3f640ba545"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:af49c8bac914a5cca9044a10bfb74eac1"><td class="memItemLeft" align="right" valign="top"><a id="af49c8bac914a5cca9044a10bfb74eac1"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>DFA</b></td></tr>
+<tr class="separator:af49c8bac914a5cca9044a10bfb74eac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae9844cbbc66ed759befe66946c14fc22"><td class="memItemLeft" align="right" valign="top"><a id="ae9844cbbc66ed759befe66946c14fc22"></a>
+std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;&lt;</b> (std::ostream &amp;os, const <a class="el" href="classNFA.html">NFA</a> &amp;nfa) noexcept</td></tr>
+<tr class="separator:ae9844cbbc66ed759befe66946c14fc22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Thompson algorithm's <a class="el" href="classNFA.html" title="Thompson algorithm&#39;s NFA.">NFA</a>. </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a7e4991fd3e64cf437252defe335cfe09"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7e4991fd3e64cf437252defe335cfe09">&#9670;&nbsp;</a></span>NFA()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename... Args&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">NFA::NFA </td>
+          <td>(</td>
+          <td class="paramtype">Args &amp;&amp;...&#160;</td>
+          <td class="paramname"><em>args</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">explicit</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The wrapper of parse function. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Args</td><td>see parse function </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>parse method's arguments </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a2139784cbeb0cbe06ab19169ea994ed8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2139784cbeb0cbe06ab19169ea994ed8">&#9670;&nbsp;</a></span>getReachedStates()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::set&lt; NFA::state_t &gt; NFA::getReachedStates </td>
+          <td>(</td>
+          <td class="paramtype">const state_t&#160;</td>
+          <td class="paramname"><em>state</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get the set of stated reached by the given string. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>the start state </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a92db1d4405d808647b1ce34f4bc77bff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92db1d4405d808647b1ce34f4bc77bff">&#9670;&nbsp;</a></span>toDiagram()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NFA::toDiagram </td>
+          <td>(</td>
+          <td class="paramtype">const str_t &amp;&#160;</td>
+          <td class="paramname"><em>filename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::ios_base::openmode&#160;</td>
+          <td class="paramname"><em>flag</em> = <code>std::ios::app</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Generate the diagram of <a class="el" href="classNFA.html" title="Thompson algorithm&#39;s NFA.">NFA</a> via dot language [markdown format]. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">filename</td><td>the output filename [relative {relative to the binary file} | absolute] </td></tr>
+    <tr><td class="paramname">flag</td><td>the open mode </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/<a class="el" href="NFA_8hpp_source.html">NFA.hpp</a></li>
 </ul>
 </div><!-- contents -->

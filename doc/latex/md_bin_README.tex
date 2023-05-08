@@ -1,0 +1,111 @@
+\hypertarget{md_bin_README_autotoc_md1}{}\doxysubsection{Preprocess \+: a$\vert$b}\label{md_bin_README_autotoc_md1}
+\hypertarget{md_bin_README_autotoc_md2}{}\doxysubsection{Postfix \+: ab$\vert$}\label{md_bin_README_autotoc_md2}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph G \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{4 [color = green];}
+\DoxyCodeLine{5 [shape = doublecircle];}
+\DoxyCodeLine{node [shape = circle];}
+\DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
+\DoxyCodeLine{2 -\/> 3 [ label = "{}b"{} ];}
+\DoxyCodeLine{1 -\/> 5 [ label = "{}ε"{} ];}
+\DoxyCodeLine{3 -\/> 5 [ label = "{}ε"{} ];}
+\DoxyCodeLine{4 -\/> 0 [ label = "{}ε"{} ];}
+\DoxyCodeLine{4 -\/> 2 [ label = "{}ε"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{md_bin_README_autotoc_md3}{}\doxysection{RE\+: a$\ast$}\label{md_bin_README_autotoc_md3}
+\hypertarget{md_bin_README_autotoc_md4}{}\doxysubsection{Preprocess \+: a$\ast$}\label{md_bin_README_autotoc_md4}
+\hypertarget{md_bin_README_autotoc_md5}{}\doxysubsection{Postfix \+: a$\ast$}\label{md_bin_README_autotoc_md5}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph G \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{8 [color = green];}
+\DoxyCodeLine{9 [shape = doublecircle];}
+\DoxyCodeLine{node [shape = circle];}
+\DoxyCodeLine{6 -\/> 7 [ label = "{}a"{} ];}
+\DoxyCodeLine{7 -\/> 6 [ label = "{}ε"{} ];}
+\DoxyCodeLine{7 -\/> 9 [ label = "{}ε"{} ];}
+\DoxyCodeLine{8 -\/> 6 [ label = "{}ε"{} ];}
+\DoxyCodeLine{8 -\/> 9 [ label = "{}ε"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{md_bin_README_autotoc_md6}{}\doxysection{RE\+: ab}\label{md_bin_README_autotoc_md6}
+\hypertarget{md_bin_README_autotoc_md7}{}\doxysubsection{Preprocess \+: a$^\wedge$b}\label{md_bin_README_autotoc_md7}
+\hypertarget{md_bin_README_autotoc_md8}{}\doxysubsection{Postfix \+: ab$^\wedge$}\label{md_bin_README_autotoc_md8}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph G \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{10 [color = green];}
+\DoxyCodeLine{13 [shape = doublecircle];}
+\DoxyCodeLine{node [shape = circle];}
+\DoxyCodeLine{10 -\/> 11 [ label = "{}a"{} ];}
+\DoxyCodeLine{12 -\/> 13 [ label = "{}b"{} ];}
+\DoxyCodeLine{11 -\/> 12 [ label = "{}ε"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{md_bin_README_autotoc_md9}{}\doxysection{RE\+: (a$\vert$b)$\ast$}\label{md_bin_README_autotoc_md9}
+\hypertarget{md_bin_README_autotoc_md10}{}\doxysubsection{Preprocess \+: (a$\vert$b)$\ast$}\label{md_bin_README_autotoc_md10}
+\hypertarget{md_bin_README_autotoc_md11}{}\doxysubsection{Postfix \+: ab$\vert$$\ast$}\label{md_bin_README_autotoc_md11}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph G \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{20 [color = green];}
+\DoxyCodeLine{21 [shape = doublecircle];}
+\DoxyCodeLine{node [shape = circle];}
+\DoxyCodeLine{14 -\/> 15 [ label = "{}a"{} ];}
+\DoxyCodeLine{16 -\/> 17 [ label = "{}b"{} ];}
+\DoxyCodeLine{15 -\/> 19 [ label = "{}ε"{} ];}
+\DoxyCodeLine{17 -\/> 19 [ label = "{}ε"{} ];}
+\DoxyCodeLine{18 -\/> 14 [ label = "{}ε"{} ];}
+\DoxyCodeLine{18 -\/> 16 [ label = "{}ε"{} ];}
+\DoxyCodeLine{19 -\/> 18 [ label = "{}ε"{} ];}
+\DoxyCodeLine{19 -\/> 21 [ label = "{}ε"{} ];}
+\DoxyCodeLine{20 -\/> 18 [ label = "{}ε"{} ];}
+\DoxyCodeLine{20 -\/> 21 [ label = "{}ε"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{md_bin_README_autotoc_md12}{}\doxysection{RE\+: a$\vert$b$\vert$(cd)$\ast$}\label{md_bin_README_autotoc_md12}
+\hypertarget{md_bin_README_autotoc_md13}{}\doxysubsection{Preprocess \+: a$\vert$b$\vert$(c$^\wedge$d)$\ast$}\label{md_bin_README_autotoc_md13}
+\hypertarget{md_bin_README_autotoc_md14}{}\doxysubsection{Postfix \+: ab$\vert$cd$^\wedge$$\ast$$\vert$}\label{md_bin_README_autotoc_md14}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph G \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{34 [color = green];}
+\DoxyCodeLine{35 [shape = doublecircle];}
+\DoxyCodeLine{node [shape = circle];}
+\DoxyCodeLine{22 -\/> 23 [ label = "{}a"{} ];}
+\DoxyCodeLine{24 -\/> 25 [ label = "{}b"{} ];}
+\DoxyCodeLine{28 -\/> 29 [ label = "{}c"{} ];}
+\DoxyCodeLine{30 -\/> 31 [ label = "{}d"{} ];}
+\DoxyCodeLine{23 -\/> 27 [ label = "{}ε"{} ];}
+\DoxyCodeLine{25 -\/> 27 [ label = "{}ε"{} ];}
+\DoxyCodeLine{26 -\/> 22 [ label = "{}ε"{} ];}
+\DoxyCodeLine{26 -\/> 24 [ label = "{}ε"{} ];}
+\DoxyCodeLine{27 -\/> 35 [ label = "{}ε"{} ];}
+\DoxyCodeLine{29 -\/> 30 [ label = "{}ε"{} ];}
+\DoxyCodeLine{31 -\/> 28 [ label = "{}ε"{} ];}
+\DoxyCodeLine{31 -\/> 33 [ label = "{}ε"{} ];}
+\DoxyCodeLine{32 -\/> 28 [ label = "{}ε"{} ];}
+\DoxyCodeLine{32 -\/> 33 [ label = "{}ε"{} ];}
+\DoxyCodeLine{33 -\/> 35 [ label = "{}ε"{} ];}
+\DoxyCodeLine{34 -\/> 26 [ label = "{}ε"{} ];}
+\DoxyCodeLine{34 -\/> 32 [ label = "{}ε"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
