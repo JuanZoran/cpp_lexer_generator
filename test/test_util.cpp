@@ -15,23 +15,70 @@ using namespace std;
 
 // origin str | addConcatOperator | toPostfix | charSet
 const std::vector<std::array<Util::str, 4>> all_test {
-    {"ab",         "a^b",         "ab^",       "ab"  },
-    { "a|b",       "a|b",         "ab|",       "ab"  },
-    { "a*b",       "a*^b",        "a*b^",      "ab"  },
-    { "(a)b",      "(a)^b",       "ab^",       "ab"  },
-    { "a(b)",      "a^(b)",       "ab^",       "ab"  },
-    { "a|b*c",     "a|b*^c",      "ab*c^|",    "abc" },
-    { "a*b|c",     "a*^b|c",      "a*b^c|",    "abc" },
-    { "a*(b|c)",   "a*^(b|c)",    "a*bc|^",    "abc" },
-    { "(a|b)c*",   "(a|b)^c*",    "ab|c*^",    "abc" },
-    { "(a*b)|c",   "(a*^b)|c",    "a*b^c|",    "abc" },
-    { "a*(b*c)",   "a*^(b*^c)",   "a*b*c^^",   "abc" },
-    { "a|b|c",     "a|b|c",       "ab|c|",     "abc" },
-    { "a*b*c",     "a*^b*^c",     "a*b*^c^",   "abc" },
-    { "a|b*c|d",   "a|b*^c|d",    "ab*c^|d|",  "abcd"},
-    { "a*(b|c)*d", "a*^(b|c)*^d", "a*bc|*^d^", "abcd"},
-    { "(a*b*)*",   "(a*^b*)*",    "a*b*^*",    "ab"  },
-    { "a|b|(cd)*", "a|b|(c^d)*",  "ab|cd^*|",  "abcd"},
+    {"ab",          "a^b",         "ab^",       "ab"  },
+    { "a|b",        "a|b",         "ab|",       "ab"  },
+    { "a*b",        "a*^b",        "a*b^",      "ab"  },
+    { "(a)b",       "(a)^b",       "ab^",       "ab"  },
+    { "a(b)",       "a^(b)",       "ab^",       "ab"  },
+    { "a|b*c",      "a|b*^c",      "ab*c^|",    "abc" },
+    { "a*b|c",      "a*^b|c",      "a*b^c|",    "abc" },
+    { "a*(b|c)",    "a*^(b|c)",    "a*bc|^",    "abc" },
+    { "(a|b)c*",    "(a|b)^c*",    "ab|c*^",    "abc" },
+    { "(a*b)|c",    "(a*^b)|c",    "a*b^c|",    "abc" },
+    { "a*(b*c)",    "a*^(b*^c)",   "a*b*c^^",   "abc" },
+    { "a|b|c",      "a|b|c",       "ab|c|",     "abc" },
+    { "a*b*c",      "a*^b*^c",     "a*b*^c^",   "abc" },
+    { "a|b*c|d",    "a|b*^c|d",    "ab*c^|d|",  "abcd"},
+    { "a*(b|c)*d",  "a*^(b|c)*^d", "a*bc|*^d^", "abcd"},
+    { "(a*b*)*",    "(a*^b*)*",    "a*b*^*",    "ab"  },
+    { "a|b|(cd)*",  "a|b|(c^d)*",  "ab|cd^*|",  "abcd"},
+
+ // test "+"
+    { "a+",         "a+",          "a+",        "a"   },
+    { "ab+",        "a^b+",        "ab+^",      "ab"  },
+    { "a+b",        "a+^b",        "a+b^",      "ab"  },
+    { "a+|b",       "a+|b",        "a+b|",      "ab"  },
+    { "a|b+",       "a|b+",        "ab+|",      "ab"  },
+    { "(a+)b",      "(a+)^b",      "a+b^",      "ab"  },
+    { "a+(b)",      "a+^(b)",      "a+b^",      "ab"  },
+    { "a+|b*c",     "a+|b*^c",     "a+b*c^|",   "abc" },
+    { "a*b+|c",     "a*^b+|c",     "a*b+^c|",   "abc" },
+    { "(a+|b)c*",   "(a+|b)^c*",   "a+b|c*^",   "abc" },
+    { "(a*b+)|c",   "(a*^b+)|c",   "a*b+^c|",   "abc" },
+    { "a+(b*c)",    "a+^(b*^c)",   "a+b*c^^",   "abc" },
+    { "a+|b+|c",    "a+|b+|c",     "a+b+|c|",   "abc" },
+    { "a*b*c+",     "a*^b*^c+",    "a*b*^c+^",  "abc" },
+    { "a+|b*c|d",   "a+|b*^c|d",   "a+b*c^|d|", "abcd"},
+    { "(a*b*)+",    "(a*^b*)+",    "a*b*^+",    "ab"  },
+    { "a+|b|(cd)*", "a+|b|(c^d)*", "a+b|cd^*|", "abcd"},
+
+    { "a+(b|c)*d",  "a+^(b|c)*^d", "a+bc|*^d^", "abcd"}, // a+b*c|*^d^
+
+  // GPT4 error :
+  // { "a+(b|c)*d",  "a+^(b|c)*^d", "a+b*c|*^d^", "abcd"}, // a+b*c|*^d^
+
+  // test "?"
+    { "a?",         "a?",          "a?",        "a"   },
+    { "ab?",        "a^b?",        "ab?^",      "ab"  },
+    { "a?b",        "a?^b",        "a?b^",      "ab"  },
+    { "a?|b",       "a?|b",        "a?b|",      "ab"  },
+    { "a|b?",       "a|b?",        "ab?|",      "ab"  },
+    { "(a?)b",      "(a?)^b",      "a?b^",      "ab"  },
+    { "a?(b)",      "a?^(b)",      "a?b^",      "ab"  },
+    { "a?|b*c",     "a?|b*^c",     "a?b*c^|",   "abc" },
+    { "a*b?|c",     "a*^b?|c",     "a*b?^c|",   "abc" },
+    { "(a?|b)c*",   "(a?|b)^c*",   "a?b|c*^",   "abc" },
+    { "(a*b?)|c",   "(a*^b?)|c",   "a*b?^c|",   "abc" },
+    { "a?(b*c)",    "a?^(b*^c)",   "a?b*c^^",   "abc" },
+    { "a?|b?|c",    "a?|b?|c",     "a?b?|c|",   "abc" },
+    { "a*b*c?",     "a*^b*^c?",    "a*b*^c?^",  "abc" },
+    { "a?|b*c|d",   "a?|b*^c|d",   "a?b*c^|d|", "abcd"},
+    { "(a*b*)?",    "(a*^b*)?",    "a*b*^?",    "ab"  },
+    { "a?|b|(cd)*", "a?|b|(c^d)*", "a?b|cd^*|", "abcd"},
+
+    { "a?(b|c)*d",  "a?^(b|c)*^d", "a?bc|*^d^", "abcd"}, // a?b*c|*^d^
+  // GPT4 error :
+  // { "a?(b|c)*d",  "a?^(b|c)*^d", "a?b*c|*^d^", "abcd"},
 };
 
 TEST_CASE("Util")

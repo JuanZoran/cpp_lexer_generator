@@ -1,6 +1,5 @@
 #pragma once
-#include <map>
-#include <set>
+#include <Type.hpp>
 #include <stack>
 #include <string>
 
@@ -15,29 +14,48 @@ using str = std::string;
 inline void addConcatOperator(str& str)
 {
     constexpr auto concatOperator = '^';
-    // left join unary operator: *, )
+    enum class OperatorType {
+        None,
+        LeftJoin,
+        RightJoin,
+        Binary
+    };
+
+
+
+    // left join unary operator: *, +, ), ?
     // right join unary operator: (
     // binary operator: |, ^
-    auto is_operator = [](const char ch) {
+    auto getOperatorType = [](const char ch) {
         switch (ch) {
             case '*':
+            case '+':
             case ')':
-            case '(':
+            case '?':
+                return OperatorType::LeftJoin;
             case '|':
             case '^':
-                return true;
+                return OperatorType::Binary;
+
+            case '(':
+                return OperatorType::RightJoin;
+
             default:
-                return false;
+                return OperatorType::None;
         }
     };
+
 
     auto end = str.size() - 1;
     for (size_t i = 0; i < end; ++i) {
         auto ch = str[i];
         auto next_ch = str[i + 1];
 
-        if ((!is_operator(ch) || ch == '*' || ch == ')')
-            && (!is_operator(next_ch) || next_ch == '(')) {
+        auto ch_type = getOperatorType(ch);
+        auto next_ch_type = getOperatorType(next_ch);
+
+        if ((ch_type == OperatorType::None || ch_type == OperatorType::LeftJoin)
+            && (next_ch_type == OperatorType::None || next_ch_type == OperatorType::RightJoin)) {
             str.insert(++i, 1, concatOperator);
             ++end;
         }
@@ -50,12 +68,14 @@ inline void addConcatOperator(str& str)
  * @param infix expression
  * @param inputCharSet reference to a set of characters to store the input character set
  */
-inline void processRegex(str& infix, std::set<char>& inputCharSet)
+inline void processRegex(str& infix, Type::set<char>& inputCharSet)
 {
-    static const std::map<char, int> Priorities = {
+    static const Type::map<char, int> Priorities = {
         {'|',  2},
         { '^', 4},
         { '*', 8},
+        { '+', 8},
+        { '?', 8},
         { '(', 0},
         { ')', 0}
     };

@@ -6,8 +6,6 @@
 #include <cstdint>
 #include <fmt/format.h>
 #include <fstream>
-#include <map>
-#include <set>
 #include <stack>
 #include <string>
 #include <string_view>
@@ -50,12 +48,12 @@ public: // INFO : built-in method
     explicit NFA(Args&&... args) noexcept;
     NFA(NFA&&) = default;
     NFA(const NFA&) = default;
-    NFA& operator=(NFA&&) = default;
-    NFA& operator=(const NFA&) = default;
+    NFA& operator= (NFA&&) = default;
+    NFA& operator= (const NFA&) = default;
     ~NFA() = default;
 
 public: // INFO : member method
-    friend std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept;
+    friend std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept;
 
     /**
      * @brief Generate the diagram of NFA via dot language [markdown format]
@@ -70,7 +68,7 @@ public: // INFO : member method
 
     void parse(const str_t RE, auto&& info = "", NFA::priority_t priority = 1) noexcept;
     void clear() noexcept;
-    NFA& operator+(NFA& rhs) noexcept;
+    NFA& operator+ (NFA& rhs) noexcept;
 
     bool match(const str_view_t& str) const noexcept;
 
@@ -80,15 +78,20 @@ public: // INFO : member method
      *
      * @param state the start state
      */
-    std::set<state_t> getReachedStates(const state_t state) const noexcept;
-    std::set<state_t> getReachedStates(const state_t state, Type::char_t ch) const noexcept;
+    Type::set<state_t> getReachedStates(const state_t state) const noexcept;
+    Type::set<state_t> getReachedStates(const state_t state, Type::char_t ch) const noexcept;
+    Type::set<state_t>
+        getReachedStates(const Type::set<state_t>& state_set, Type::char_t ch) const noexcept;
 
 
 public: // INFO : static method
     static NFA::str_t stateInfo() noexcept;
 
 private: // INFO : private static member method
-    static state_t _newState() { return _size++; }
+    static state_t _newState()
+    {
+        return _size++;
+    }
 
 private: // INFO : private member method
     void _toMarkdown(const str_t& filename, const std::ios_base::openmode flag) const noexcept;
@@ -98,23 +101,23 @@ private: // INFO : private member method
     str_t _getTransitions() const noexcept;
 
 private: // INFO : private member variable
-    std::map<std::pair<state_t, Type::char_t>, state_t> _transition {};
-    std::map<state_t, std::set<state_t>> _epsilon_transition {};
+    Type::map<std::pair<state_t, Type::char_t>, state_t> _transition {};
+    Type::map<state_t, Type::set<state_t>> _epsilon_transition {};
     state_t _start {};
     state_t _end {};
 
 
 private:
-    static std::map<state_t, std::pair<priority_t, str_t>> _state_info;
+    static Type::map<state_t, std::pair<priority_t, str_t>> _state_info;
     static size_t _size;
     str_t _RE {};
     str_t _postfix {};
-    std::set<Type::char_t> _charset;
+    Type::set<Type::char_t> _charset;
     str_t _pre_process {};
 };
 
 inline NFA::size_t NFA::_size {};
-inline std::map<NFA::state_t, std::pair<NFA::priority_t, NFA::str_t>> NFA::_state_info {};
+inline Type::map<NFA::state_t, std::pair<NFA::priority_t, NFA::str_t>> NFA::_state_info {};
 
 /*
  *
@@ -128,7 +131,7 @@ inline NFA::NFA(Args&&... args) noexcept
     parse(std::forward<Args>(args)...);
 }
 
-inline std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept
+inline std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept
 {
     using namespace Color;
 
@@ -275,7 +278,6 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
     auto Kleene = [this, &st]() {
         auto new_start = _newState(), new_end = _newState();
         auto [start, end] = st.top();
-        st.pop();
 
         _epsilon_transition[new_start].emplace(start);
         _epsilon_transition[new_start].emplace(new_end);
@@ -283,18 +285,19 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
         _epsilon_transition[end].emplace(start);
         _epsilon_transition[end].emplace(new_end);
 
-        st.push({ new_start, new_end });
+        st.top() = { new_start, new_end };
     };
 
     auto Concat = [this, &st]() {
         auto [start1, end1] = st.top();
         st.pop();
         auto [start2, end2] = st.top();
-        st.pop();
+        // st.pop();
 
         _epsilon_transition[end2].emplace(start1);
 
-        st.push({ start2, end1 });
+        // st.push({ start2, end1 });
+        st.top() = { start2, end1 };
     };
 
     auto Union = [this, &st]() {
@@ -302,7 +305,7 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
         auto [start1, end1] = st.top();
         st.pop();
         auto [start2, end2] = st.top();
-        st.pop();
+        // st.pop();
 
         _epsilon_transition[new_start].emplace(start1);
         _epsilon_transition[new_start].emplace(start2);
@@ -310,13 +313,41 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
         _epsilon_transition[end1].emplace(new_end);
         _epsilon_transition[end2].emplace(new_end);
 
-        st.push({ new_start, new_end });
+        // st.push({ new_start, new_end });
+        st.top() = { new_start, new_end };
     };
 
     auto Char = [this, &st](const Type::char_t ch) {
         auto start = _newState(), end = _newState();
         _transition[{ start, ch }] = end;
         st.push({ start, end });
+    };
+
+    auto OneOrMore = [this, &st]() {
+        auto new_start = _newState(), new_end = _newState();
+        auto [start, end] = st.top();
+        // st.pop();
+
+        _epsilon_transition[new_start].emplace(start);
+        _epsilon_transition[end].emplace(new_end);
+        _epsilon_transition[end].emplace(start);
+
+        // st.push({ new_start, new_end });
+        st.top() = { new_start, new_end };
+    };
+
+    auto Optional = [this, &st]() {
+        auto new_start = _newState(), new_end = _newState();
+        auto [start, end] = st.top();
+        // st.pop();
+
+        _epsilon_transition[new_start].emplace(start);
+        _epsilon_transition[new_start].emplace(new_end);
+
+        _epsilon_transition[end].emplace(new_end);
+
+        // st.push({ new_start, new_end });
+        st.top() = { new_start, new_end };
     };
 
 
@@ -334,6 +365,14 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
                 Union();
                 break;
 
+            case '+':
+                OneOrMore();
+                break;
+
+            case '?':
+                Optional();
+                break;
+
             default:
                 Char(ch);
                 break;
@@ -346,10 +385,11 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
     _start = st.top().first;
     _end = st.top().second;
 
-    if (info.size() > 0) _state_info[_end] = { priority, info };
+    if (info.size() > 0)
+        _state_info[_end] = { priority, info };
 }
 
-inline NFA& NFA::operator+(NFA& other) noexcept
+inline NFA& NFA::operator+ (NFA& other) noexcept
 {
     _transition.merge(other._transition);
     _epsilon_transition.merge(other._epsilon_transition);
@@ -389,9 +429,9 @@ inline NFA::str_t NFA::stateInfo() noexcept
     return info;
 }
 
-inline std::set<NFA::state_t> NFA::getReachedStates(const state_t state) const noexcept
+inline Type::set<NFA::state_t> NFA::getReachedStates(const state_t state) const noexcept
 {
-    std::set<state_t> reached_states {};
+    Type::set<state_t> reached_states {};
     std::stack<state_t> st {};
     st.emplace(state);
 
@@ -399,10 +439,12 @@ inline std::set<NFA::state_t> NFA::getReachedStates(const state_t state) const n
     while (!st.empty()) {
         auto state = st.top();
         st.pop();
-        if (_epsilon_transition.find(state) == _epsilon_transition.end()) continue;
+        if (_epsilon_transition.find(state) == _epsilon_transition.end())
+            continue;
 
         for (const auto& v : _epsilon_transition.at(state)) {
-            if (reached_states.find(v) != reached_states.end()) continue;
+            if (reached_states.find(v) != reached_states.end())
+                continue;
             st.emplace(v);
             reached_states.emplace(v);
         }
@@ -411,8 +453,18 @@ inline std::set<NFA::state_t> NFA::getReachedStates(const state_t state) const n
     return reached_states;
 }
 
-inline std::set<NFA::state_t>
+inline Type::set<NFA::state_t>
     NFA::getReachedStates(const NFA::state_t state, Type::char_t ch) const noexcept
 {
     // TODO :
+    return getReachedStates(_transition.at({ state, ch }));
+}
+
+inline Type::set<NFA::state_t>
+    NFA::getReachedStates(const Type::set<state_t>& state_set, Type::char_t ch) const noexcept
+{
+    Type::set<state_t> reached_states {};
+    for (const auto& state : state_set)
+        reached_states.merge(getReachedStates(state, ch));
+    return reached_states;
 }

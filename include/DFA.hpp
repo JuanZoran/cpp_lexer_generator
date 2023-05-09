@@ -1,8 +1,6 @@
 #pragma once
 #include <NFA.hpp>
 #include <Type.hpp>
-#include <map>
-#include <set>
 #include <string>
 
 class DFA
@@ -35,27 +33,27 @@ private:
     /**
      * @brief All states of this DFA
      */
-    std::set<state_t> _states {};
+    Type::set<state_t> _states {};
 
     /**
      * @brief final state info
      */
-    std::map<state_t, std::pair<NFA::priority_t, NFA::str_t>> _state_info {};
+    Type::map<state_t, std::pair<NFA::priority_t, NFA::str_t>> _state_info {};
 
     /**
      * @brief state transition map
      */
-    std::map<std::pair<state_t, Type::char_t>, state_t> _transition {};
+    Type::map<std::pair<state_t, Type::char_t>, state_t> _transition {};
 
     /**
      * @brief final state set
      */
-    std::set<state_t> _final {};
+    Type::set<state_t> _final {};
 
     /**
      * @brief input charset
      */
-    std::set<Type::char_t> _charset {};
+    Type::set<Type::char_t> _charset {};
 
     state_t _start {};
     size_t _size {};
@@ -63,7 +61,7 @@ private:
 
 inline DFA::DFA(NFA&& nfa) noexcept
 {
-    using state_set = std::set<state_t>;
+    using state_set = Type::set<state_t>;
     _start = _newState();
     auto q0 = nfa.getReachedStates(nfa._start);
 
@@ -72,7 +70,7 @@ inline DFA::DFA(NFA&& nfa) noexcept
     std::stack<state_set> st;
     st.push(q0);
 
-    std::map<state_set, state_t> states_map {
+    Type::map<state_set, state_t> states_map {
         {
          q0, _start,
          }
