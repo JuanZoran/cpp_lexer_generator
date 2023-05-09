@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <fmt/format.h>
 #include <fstream>
+#include <optional>
 #include <stack>
 #include <string>
 #include <string_view>
@@ -27,15 +28,9 @@ public: // INFO : type alias
     using str_t      = std::string;
     using priority_t = uint32_t;
     using str_view_t = std::string_view;
-    using state_set_t = Type::set<state_t>;
+    using state_set_t = Type::state_set_t;
+    using epsilon_treansion_map_t = Type::map_t<state_t, NFA::state_set_t>;
     // clang-format on
-
-
-    enum class diagram_fmt {
-        Markdown = 0,
-        DotFile = 1,
-        Image = 2,
-    };
 
 public: // INFO : built-in method
     NFA() = default;
@@ -49,28 +44,21 @@ public: // INFO : built-in method
     explicit NFA(Args&&... args) noexcept;
     NFA(NFA&&) = default;
     NFA(const NFA&) = default;
-    NFA& operator=(NFA&&) = default;
-    NFA& operator=(const NFA&) = default;
+    NFA& operator= (NFA&&) = default;
+    NFA& operator= (const NFA&) = default;
     ~NFA() = default;
 
+
 public: // INFO : member method
-    friend std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept;
+    IMPL_DRAGRAM;
+    friend std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept;
 
-    /**
-     * @brief Generate the diagram of NFA via dot language [markdown format]
-     *
-     * @param filename the output filename [relative {relative to the binary file} | absolute]
-     * @param flag the open mode
-     */
-    void toDiagram(
-        const str_t& filename,
-        diagram_fmt format = diagram_fmt::Markdown,
-        const std::ios_base::openmode flag = std::ios::app) const noexcept;
+    void parse(str_t& RE) noexcept;
 
-    void parse(const str_t RE, auto&& info = "", NFA::priority_t priority = 1) noexcept;
+    void parse(str_t& RE, Type::str_auto_ref_c auto&& info, NFA::priority_t priority = 1) noexcept;
+
     void clear() noexcept;
-    NFA& operator+(NFA& rhs) noexcept;
-
+    NFA& operator+ (NFA& rhs) noexcept;
     bool match(const str_view_t& str) const noexcept;
 
 
@@ -79,48 +67,55 @@ public: // INFO : member method
      *
      * @param state the start state
      */
-    state_set_t getReachedStates(const state_t state) const noexcept;
-    state_set_t getReachedStates(const state_t state, Type::char_t ch) const noexcept;
-    state_set_t getReachedStates(const state_set_t& state_set, Type::char_t ch) const noexcept;
+    std::optional<state_set_t> getReachedStates(const state_t state) const noexcept;
+
+    std::optional<state_set_t>
+        getReachedStates(const state_t state, Type::char_t ch) const noexcept;
+
+    std::optional<state_set_t>
+        getReachedStates(const state_set_t& state_set, Type::char_t ch) const noexcept;
 
     // TODO :
     void getReachedStates(const state_t state, state_set_t& reached_states) const noexcept;
     void getReachedStates(
         const state_t state, Type::char_t ch, state_set_t& reached_states) const noexcept;
 
-
-
 public: // INFO : static method
     static NFA::str_t stateInfo() noexcept;
 
 private: // INFO : private static member method
-    static state_t _newState() { return _size++; }
+    static state_t _newState()
+    {
+        return _state_count++;
+    }
 
 private: // INFO : private member method
-    void _toMarkdown(const str_t& filename, const std::ios_base::openmode flag) const noexcept;
+    void _toMarkdown(const str_t& filename, const std::ios_base::openmode flag) noexcept;
+
+
+    // TODO :
     void _toDotFile(const str_t& filename, const std::ios_base::openmode flag) const noexcept;
     void _toImage(const str_t& filename) const noexcept;
 
-    str_t _getTransitions() const noexcept;
 
 private: // INFO : private member variable
-    Type::map<std::pair<state_t, Type::char_t>, state_t> _transition {};
-    Type::map<state_t, NFA::state_set_t> _epsilon_transition {};
-    state_t _start {};
-    state_t _end {};
+    Type::transition_map_t _state_transition_map {};
+    epsilon_treansion_map_t _epsilon_transition_map {};
+    state_t _start_state {};
+    state_t _end_state {};
 
 
 private:
-    static Type::map<state_t, std::pair<priority_t, str_t>> _state_info;
-    static size_t _size;
+    static Type::map_t<state_t, std::pair<priority_t, str_t>> _state_info;
+    static size_t _state_count;
     str_t _RE {};
     str_t _postfix {};
-    Type::set<Type::char_t> _charset;
+    Type::set_t<Type::char_t> _charset;
     str_t _pre_process {};
 };
 
-inline NFA::size_t NFA::_size {};
-inline Type::map<NFA::state_t, std::pair<NFA::priority_t, NFA::str_t>> NFA::_state_info {};
+inline NFA::size_t NFA::_state_count {};
+inline Type::map_t<NFA::state_t, std::pair<NFA::priority_t, NFA::str_t>> NFA::_state_info {};
 
 /*
  *
@@ -134,21 +129,21 @@ inline NFA::NFA(Args&&... args) noexcept
     parse(std::forward<Args>(args)...);
 }
 
-inline std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept
+inline std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept
 {
     using namespace Color;
 
-    os << Green << "start : " << End << nfa._start << '\n';
-    os << Green << "end : " << End << nfa._end << '\n';
+    os << Green << "start : " << End << nfa._start_state << '\n';
+    os << Green << "end : " << End << nfa._end_state << '\n';
     os << Green << "transition : \n";
-    for (const auto& [key, value] : nfa._transition) {
+    for (const auto& [key, value] : nfa._state_transition_map) {
         os << Blue << key.first << End << " -" << Blue << key.second << End << "-> " << value
            << '\n';
     }
 
 
     os << Green << "epsilon transition : \n" << End;
-    for (const auto& [key, value] : nfa._epsilon_transition) {
+    for (const auto& [key, value] : nfa._epsilon_transition_map) {
         os << Yellow << (key) << End << " -"
            << "epsilon"
            << "-> ";
@@ -160,27 +155,30 @@ inline std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept
     return os;
 }
 
-inline NFA::str_t NFA::_getTransitions() const noexcept
+template <>
+struct fmt::formatter<NFA::epsilon_treansion_map_t>
 {
-    str_t transition {};
-
-    for (const auto& [key, value] : _transition) {
-        transition += fmt::format("{} -> {} [ label = \"{}\" ];\n", key.first, value, key.second);
+    constexpr auto parse(format_parse_context& ctx)
+    {
+        return ctx.begin();
     }
 
-    for (const auto& [key, value] : _epsilon_transition) {
-        for (const auto& v : value) {
-            transition += fmt::format("{} -> {} [ label = \"ε\" ];\n", key, v);
+    template <typename FormatContext>
+    auto format(NFA::epsilon_treansion_map_t& m, FormatContext& ctx)
+    {
+        auto out = ctx.out();
+        for (const auto& [key, value] : m) {
+            for (const auto& v : value) {
+                out = format_to(ctx.out(), "{} -> {} [ label = \"ε\" ];\n", key, v);
+            }
         }
+        return out;
     }
-
-    return transition;
-}
+};
 
 // inline str
 
-inline void
-    NFA::_toMarkdown(const str_t& filename, const std::ios_base::openmode flag) const noexcept
+inline void NFA::_toMarkdown(const str_t& filename, const std::ios_base::openmode flag) noexcept
 {
     using namespace fmt::literals;
     using ofs = std::ofstream;
@@ -194,16 +192,16 @@ inline void
         "### Preprocess : {pre_process}\n"
         "### Postfix : {postfix}\n"
         "\n"
-
         "```dot\n"
         "digraph G {{\n"
-
         "rankdir=LR;\n"
         "{start} [color = green];\n"
         "{end} [shape = doublecircle];\n"
         "node [shape = circle];\n"
 
-        "{transition}\n"
+        "{transition_map}\n"
+
+        "{epsilon_transition_map}\n"
 
         "}}\n"
         "```\n",
@@ -213,9 +211,10 @@ inline void
         "RE"_a = _RE,
         "pre_process"_a = _pre_process,
         "postfix"_a = _postfix,
-        "start"_a = _start,
-        "end"_a = _end,
-        "transition"_a = _getTransitions());
+        "start"_a = _start_state,
+        "end"_a = _end_state,
+        "transition_map"_a = _state_transition_map,
+        "_epsilon_transition_map"_a = _epsilon_transition_map);
 }
 
 inline void
@@ -229,38 +228,18 @@ inline void NFA::_toImage(const str_t& filename) const noexcept
     // TODO :
 }
 
-inline void NFA::toDiagram(
-    const std::string& filename,
-    NFA::diagram_fmt format,
-    const std::ios_base::openmode flag) const noexcept
-{
-    switch (format) {
-        case diagram_fmt::Markdown:
-            _toMarkdown(filename, flag);
-            break;
-        case diagram_fmt::DotFile:
-            _toDotFile(filename, flag);
-            break;
-        case diagram_fmt::Image:
-            _toImage(filename);
-            break;
-        default:
-            break;
-    }
-}
-
 inline void NFA::clear() noexcept
 {
-    _transition.clear();
-    _epsilon_transition.clear();
-    _start = _end = 0;
+    _state_transition_map.clear();
+    _epsilon_transition_map.clear();
+    _start_state = _end_state = 0;
     _RE.clear();
     _postfix.clear();
     _pre_process.clear();
-    _state_info.erase(this->_end);
+    _state_info.erase(this->_end_state);
 }
 
-inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noexcept
+inline void NFA::parse(NFA::str_t& RE) noexcept
 {
     using stack = std::stack<std::pair<state_t, state_t>>;
     this->clear();
@@ -282,11 +261,11 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
         auto new_start = _newState(), new_end = _newState();
         auto [start, end] = st.top();
 
-        _epsilon_transition[new_start].emplace(start);
-        _epsilon_transition[new_start].emplace(new_end);
+        _epsilon_transition_map[new_start].emplace(start);
+        _epsilon_transition_map[new_start].emplace(new_end);
 
-        _epsilon_transition[end].emplace(start);
-        _epsilon_transition[end].emplace(new_end);
+        _epsilon_transition_map[end].emplace(start);
+        _epsilon_transition_map[end].emplace(new_end);
 
         st.top() = { new_start, new_end };
     };
@@ -297,7 +276,7 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
         auto [start2, end2] = st.top();
         // st.pop();
 
-        _epsilon_transition[end2].emplace(start1);
+        _epsilon_transition_map[end2].emplace(start1);
 
         // st.push({ start2, end1 });
         st.top() = { start2, end1 };
@@ -310,11 +289,11 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
         auto [start2, end2] = st.top();
         // st.pop();
 
-        _epsilon_transition[new_start].emplace(start1);
-        _epsilon_transition[new_start].emplace(start2);
+        _epsilon_transition_map[new_start].emplace(start1);
+        _epsilon_transition_map[new_start].emplace(start2);
 
-        _epsilon_transition[end1].emplace(new_end);
-        _epsilon_transition[end2].emplace(new_end);
+        _epsilon_transition_map[end1].emplace(new_end);
+        _epsilon_transition_map[end2].emplace(new_end);
 
         // st.push({ new_start, new_end });
         st.top() = { new_start, new_end };
@@ -322,7 +301,7 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
 
     auto Char = [this, &st](const Type::char_t ch) {
         auto start = _newState(), end = _newState();
-        _transition[{ start, ch }] = end;
+        _state_transition_map[{ start, ch }] = end;
         st.push({ start, end });
     };
 
@@ -331,9 +310,9 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
         auto [start, end] = st.top();
         // st.pop();
 
-        _epsilon_transition[new_start].emplace(start);
-        _epsilon_transition[end].emplace(new_end);
-        _epsilon_transition[end].emplace(start);
+        _epsilon_transition_map[new_start].emplace(start);
+        _epsilon_transition_map[end].emplace(new_end);
+        _epsilon_transition_map[end].emplace(start);
 
         // st.push({ new_start, new_end });
         st.top() = { new_start, new_end };
@@ -344,10 +323,10 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
         auto [start, end] = st.top();
         // st.pop();
 
-        _epsilon_transition[new_start].emplace(start);
-        _epsilon_transition[new_start].emplace(new_end);
+        _epsilon_transition_map[new_start].emplace(start);
+        _epsilon_transition_map[new_start].emplace(new_end);
 
-        _epsilon_transition[end].emplace(new_end);
+        _epsilon_transition_map[end].emplace(new_end);
 
         // st.push({ new_start, new_end });
         st.top() = { new_start, new_end };
@@ -385,28 +364,33 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
 
 
     assert(st.size() == 1);
-    _start = st.top().first;
-    _end = st.top().second;
-
-    if (info.size() > 0) _state_info[_end] = { priority, info };
+    _start_state = st.top().first;
+    _end_state = st.top().second;
 }
 
-inline NFA& NFA::operator+(NFA& other) noexcept
+inline void
+    NFA::parse(NFA::str_t& RE, Type::str_auto_ref_c auto&& info, NFA::priority_t priority) noexcept
 {
-    _transition.merge(other._transition);
-    _epsilon_transition.merge(other._epsilon_transition);
+    _state_info[_end_state] = { priority, std::forward(info) };
+    parse(RE);
+}
+
+inline NFA& NFA::operator+ (NFA& other) noexcept
+{
+    _state_transition_map.merge(other._state_transition_map);
+    _epsilon_transition_map.merge(other._epsilon_transition_map);
 
 
     auto new_start = _newState();
     auto new_end = _newState();
 
-    _epsilon_transition[new_start].emplace(_start);
-    _epsilon_transition[new_start].emplace(other._start);
-    _epsilon_transition[_end].emplace(new_end);
-    _epsilon_transition[other._end].emplace(new_end);
+    _epsilon_transition_map[new_start].emplace(_start_state);
+    _epsilon_transition_map[new_start].emplace(other._start_state);
+    _epsilon_transition_map[_end_state].emplace(new_end);
+    _epsilon_transition_map[other._end_state].emplace(new_end);
 
-    _start = new_start;
-    _end = new_end;
+    _start_state = new_start;
+    _end_state = new_end;
     return *this;
 }
 
@@ -431,23 +415,36 @@ inline NFA::str_t NFA::stateInfo() noexcept
     return info;
 }
 
-inline NFA::state_set_t NFA::getReachedStates(const state_t state) const noexcept
+inline std::optional<NFA::state_set_t> NFA::getReachedStates(const state_t state) const noexcept
 {
-    NFA::state_set_t reached_states {};
-    getReachedStates(state, reached_states);
-    return reached_states;
+    if (state < _state_count) {
+        NFA::state_set_t reached_states {};
+        getReachedStates(state, reached_states);
+        return reached_states;
+    }
+    return std::nullopt;
 }
 
-inline NFA::state_set_t
+inline std::optional<NFA::state_set_t>
     NFA::getReachedStates(const NFA::state_t state, Type::char_t ch) const noexcept
 {
-    return getReachedStates(_transition.at({ state, ch }));
+    auto it = _state_transition_map.find({ state, ch });
+    if (it == _state_transition_map.end()) {
+        return std::nullopt;
+    }
+
+    return getReachedStates(it->second);
 }
 
 inline void NFA::getReachedStates(
     const NFA::state_t state, Type::char_t ch, NFA::state_set_t& reached_states) const noexcept
 {
-    getReachedStates(_transition.at({ state, ch }), reached_states);
+    auto it = _state_transition_map.find({ state, ch });
+    if (it == _state_transition_map.end()) {
+        return;
+    }
+
+    getReachedStates(it->second, reached_states);
 }
 
 inline void
@@ -460,21 +457,29 @@ inline void
     while (!st.empty()) {
         auto state = st.top();
         st.pop();
-        if (_epsilon_transition.find(state) == _epsilon_transition.end()) continue;
+        if (_epsilon_transition_map.find(state) == _epsilon_transition_map.end())
+            continue;
 
-        for (const auto& v : _epsilon_transition.at(state)) {
-            if (reached_states.find(v) != reached_states.end()) continue;
-            st.emplace(v);
-            reached_states.emplace(v);
+        for (const auto& s : _epsilon_transition_map.at(state)) {
+            if (reached_states.find(s) != reached_states.end())
+                continue;
+            st.emplace(s);
+            reached_states.emplace(s);
         }
     }
 }
 
-inline NFA::state_set_t
+inline std::optional<NFA::state_set_t>
     NFA::getReachedStates(const NFA::state_set_t& state_set, Type::char_t ch) const noexcept
 {
     NFA::state_set_t reached_states {};
-    for (const auto& state : state_set)
+
+
+    for (const auto state : state_set)
         getReachedStates(state, ch, reached_states);
+
+    if (reached_states.empty())
+        return std::nullopt;
+
     return reached_states;
 }

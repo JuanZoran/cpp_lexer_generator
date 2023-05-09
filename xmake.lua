@@ -1,15 +1,15 @@
 set_project 'cpp_lexer_generator'
 set_toolchains 'clang'
 
-
 add_rules 'plugin.compile_commands.autoupdate'
 add_rules('mode.debug', 'mode.release')
-add_requires('fmt'--[[ , 'gtest' ]], 'doctest')
+add_requires('fmt' --[[ , 'gtest' ]], 'doctest')
 add_includedirs 'include'
 set_languages 'cxx20'
 set_targetdir '$(projectdir)/bin'
 
 
+add_packages 'fmt'
 -- Debug模式设置
 if is_mode 'debug' then
     set_optimize 'none'
@@ -24,11 +24,13 @@ if is_mode 'release' then
 end
 
 
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                      target define                       │
+--  ╰──────────────────────────────────────────────────────────╯
 ---@format disable
 target("lexer_generator")
     set_kind("binary")
     add_files("src/*.cpp")
-    add_packages("fmt")
 
 
 target('test_util')

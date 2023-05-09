@@ -1,6 +1,7 @@
 #pragma once
 #include <NFA.hpp>
 #include <Type.hpp>
+#include <fmt/format.h>
 #include <string>
 
 class DFA
@@ -8,6 +9,7 @@ class DFA
 public:
     using state_t = Type::state_t;
     using size_t = uint32_t;
+    using str_t = Type::str_t;
 
 public:
     DFA(NFA&& nfa) noexcept;
@@ -22,77 +24,125 @@ public:
     ~DFA()          = default;
     // clang-format on
 
+public:
+    IMPL_DRAGRAM;
+
+
 private:
     state_t _newState() noexcept
     {
-        return _size++;
+        return _state_count++;
     }
 
+    void _toMarkdown(const str_t& filename, const std::ios_base::openmode) const noexcept;
+    void _toDotFile(const str_t& filename, const std::ios_base::openmode) const noexcept;
+    void _toImage(const str_t& filename) const noexcept;
 
-private:
+private: // INFO :Private members
     /**
      * @brief All states of this DFA
      */
-    Type::set<state_t> _states {};
+    // Type::state_set_t _state_set {};
 
     /**
      * @brief final state info
      */
-    Type::map<state_t, std::pair<NFA::priority_t, NFA::str_t>> _state_info {};
+    Type::map_t<state_t, std::pair<NFA::priority_t, NFA::str_t>> _state_info {};
 
     /**
      * @brief state transition map
      */
-    Type::map<std::pair<state_t, Type::char_t>, state_t> _transition {};
+    Type::transition_map_t _state_transition_map {};
 
     /**
      * @brief final state set
      */
-    Type::set<state_t> _final {};
+    Type::state_set_t _final_state_set {};
 
     /**
      * @brief input charset
      */
-    Type::set<Type::char_t> _charset {};
+    Type::set_t<Type::char_t> _charset {};
 
-    state_t _start {};
-    size_t _size {};
+    state_t _start_state {};
+    size_t _state_count {};
 };
 
-inline DFA::DFA(NFA&& nfa) noexcept
+inline DFA::DFA(NFA&& nfa) noexcept:
+    _state_count { 1 },
+    _start_state { 0 },
+    _charset { std::move(nfa._charset) }
+
 {
-    using state_set = Type::set<state_t>;
-    _start = _newState();
-    auto q0 = nfa.getReachedStates(nfa._start);
+    using state_set = Type::state_set_t;
+    auto q0 = *nfa.getReachedStates(nfa._start_state);
 
     // WARN : this will destroy the nfa charset
-    _charset = std::move(nfa._charset);
+
+    // TODO :improve memory usage via use pointer to store state_set
     std::stack<state_set> st;
     st.push(q0);
 
-    Type::map<state_set, state_t> states_map {
+    Type::map_t<state_set, state_t> states_map {
         {
-         q0, _start,
+         q0, _start_state,
          }
     };
 
     while (!st.empty()) {
-        auto q = st.top();
+        auto& q = st.top();
         st.pop();
 
-        for (auto c : _charset) {
-            // auto q_next = nfa.getSameStates(q, c);
-            // if (q_next.empty()) {
-            //     continue;
-            // }
+        for (auto ch : _charset) {
+            auto q_next_ptr = nfa.getReachedStates(q, ch);
+            if (!q_next_ptr) {
+                continue;
+            }
 
-            // if (states_map.find(q_next) == states_map.end()) {
-            //     auto new_state = _newState();
-            //     states_map[q_next] = new_state;
-            //     st.push(q_next);
-            // }
+            // not found in existed states then create a new state
+            if (states_map.find(*q_next_ptr) == states_map.end()) {
+                states_map[*q_next_ptr] = _newState();
+                st.push(*q_next_ptr);
+            }
 
-            // _transition[{states_map[q], c}] = states_map[q_next];
+            _state_transition_map[{ states_map[q], ch }] = states_map[*q_next_ptr];
         }
     }
+}
+
+inline void
+    DFA::_toMarkdown(const str_t& filename, const std::ios_base::openmode flag) const noexcept
+{
+    using namespace fmt::literals;
+    using ofs = std::ofstream;
+
+    ofs fout { filename, flag };
+    assert(fout.is_open());
+
+    fout << fmt::format(
+        "```dot\n"
+        "digraph G {{\n"
+
+        "rankdir=LR;\n"
+        "{start} [color = green];\n"
+        "{end} [shape = doublecircle];\n"
+        "node [shape = circle];\n"
+
+        "{transition_map}\n"
+
+        "}}\n"
+        "```\n",
+
+
+        "transition_map"_a = _state_transition_map);
+}
+
+inline void DFA::_toDotFile(const str_t& filename, const std::ios_base::openmode) const noexcept
+{
+    // TODO :
+}
+
+inline void DFA::_toImage(const str_t& filename) const noexcept
+{
+    // TODO :
 }

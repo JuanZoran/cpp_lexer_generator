@@ -1,5 +1,6 @@
 #pragma once
 #include <Type.hpp>
+#include <ios>
 #include <stack>
 #include <string>
 
@@ -20,8 +21,6 @@ inline void addConcatOperator(str& str)
         RightJoin,
         Binary
     };
-
-
 
     // left join unary operator: *, +, ), ?
     // right join unary operator: (
@@ -68,9 +67,9 @@ inline void addConcatOperator(str& str)
  * @param infix expression
  * @param inputCharSet reference to a set of characters to store the input character set
  */
-inline void processRegex(str& infix, Type::set<char>& inputCharSet)
+inline void processRegex(str& infix, Type::set_t<char>& inputCharSet)
 {
-    static const Type::map<char, int> Priorities = {
+    static const Type::map_t<char, int> Priorities = {
         {'|',  2},
         { '^', 4},
         { '*', 8},
@@ -126,4 +125,42 @@ inline void processRegex(str& infix, Type::set<char>& inputCharSet)
 
     infix = std::move(postfix);
 }
+
+// forward declaration for toDiagram
+#define IMPL_DRAGRAM                    \
+    template <typename T>               \
+    friend inline void Util::toDiagram( \
+        T value,                        \
+        const Type::str_t& filename,    \
+        Type::DiagramFmt format,        \
+        const std::ios_base::openmode flag) noexcept
+
+/**
+ * @brief Generate the diagram of NFA via dot language [markdown format]
+ *
+ * @param filename the output filename [relative {relative to the binary file} | absolute]
+ * @param flag the open mode
+ */
+template <typename T>
+inline void toDiagram(
+    T value,
+    const Type::str_t& filename,
+    Type::DiagramFmt format = Type::DiagramFmt::MARKDOWN,
+    const std::ios_base::openmode flag = std::ios::app) noexcept
+{
+    switch (format) {
+        case Type::DiagramFmt::MARKDOWN:
+            value._toMarkdown(filename, flag);
+            break;
+        case Type::DiagramFmt::DOTFILE:
+            value._toDotFile(filename, flag);
+            break;
+        case Type::DiagramFmt::IMAGE:
+            value._toImage(filename);
+            break;
+        default:
+            break;
+    }
+}
+
 } // namespace Util

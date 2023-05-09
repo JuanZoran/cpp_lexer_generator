@@ -26,6 +26,12 @@ using {\bfseries priority\+\_\+t} = uint32\+\_\+t
 \item 
 \mbox{\Hypertarget{classNFA_a1e8918697c4e3e0e6f7302d9da86ead7}\label{classNFA_a1e8918697c4e3e0e6f7302d9da86ead7}} 
 using {\bfseries str\+\_\+view\+\_\+t} = std\+::string\+\_\+view
+\item 
+\mbox{\Hypertarget{classNFA_a3bfe366b5b9961121e0dc068f34dbd15}\label{classNFA_a3bfe366b5b9961121e0dc068f34dbd15}} 
+using {\bfseries state\+\_\+set\+\_\+t} = Type\+::state\+\_\+set\+\_\+t
+\item 
+\mbox{\Hypertarget{classNFA_ad7bd8ae6e336672e6bb7c7c0987c81a9}\label{classNFA_ad7bd8ae6e336672e6bb7c7c0987c81a9}} 
+using {\bfseries epsilon\+\_\+treansion\+\_\+map\+\_\+t} = Type\+::map\+\_\+t$<$ state\+\_\+t, NFA\+::state\+\_\+set\+\_\+t $>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -44,10 +50,11 @@ using {\bfseries str\+\_\+view\+\_\+t} = std\+::string\+\_\+view
 \mbox{\Hypertarget{classNFA_a7589ff31bef9e2806601c182b2e32f68}\label{classNFA_a7589ff31bef9e2806601c182b2e32f68}} 
 \mbox{\hyperlink{classNFA}{NFA}} \& {\bfseries operator=} (const \mbox{\hyperlink{classNFA}{NFA}} \&)=default
 \item 
-void \mbox{\hyperlink{classNFA_a92db1d4405d808647b1ce34f4bc77bff}{to\+Diagram}} (const str\+\_\+t \&filename, const std\+::ios\+\_\+base\+::openmode flag=std\+::ios\+::app) const noexcept
-\begin{DoxyCompactList}\small\item\em Generate the diagram of \mbox{\hyperlink{classNFA}{NFA}} via dot language \mbox{[}markdown format\mbox{]}. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classNFA_abaef6735679e41c78577326fd6c537fa}\label{classNFA_abaef6735679e41c78577326fd6c537fa}} 
-void {\bfseries parse} (const str\+\_\+t RE, auto \&\&info=\char`\"{}\char`\"{}, NFA\+::priority\+\_\+t priority=1) noexcept
+\mbox{\Hypertarget{classNFA_a03f526ba52023a5f9dbb31382fb99d2d}\label{classNFA_a03f526ba52023a5f9dbb31382fb99d2d}} 
+void {\bfseries parse} (str\+\_\+t \&RE) noexcept
+\item 
+\mbox{\Hypertarget{classNFA_a24a2bfc4559ebd589084955c8a65dbe8}\label{classNFA_a24a2bfc4559ebd589084955c8a65dbe8}} 
+void {\bfseries parse} (str\+\_\+t \&RE, Type\+::str\+\_\+auto\+\_\+ref\+\_\+c auto \&\&info, NFA\+::priority\+\_\+t priority=1) noexcept
 \item 
 \mbox{\Hypertarget{classNFA_ade2bfc58327f41594168dd8e733f3329}\label{classNFA_ade2bfc58327f41594168dd8e733f3329}} 
 void {\bfseries clear} () noexcept
@@ -58,16 +65,31 @@ void {\bfseries clear} () noexcept
 \mbox{\Hypertarget{classNFA_ad887fbd02b1bb2f7903247cdb5af0285}\label{classNFA_ad887fbd02b1bb2f7903247cdb5af0285}} 
 bool {\bfseries match} (const str\+\_\+view\+\_\+t \&str) const noexcept
 \item 
-std\+::set$<$ state\+\_\+t $>$ \mbox{\hyperlink{classNFA_a2139784cbeb0cbe06ab19169ea994ed8}{get\+Reached\+States}} (const state\+\_\+t state) const noexcept
+std\+::optional$<$ state\+\_\+set\+\_\+t $>$ \mbox{\hyperlink{classNFA_a06c9f20d265c7769fb0ff72288a83c38}{get\+Reached\+States}} (const state\+\_\+t state) const noexcept
 \begin{DoxyCompactList}\small\item\em Get the set of stated reached by the given string. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classNFA_a4507dfaff5090865491f2dc8cd3a379f}\label{classNFA_a4507dfaff5090865491f2dc8cd3a379f}} 
-std\+::set$<$ state\+\_\+t $>$ {\bfseries get\+Reached\+States} (const state\+\_\+t state, Type\+::char\+\_\+t ch) const noexcept
+\mbox{\Hypertarget{classNFA_a0e717a7f422c31ba72240a880d237530}\label{classNFA_a0e717a7f422c31ba72240a880d237530}} 
+std\+::optional$<$ state\+\_\+set\+\_\+t $>$ {\bfseries get\+Reached\+States} (const state\+\_\+t state, Type\+::char\+\_\+t ch) const noexcept
+\item 
+\mbox{\Hypertarget{classNFA_a6f53bd9467188c93e5d03f38b4816a42}\label{classNFA_a6f53bd9467188c93e5d03f38b4816a42}} 
+std\+::optional$<$ state\+\_\+set\+\_\+t $>$ {\bfseries get\+Reached\+States} (const state\+\_\+set\+\_\+t \&state\+\_\+set, Type\+::char\+\_\+t ch) const noexcept
+\item 
+\mbox{\Hypertarget{classNFA_a4af9a7cdf48a659387286b0197ee98b9}\label{classNFA_a4af9a7cdf48a659387286b0197ee98b9}} 
+void {\bfseries get\+Reached\+States} (const state\+\_\+t state, state\+\_\+set\+\_\+t \&reached\+\_\+states) const noexcept
+\item 
+\mbox{\Hypertarget{classNFA_a68f3a3b4bfbfb8913c61b48a739ce66d}\label{classNFA_a68f3a3b4bfbfb8913c61b48a739ce66d}} 
+void {\bfseries get\+Reached\+States} (const state\+\_\+t state, Type\+::char\+\_\+t ch, state\+\_\+set\+\_\+t \&reached\+\_\+states) const noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\Hypertarget{classNFA_aead8c02dc791014b75c26f3f640ba545}\label{classNFA_aead8c02dc791014b75c26f3f640ba545}} 
 static NFA\+::str\+\_\+t {\bfseries state\+Info} () noexcept
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classNFA_aceb5cb8858c8a013c8e1dcad1f7a6130}\label{classNFA_aceb5cb8858c8a013c8e1dcad1f7a6130}} 
+{\bfseries IMPL\+\_\+\+DRAGRAM}
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -108,11 +130,11 @@ The wrapper of parse function.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classNFA_a2139784cbeb0cbe06ab19169ea994ed8}\label{classNFA_a2139784cbeb0cbe06ab19169ea994ed8}} 
+\mbox{\Hypertarget{classNFA_a06c9f20d265c7769fb0ff72288a83c38}\label{classNFA_a06c9f20d265c7769fb0ff72288a83c38}} 
 \index{NFA@{NFA}!getReachedStates@{getReachedStates}}
 \index{getReachedStates@{getReachedStates}!NFA@{NFA}}
 \doxysubsubsection{\texorpdfstring{getReachedStates()}{getReachedStates()}}
-{\footnotesize\ttfamily std\+::set$<$ NFA\+::state\+\_\+t $>$ NFA\+::get\+Reached\+States (\begin{DoxyParamCaption}\item[{const state\+\_\+t}]{state }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
+{\footnotesize\ttfamily std\+::optional$<$ NFA\+::state\+\_\+set\+\_\+t $>$ NFA\+::get\+Reached\+States (\begin{DoxyParamCaption}\item[{const state\+\_\+t}]{state }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
 
 
 
@@ -121,23 +143,6 @@ Get the set of stated reached by the given string.
 
 \begin{DoxyParams}{Parameters}
 {\em state} & the start state \\
-\hline
-\end{DoxyParams}
-\mbox{\Hypertarget{classNFA_a92db1d4405d808647b1ce34f4bc77bff}\label{classNFA_a92db1d4405d808647b1ce34f4bc77bff}} 
-\index{NFA@{NFA}!toDiagram@{toDiagram}}
-\index{toDiagram@{toDiagram}!NFA@{NFA}}
-\doxysubsubsection{\texorpdfstring{toDiagram()}{toDiagram()}}
-{\footnotesize\ttfamily void NFA\+::to\+Diagram (\begin{DoxyParamCaption}\item[{const str\+\_\+t \&}]{filename,  }\item[{const std\+::ios\+\_\+base\+::openmode}]{flag = {\ttfamily std\+:\+:ios\+:\+:app} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [noexcept]}}
-
-
-
-Generate the diagram of \mbox{\hyperlink{classNFA}{NFA}} via dot language \mbox{[}markdown format\mbox{]}. 
-
-
-\begin{DoxyParams}{Parameters}
-{\em filename} & the output filename \mbox{[}relative \{relative to the binary file\} $\vert$ absolute\mbox{]} \\
-\hline
-{\em flag} & the open mode \\
 \hline
 \end{DoxyParams}
 

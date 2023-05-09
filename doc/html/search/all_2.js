@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['nfa_2',['NFA',['../classNFA.html',1,'NFA'],['../classNFA.html#a7e4991fd3e64cf437252defe335cfe09',1,'NFA::NFA()']]]
+  ['getreachedstates_3',['getReachedStates',['../classNFA.html#a06c9f20d265c7769fb0ff72288a83c38',1,'NFA']]]
 ];

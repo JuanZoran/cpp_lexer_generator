@@ -1,12 +1,35 @@
-#include <NFA.hpp>
+#include <DFA.hpp>
 #include <Util.hpp>
-#include <cstdio>
 #include <fmt/format.h>
 #include <vector>
 
 using namespace std;
 using namespace fmt;
 
+
+
+#if 1
+
+
+int main(int argc, char* argv[])
+{
+    vector<Type::str_t> tests { "a+b", "a+", "a?", "(a|b)?" };
+
+    for (auto& RE : tests) {
+        print("Current RE: {}\n", Color::Green_s(RE));
+
+
+        auto nfa = NFA(RE);
+        auto dfa = DFA(std::move(nfa));
+        Util::toDiagram(dfa, "README.md");
+    }
+
+    return EXIT_SUCCESS;
+}
+
+
+
+#else
 /**
  * @brief Test doxygen
  *
@@ -16,7 +39,7 @@ using namespace fmt;
  */
 int main(int argc, char* argv[])
 {
-    vector<std::pair<std::string, std::string>> tests {
+    vector<std::pair<std::string, std::string> > tests {
         {"a+b",     "测试一"},
         { "a+",     "测试二"},
 
@@ -31,9 +54,10 @@ int main(int argc, char* argv[])
     NFA nfa;
     for (auto& test : tests) {
         nfa.parse(test.first, test.second);
-        nfa.toDiagram(filename);
 
+        Util::toDiagram(nfa, filename);
         print("Current RE: {}\n", Color::Green_s(test.first));
     }
     return EXIT_SUCCESS;
 }
+#endif

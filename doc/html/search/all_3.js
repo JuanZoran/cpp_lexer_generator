@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['re_3a_20a_7cb_3',['RE: a|b',['../md_bin_README.html',1,'']]]
+  ['nfa_4',['NFA',['../classNFA.html',1,'NFA'],['../classNFA.html#a7e4991fd3e64cf437252defe335cfe09',1,'NFA::NFA()']]]
 ];
