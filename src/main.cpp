@@ -14,6 +14,8 @@ using namespace fmt;
 int main(int argc, char* argv[])
 {
     vector<Type::str_t> tests { "a+b", "a+", "a?", "(a|b)?" };
+    constexpr auto filename = "README.md";
+    remove(filename);
 
     for (auto& RE : tests) {
         print("Current RE: {}\n", Color::Green_s(RE));
@@ -21,7 +23,7 @@ int main(int argc, char* argv[])
 
         auto nfa = NFA(RE);
         auto dfa = DFA(std::move(nfa));
-        Util::toDiagram(dfa, "README.md");
+        Util::toDiagram(dfa, filename);
     }
 
     return EXIT_SUCCESS;

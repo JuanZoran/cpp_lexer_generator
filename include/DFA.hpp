@@ -29,10 +29,7 @@ public:
 
 
 private:
-    state_t _newState() noexcept
-    {
-        return _state_count++;
-    }
+    state_t _newState() noexcept { return _state_count++; }
 
     void _toMarkdown(const str_t& filename, const std::ios_base::openmode) const noexcept;
     void _toDotFile(const str_t& filename, const std::ios_base::openmode) const noexcept;
@@ -95,9 +92,7 @@ inline DFA::DFA(NFA&& nfa) noexcept:
 
         for (auto ch : _charset) {
             auto q_next_ptr = nfa.getReachedStates(q, ch);
-            if (!q_next_ptr) {
-                continue;
-            }
+            if (!q_next_ptr) { continue; }
 
             // not found in existed states then create a new state
             if (states_map.find(*q_next_ptr) == states_map.end()) {
@@ -119,13 +114,14 @@ inline void
     ofs fout { filename, flag };
     assert(fout.is_open());
 
+
+    // FIXME : final state to be printed
     fout << fmt::format(
         "```dot\n"
         "digraph G {{\n"
 
         "rankdir=LR;\n"
         "{start} [color = green];\n"
-        "{end} [shape = doublecircle];\n"
         "node [shape = circle];\n"
 
         "{transition_map}\n"
@@ -133,7 +129,7 @@ inline void
         "}}\n"
         "```\n",
 
-
+        "start"_a = _start_state,
         "transition_map"_a = _state_transition_map);
 }
 

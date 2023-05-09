@@ -44,21 +44,21 @@ public: // INFO : built-in method
     explicit NFA(Args&&... args) noexcept;
     NFA(NFA&&) = default;
     NFA(const NFA&) = default;
-    NFA& operator= (NFA&&) = default;
-    NFA& operator= (const NFA&) = default;
+    NFA& operator=(NFA&&) = default;
+    NFA& operator=(const NFA&) = default;
     ~NFA() = default;
 
 
 public: // INFO : member method
     IMPL_DRAGRAM;
-    friend std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept;
+    friend std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept;
 
     void parse(str_t& RE) noexcept;
 
     void parse(str_t& RE, Type::str_auto_ref_c auto&& info, NFA::priority_t priority = 1) noexcept;
 
     void clear() noexcept;
-    NFA& operator+ (NFA& rhs) noexcept;
+    NFA& operator+(NFA& rhs) noexcept;
     bool match(const str_view_t& str) const noexcept;
 
 
@@ -84,10 +84,7 @@ public: // INFO : static method
     static NFA::str_t stateInfo() noexcept;
 
 private: // INFO : private static member method
-    static state_t _newState()
-    {
-        return _state_count++;
-    }
+    static state_t _newState() { return _state_count++; }
 
 private: // INFO : private member method
     void _toMarkdown(const str_t& filename, const std::ios_base::openmode flag) noexcept;
@@ -129,7 +126,7 @@ inline NFA::NFA(Args&&... args) noexcept
     parse(std::forward<Args>(args)...);
 }
 
-inline std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept
+inline std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept
 {
     using namespace Color;
 
@@ -158,18 +155,15 @@ inline std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept
 template <>
 struct fmt::formatter<NFA::epsilon_treansion_map_t>
 {
-    constexpr auto parse(format_parse_context& ctx)
-    {
-        return ctx.begin();
-    }
+    constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
 
     template <typename FormatContext>
     auto format(NFA::epsilon_treansion_map_t& m, FormatContext& ctx)
     {
         auto out = ctx.out();
         for (const auto& [key, value] : m) {
-            for (const auto& v : value) {
-                out = format_to(ctx.out(), "{} -> {} [ label = \"ε\" ];\n", key, v);
+            for (const auto& state : value) {
+                out = format_to(ctx.out(), "{} -> {} [ label = \"ε\" ];\n", key, state);
             }
         }
         return out;
@@ -375,7 +369,7 @@ inline void
     parse(RE);
 }
 
-inline NFA& NFA::operator+ (NFA& other) noexcept
+inline NFA& NFA::operator+(NFA& other) noexcept
 {
     _state_transition_map.merge(other._state_transition_map);
     _epsilon_transition_map.merge(other._epsilon_transition_map);
@@ -429,9 +423,7 @@ inline std::optional<NFA::state_set_t>
     NFA::getReachedStates(const NFA::state_t state, Type::char_t ch) const noexcept
 {
     auto it = _state_transition_map.find({ state, ch });
-    if (it == _state_transition_map.end()) {
-        return std::nullopt;
-    }
+    if (it == _state_transition_map.end()) { return std::nullopt; }
 
     return getReachedStates(it->second);
 }
@@ -440,9 +432,7 @@ inline void NFA::getReachedStates(
     const NFA::state_t state, Type::char_t ch, NFA::state_set_t& reached_states) const noexcept
 {
     auto it = _state_transition_map.find({ state, ch });
-    if (it == _state_transition_map.end()) {
-        return;
-    }
+    if (it == _state_transition_map.end()) { return; }
 
     getReachedStates(it->second, reached_states);
 }
@@ -457,12 +447,10 @@ inline void
     while (!st.empty()) {
         auto state = st.top();
         st.pop();
-        if (_epsilon_transition_map.find(state) == _epsilon_transition_map.end())
-            continue;
+        if (_epsilon_transition_map.find(state) == _epsilon_transition_map.end()) continue;
 
         for (const auto& s : _epsilon_transition_map.at(state)) {
-            if (reached_states.find(s) != reached_states.end())
-                continue;
+            if (reached_states.find(s) != reached_states.end()) continue;
             st.emplace(s);
             reached_states.emplace(s);
         }
@@ -474,12 +462,10 @@ inline std::optional<NFA::state_set_t>
 {
     NFA::state_set_t reached_states {};
 
-
-    for (const auto state : state_set)
+    for (const auto& state : state_set)
+        // std::cout << state << std::endl;
         getReachedStates(state, ch, reached_states);
 
-    if (reached_states.empty())
-        return std::nullopt;
-
+    if (reached_states.empty()) return std::nullopt;
     return reached_states;
 }

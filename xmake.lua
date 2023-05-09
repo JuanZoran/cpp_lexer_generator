@@ -5,7 +5,7 @@ add_rules 'plugin.compile_commands.autoupdate'
 add_rules('mode.debug', 'mode.release')
 add_requires('fmt' --[[ , 'gtest' ]], 'doctest')
 add_includedirs 'include'
-set_languages 'cxx20'
+set_languages 'cxxlatest'
 set_targetdir '$(projectdir)/bin'
 
 
