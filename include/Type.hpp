@@ -51,6 +51,7 @@ enum class DiagramFmt {
 template <>
 struct fmt::formatter<Type::transition_map_t>
 {
+    // auto parse(format_parse_context& ctx)
     constexpr auto parse(format_parse_context& ctx)
     {
         return ctx.begin();

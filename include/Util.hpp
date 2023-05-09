@@ -67,7 +67,7 @@ inline void addConcatOperator(str& str)
  * @param infix expression
  * @param inputCharSet reference to a set of characters to store the input character set
  */
-inline void processRegex(str& infix, Type::set_t<char>& inputCharSet)
+inline void getPostfixAndChatSet(str& infix, Type::set_t<char>& inputCharSet)
 {
     static const Type::map_t<char, int> Priorities = {
         {'|',  2},

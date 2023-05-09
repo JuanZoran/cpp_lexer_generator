@@ -38,6 +38,15 @@ target('test_util')
     set_group('test')
     add_files('test/test_util.cpp')
     add_packages('doctest')
+
+target('test_nfa')
+    set_kind('binary')
+    set_group('test')
+    add_files('test/test_nfa.cpp')
+    add_packages('doctest')
+
+
+
 --
 -- If you want to known more usage about xmake, please see https://xmake.io
 --

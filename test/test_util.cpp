@@ -102,7 +102,7 @@ TEST_CASE("Util")
             str right = test[2];
 
             addConcatOperator(input);
-            processRegex(input, inputCharSet);
+            getPostfixAndChatSet(input, inputCharSet);
             CHECK_EQ(right, input);
             CHECK_EQ(inputCharSet, std::set<char>(test[3].begin(), test[3].end()));
         }

@@ -9,19 +9,20 @@ using namespace fmt;
 
 
 #if 1
-
-
 int main(int argc, char* argv[])
 {
-    vector<Type::str_t> tests { "a+b", "a+", "a?", "(a|b)?" };
+    vector<Type::str_t> tests { "1*0(0|1)*" };
+    // vector<Type::str_t> tests {
+    //     "a+b",
+    //     // "a",
+    // };
     constexpr auto filename = "README.md";
     remove(filename);
 
     for (auto& RE : tests) {
         print("Current RE: {}\n", Color::Green_s(RE));
-
-
         auto nfa = NFA(RE);
+        Util::toDiagram(nfa, filename);
         auto dfa = DFA(std::move(nfa));
         Util::toDiagram(dfa, filename);
     }

@@ -44,21 +44,21 @@ public: // INFO : built-in method
     explicit NFA(Args&&... args) noexcept;
     NFA(NFA&&) = default;
     NFA(const NFA&) = default;
-    NFA& operator=(NFA&&) = default;
-    NFA& operator=(const NFA&) = default;
+    NFA& operator= (NFA&&) = default;
+    NFA& operator= (const NFA&) = default;
     ~NFA() = default;
 
 
 public: // INFO : member method
     IMPL_DRAGRAM;
-    friend std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept;
+    friend std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept;
 
     void parse(str_t& RE) noexcept;
 
     void parse(str_t& RE, Type::str_auto_ref_c auto&& info, NFA::priority_t priority = 1) noexcept;
 
     void clear() noexcept;
-    NFA& operator+(NFA& rhs) noexcept;
+    NFA& operator+ (NFA& rhs) noexcept;
     bool match(const str_view_t& str) const noexcept;
 
 
@@ -84,7 +84,10 @@ public: // INFO : static method
     static NFA::str_t stateInfo() noexcept;
 
 private: // INFO : private static member method
-    static state_t _newState() { return _state_count++; }
+    static state_t _newState()
+    {
+        return _state_count++;
+    }
 
 private: // INFO : private member method
     void _toMarkdown(const str_t& filename, const std::ios_base::openmode flag) noexcept;
@@ -99,7 +102,7 @@ private: // INFO : private member variable
     Type::transition_map_t _state_transition_map {};
     epsilon_treansion_map_t _epsilon_transition_map {};
     state_t _start_state {};
-    state_t _end_state {};
+    state_t _final_state {};
 
 
 private:
@@ -126,12 +129,12 @@ inline NFA::NFA(Args&&... args) noexcept
     parse(std::forward<Args>(args)...);
 }
 
-inline std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept
+inline std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept
 {
     using namespace Color;
 
     os << Green << "start : " << End << nfa._start_state << '\n';
-    os << Green << "end : " << End << nfa._end_state << '\n';
+    os << Green << "end : " << End << nfa._final_state << '\n';
     os << Green << "transition : \n";
     for (const auto& [key, value] : nfa._state_transition_map) {
         os << Blue << key.first << End << " -" << Blue << key.second << End << "-> " << value
@@ -155,7 +158,11 @@ inline std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept
 template <>
 struct fmt::formatter<NFA::epsilon_treansion_map_t>
 {
-    constexpr auto parse(format_parse_context& ctx) { return ctx.begin(); }
+    // auto parse(format_parse_context& ctx) { return ctx.begin(); }
+    constexpr auto parse(format_parse_context& ctx)
+    {
+        return ctx.begin();
+    }
 
     template <typename FormatContext>
     auto format(NFA::epsilon_treansion_map_t& m, FormatContext& ctx)
@@ -193,9 +200,9 @@ inline void NFA::_toMarkdown(const str_t& filename, const std::ios_base::openmod
         "{end} [shape = doublecircle];\n"
         "node [shape = circle];\n"
 
-        "{transition_map}\n"
+        "{_state_transition_map}\n"
 
-        "{epsilon_transition_map}\n"
+        "{_epsilon_transition_map}\n"
 
         "}}\n"
         "```\n",
@@ -206,8 +213,8 @@ inline void NFA::_toMarkdown(const str_t& filename, const std::ios_base::openmod
         "pre_process"_a = _pre_process,
         "postfix"_a = _postfix,
         "start"_a = _start_state,
-        "end"_a = _end_state,
-        "transition_map"_a = _state_transition_map,
+        "end"_a = _final_state,
+        "_state_transition_map"_a = _state_transition_map,
         "_epsilon_transition_map"_a = _epsilon_transition_map);
 }
 
@@ -226,11 +233,11 @@ inline void NFA::clear() noexcept
 {
     _state_transition_map.clear();
     _epsilon_transition_map.clear();
-    _start_state = _end_state = 0;
+    _start_state = _final_state = 0;
     _RE.clear();
     _postfix.clear();
     _pre_process.clear();
-    _state_info.erase(this->_end_state);
+    _state_info.erase(this->_final_state);
 }
 
 inline void NFA::parse(NFA::str_t& RE) noexcept
@@ -246,7 +253,7 @@ inline void NFA::parse(NFA::str_t& RE) noexcept
     Util::addConcatOperator(RE);
     _pre_process = RE;
 
-    Util::processRegex(RE, _charset);
+    Util::getPostfixAndChatSet(RE, _charset);
     _postfix = RE;
 
 
@@ -359,17 +366,17 @@ inline void NFA::parse(NFA::str_t& RE) noexcept
 
     assert(st.size() == 1);
     _start_state = st.top().first;
-    _end_state = st.top().second;
+    _final_state = st.top().second;
 }
 
 inline void
     NFA::parse(NFA::str_t& RE, Type::str_auto_ref_c auto&& info, NFA::priority_t priority) noexcept
 {
-    _state_info[_end_state] = { priority, std::forward(info) };
+    _state_info[_final_state] = { priority, std::forward(info) };
     parse(RE);
 }
 
-inline NFA& NFA::operator+(NFA& other) noexcept
+inline NFA& NFA::operator+ (NFA& other) noexcept
 {
     _state_transition_map.merge(other._state_transition_map);
     _epsilon_transition_map.merge(other._epsilon_transition_map);
@@ -380,11 +387,11 @@ inline NFA& NFA::operator+(NFA& other) noexcept
 
     _epsilon_transition_map[new_start].emplace(_start_state);
     _epsilon_transition_map[new_start].emplace(other._start_state);
-    _epsilon_transition_map[_end_state].emplace(new_end);
-    _epsilon_transition_map[other._end_state].emplace(new_end);
+    _epsilon_transition_map[_final_state].emplace(new_end);
+    _epsilon_transition_map[other._final_state].emplace(new_end);
 
     _start_state = new_start;
-    _end_state = new_end;
+    _final_state = new_end;
     return *this;
 }
 
@@ -423,7 +430,9 @@ inline std::optional<NFA::state_set_t>
     NFA::getReachedStates(const NFA::state_t state, Type::char_t ch) const noexcept
 {
     auto it = _state_transition_map.find({ state, ch });
-    if (it == _state_transition_map.end()) { return std::nullopt; }
+    if (it == _state_transition_map.end()) {
+        return std::nullopt;
+    }
 
     return getReachedStates(it->second);
 }
@@ -432,7 +441,9 @@ inline void NFA::getReachedStates(
     const NFA::state_t state, Type::char_t ch, NFA::state_set_t& reached_states) const noexcept
 {
     auto it = _state_transition_map.find({ state, ch });
-    if (it == _state_transition_map.end()) { return; }
+    if (it == _state_transition_map.end()) {
+        return;
+    }
 
     getReachedStates(it->second, reached_states);
 }
@@ -442,15 +453,18 @@ inline void
 {
     std::stack<state_t> st {};
     st.emplace(state);
+    reached_states.emplace(state);
 
 
     while (!st.empty()) {
         auto state = st.top();
         st.pop();
-        if (_epsilon_transition_map.find(state) == _epsilon_transition_map.end()) continue;
+        if (_epsilon_transition_map.find(state) == _epsilon_transition_map.end())
+            continue;
 
         for (const auto& s : _epsilon_transition_map.at(state)) {
-            if (reached_states.find(s) != reached_states.end()) continue;
+            if (reached_states.find(s) != reached_states.end())
+                continue;
             st.emplace(s);
             reached_states.emplace(s);
         }
@@ -462,10 +476,10 @@ inline std::optional<NFA::state_set_t>
 {
     NFA::state_set_t reached_states {};
 
-    for (const auto& state : state_set)
-        // std::cout << state << std::endl;
+    for (const auto state : state_set)
         getReachedStates(state, ch, reached_states);
 
-    if (reached_states.empty()) return std::nullopt;
+    if (reached_states.empty())
+        return std::nullopt;
     return reached_states;
 }
