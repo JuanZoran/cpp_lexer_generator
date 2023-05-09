@@ -27,6 +27,7 @@ public: // INFO : type alias
     using str_t      = std::string;
     using priority_t = uint32_t;
     using str_view_t = std::string_view;
+    using state_set_t = Type::set<state_t>;
     // clang-format on
 
 
@@ -48,12 +49,12 @@ public: // INFO : built-in method
     explicit NFA(Args&&... args) noexcept;
     NFA(NFA&&) = default;
     NFA(const NFA&) = default;
-    NFA& operator= (NFA&&) = default;
-    NFA& operator= (const NFA&) = default;
+    NFA& operator=(NFA&&) = default;
+    NFA& operator=(const NFA&) = default;
     ~NFA() = default;
 
 public: // INFO : member method
-    friend std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept;
+    friend std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept;
 
     /**
      * @brief Generate the diagram of NFA via dot language [markdown format]
@@ -68,7 +69,7 @@ public: // INFO : member method
 
     void parse(const str_t RE, auto&& info = "", NFA::priority_t priority = 1) noexcept;
     void clear() noexcept;
-    NFA& operator+ (NFA& rhs) noexcept;
+    NFA& operator+(NFA& rhs) noexcept;
 
     bool match(const str_view_t& str) const noexcept;
 
@@ -78,20 +79,22 @@ public: // INFO : member method
      *
      * @param state the start state
      */
-    Type::set<state_t> getReachedStates(const state_t state) const noexcept;
-    Type::set<state_t> getReachedStates(const state_t state, Type::char_t ch) const noexcept;
-    Type::set<state_t>
-        getReachedStates(const Type::set<state_t>& state_set, Type::char_t ch) const noexcept;
+    state_set_t getReachedStates(const state_t state) const noexcept;
+    state_set_t getReachedStates(const state_t state, Type::char_t ch) const noexcept;
+    state_set_t getReachedStates(const state_set_t& state_set, Type::char_t ch) const noexcept;
+
+    // TODO :
+    void getReachedStates(const state_t state, state_set_t& reached_states) const noexcept;
+    void getReachedStates(
+        const state_t state, Type::char_t ch, state_set_t& reached_states) const noexcept;
+
 
 
 public: // INFO : static method
     static NFA::str_t stateInfo() noexcept;
 
 private: // INFO : private static member method
-    static state_t _newState()
-    {
-        return _size++;
-    }
+    static state_t _newState() { return _size++; }
 
 private: // INFO : private member method
     void _toMarkdown(const str_t& filename, const std::ios_base::openmode flag) const noexcept;
@@ -102,7 +105,7 @@ private: // INFO : private member method
 
 private: // INFO : private member variable
     Type::map<std::pair<state_t, Type::char_t>, state_t> _transition {};
-    Type::map<state_t, Type::set<state_t>> _epsilon_transition {};
+    Type::map<state_t, NFA::state_set_t> _epsilon_transition {};
     state_t _start {};
     state_t _end {};
 
@@ -131,7 +134,7 @@ inline NFA::NFA(Args&&... args) noexcept
     parse(std::forward<Args>(args)...);
 }
 
-inline std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept
+inline std::ostream& operator<<(std::ostream& os, const NFA& nfa) noexcept
 {
     using namespace Color;
 
@@ -385,11 +388,10 @@ inline void NFA::parse(NFA::str_t RE, auto&& info, NFA::priority_t priority) noe
     _start = st.top().first;
     _end = st.top().second;
 
-    if (info.size() > 0)
-        _state_info[_end] = { priority, info };
+    if (info.size() > 0) _state_info[_end] = { priority, info };
 }
 
-inline NFA& NFA::operator+ (NFA& other) noexcept
+inline NFA& NFA::operator+(NFA& other) noexcept
 {
     _transition.merge(other._transition);
     _epsilon_transition.merge(other._epsilon_transition);
@@ -429,9 +431,28 @@ inline NFA::str_t NFA::stateInfo() noexcept
     return info;
 }
 
-inline Type::set<NFA::state_t> NFA::getReachedStates(const state_t state) const noexcept
+inline NFA::state_set_t NFA::getReachedStates(const state_t state) const noexcept
 {
-    Type::set<state_t> reached_states {};
+    NFA::state_set_t reached_states {};
+    getReachedStates(state, reached_states);
+    return reached_states;
+}
+
+inline NFA::state_set_t
+    NFA::getReachedStates(const NFA::state_t state, Type::char_t ch) const noexcept
+{
+    return getReachedStates(_transition.at({ state, ch }));
+}
+
+inline void NFA::getReachedStates(
+    const NFA::state_t state, Type::char_t ch, NFA::state_set_t& reached_states) const noexcept
+{
+    getReachedStates(_transition.at({ state, ch }), reached_states);
+}
+
+inline void
+    NFA::getReachedStates(const NFA::state_t state, NFA::state_set_t& reached_states) const noexcept
+{
     std::stack<state_t> st {};
     st.emplace(state);
 
@@ -439,32 +460,21 @@ inline Type::set<NFA::state_t> NFA::getReachedStates(const state_t state) const 
     while (!st.empty()) {
         auto state = st.top();
         st.pop();
-        if (_epsilon_transition.find(state) == _epsilon_transition.end())
-            continue;
+        if (_epsilon_transition.find(state) == _epsilon_transition.end()) continue;
 
         for (const auto& v : _epsilon_transition.at(state)) {
-            if (reached_states.find(v) != reached_states.end())
-                continue;
+            if (reached_states.find(v) != reached_states.end()) continue;
             st.emplace(v);
             reached_states.emplace(v);
         }
     }
-
-    return reached_states;
 }
 
-inline Type::set<NFA::state_t>
-    NFA::getReachedStates(const NFA::state_t state, Type::char_t ch) const noexcept
+inline NFA::state_set_t
+    NFA::getReachedStates(const NFA::state_set_t& state_set, Type::char_t ch) const noexcept
 {
-    // TODO :
-    return getReachedStates(_transition.at({ state, ch }));
-}
-
-inline Type::set<NFA::state_t>
-    NFA::getReachedStates(const Type::set<state_t>& state_set, Type::char_t ch) const noexcept
-{
-    Type::set<state_t> reached_states {};
+    NFA::state_set_t reached_states {};
     for (const auto& state : state_set)
-        reached_states.merge(getReachedStates(state, ch));
+        getReachedStates(state, ch, reached_states);
     return reached_states;
 }
