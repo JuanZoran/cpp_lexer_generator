@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global, undefined-field
 set_project 'cpp_lexer_generator'
 set_toolchains 'clang'
 
@@ -7,6 +8,17 @@ add_requires('fmt' --[[ , 'gtest' ]], 'doctest')
 add_includedirs 'include'
 set_languages 'cxxlatest'
 set_targetdir '$(projectdir)/bin'
+
+-- INFO :
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                         pre_hook                         │
+--  ╰──────────────────────────────────────────────────────────╯
+local old_target = target
+local all_targets = {}
+target = function(name)
+    all_targets[#all_targets + 1] = name
+    old_target(name)
+end
 
 
 add_packages 'fmt'
@@ -23,7 +35,6 @@ if is_mode 'release' then
     set_strip 'all'
 end
 
-
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                      target define                       │
 --  ╰──────────────────────────────────────────────────────────╯
@@ -33,19 +44,67 @@ target("lexer_generator")
     add_files("src/*.cpp")
 
 
-target('test_util')
-    set_kind('binary')
-    set_group('test')
-    add_files('test/test_util.cpp')
-    add_packages('doctest')
+local test_cases = {
+    util = {
+    },
+    nfa = {
+    },
+}
+for name, option in pairs(test_cases) do
+    local target_name = 'test_' .. name
+    target(target_name)
+        set_kind('binary')
+        set_group('test')
+        add_files('test/' .. target_name .. '.cpp')
+        add_packages('doctest')
 
-target('test_nfa')
-    set_kind('binary')
-    set_group('test')
-    add_files('test/test_nfa.cpp')
-    add_packages('doctest')
+    for method, opt in pairs(option) do
+        _G[method](opt)
+    end
+end
+
+task('debug')
+    on_run(function()
+        import('core.tool.compiler')
+        import("core.base.option")
+
+        for _, target_name in ipairs(all_targets) do
+            if option.get(target_name) then
+                os.exec('xmake build ' .. target_name)
+                print(target_name)
 
 
+                local projectdir = os.projectdir()
+                local debugdir = projectdir .. '/debug'
+                local cmd = format('gdb %s/bin/%s', projectdir, target_name)
+
+                local init_script = debugdir .. '/' .. target_name .. '_init'
+                if os.isfile(init_script) then
+                    os.exec(init_script .. ' > /tmp/gdb.log &')
+                end
+
+                local debug_script = debugdir .. '/' .. target_name .. '.gdb'
+                if os.isfile(debug_script) then
+                    cmd = cmd .. ' -x ' .. debug_script
+                end
+                os.exec(cmd)
+                break
+            end
+        end
+    end)
+
+    local menu_options = {}
+    for i, target_name in ipairs(all_targets) do
+        -- local lower_name = name:lower()
+        menu_options[i] = {nil, target_name, "k", nil, "Debug " .. target_name}
+        -- menu_options[i] = {lower_name:sub(1, 1), lower_name, "k", nil, "Debug " .. name}
+    end
+
+    set_menu {
+        usage = "xmake debug [options] [target]",
+        description = "Debug target",
+        options = menu_options
+    }
 
 --
 -- If you want to known more usage about xmake, please see https://xmake.io

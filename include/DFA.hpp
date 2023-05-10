@@ -34,9 +34,12 @@ private:
         return _state_count++;
     }
 
-    void _toMarkdown(const str_t& filename, const std::ios_base::openmode) const noexcept;
-    void _toDotFile(const str_t& filename, const std::ios_base::openmode) const noexcept;
-    void _toImage(const str_t& filename) const noexcept;
+    void _toMarkdown(std::ostream& os) const noexcept;
+    void _toDotFile(std::ostream& os) const noexcept;
+
+    void _toMarkdown(const str_t&, const std::ios_base::openmode) const noexcept;
+    void _toDotFile(const str_t&, const std::ios_base::openmode) const noexcept;
+    void _toImage(const str_t&) const noexcept;
 
 private: // INFO :Private members
     /**
@@ -85,12 +88,13 @@ inline DFA::DFA(NFA&& nfa) noexcept:
     Type::map_t<state_set, state_t> states_map {};
 
     auto create_new_state = [this, &states_map, &st, &nfa](const state_set& q) {
-        states_map[q] = _newState();
+        auto new_state = _newState();
+        states_map[q] = new_state;
         st.push(q);
 
         // check if this state is final state
         if (q.find(nfa._final_state) != q.end())
-            _final_state_set.insert(states_map[q]);
+            _final_state_set.insert(new_state);
     };
     create_new_state(q0);
 
@@ -116,15 +120,37 @@ inline DFA::DFA(NFA&& nfa) noexcept:
 }
 
 inline void
-    DFA::_toMarkdown(const str_t& filename, const std::ios_base::openmode flag) const noexcept
+    DFA::_toMarkdown(const str_t& filename, const std::ios_base::openmode openmode) const noexcept
+{
+    std::ofstream fout { filename, openmode };
+    assert(fout.is_open());
+    _toMarkdown(fout);
+}
+
+inline void
+    DFA::_toDotFile(const str_t& filename, const std::ios_base::openmode openmode) const noexcept
+{
+    std::ofstream fout { filename, openmode };
+    assert(fout.is_open());
+    _toDotFile(fout);
+}
+
+inline void DFA::_toImage(const str_t& filename) const noexcept
+{
+    // std::remove(filename.c_str());
+    // TODO :use system call to generate image
+}
+
+inline void DFA::_toMarkdown(std::ostream& os) const noexcept
+{
+    os << "```dot\n";
+    _toDotFile(os);
+    os << "```\n";
+}
+
+inline void DFA::_toDotFile(std::ostream& os) const noexcept
 {
     using namespace fmt::literals;
-    using ofs = std::ofstream;
-
-    ofs fout { filename, flag };
-    assert(fout.is_open());
-
-
     auto get_final_state_set = [this]() {
         DFA::str_t str;
         for (const auto state : _final_state_set) {
@@ -133,32 +159,23 @@ inline void
         return str;
     };
 
-    // FIXME : final state to be printed
-    fout << fmt::format(
-        "```dot\n"
-        "digraph G {{\n"
 
+    // clang-format off
+    constexpr auto fmt = 
         "rankdir=LR;\n"
-        "{start} [color = green];\n"
-        "node [shape = circle];\n"
-        "{_final_state_set}"
+         "{start} [color = green];\n"
+         "node [shape = circle];\n"
 
-        "{transition_map}\n"
+         "{_final_state_set}"
 
-        "}}\n"
-        "```\n",
+         "{transition_map}\n"
 
+         "}}\n";
+    // clang-format on
+
+    os << fmt::format(
+        fmt,
         "start"_a = _start_state,
         "_final_state_set"_a = get_final_state_set(),
         "transition_map"_a = _state_transition_map);
-}
-
-inline void DFA::_toDotFile(const str_t& filename, const std::ios_base::openmode) const noexcept
-{
-    // TODO :
-}
-
-inline void DFA::_toImage(const str_t& filename) const noexcept
-{
-    // TODO :
 }

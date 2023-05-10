@@ -1,22 +1,53 @@
-\hypertarget{md_bin_README_autotoc_md1}{}\doxysubsection{Preprocess \+: (a$\vert$b)?}\label{md_bin_README_autotoc_md1}
-\hypertarget{md_bin_README_autotoc_md2}{}\doxysubsection{Postfix \+: ab$\vert$?}\label{md_bin_README_autotoc_md2}
+\hypertarget{md_bin_README_autotoc_md1}{}\doxysubsection{Preprocess \+: 1$\ast$$^\wedge$0$^\wedge$(0$\vert$1)$\ast$}\label{md_bin_README_autotoc_md1}
+\hypertarget{md_bin_README_autotoc_md2}{}\doxysubsection{Postfix \+: 1$\ast$0$^\wedge$01$\vert$$\ast$$^\wedge$}\label{md_bin_README_autotoc_md2}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{digraph G \{}
 \DoxyCodeLine{rankdir=LR;}
-\DoxyCodeLine{6 [color = green];}
-\DoxyCodeLine{7 [shape = doublecircle];}
+\DoxyCodeLine{2 [color = green];}
+\DoxyCodeLine{13 [shape = doublecircle];}
 \DoxyCodeLine{node [shape = circle];}
-\DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
-\DoxyCodeLine{2 -\/> 3 [ label = "{}b"{} ];}
+\DoxyCodeLine{0 -\/> 1 [ label = "{}1"{} ];}
+\DoxyCodeLine{4 -\/> 5 [ label = "{}0"{} ];}
+\DoxyCodeLine{6 -\/> 7 [ label = "{}0"{} ];}
+\DoxyCodeLine{8 -\/> 9 [ label = "{}1"{} ];}
 \DoxyCodeLine{}
-\DoxyCodeLine{1 -\/> 5 [ label = "{}ε"{} ];}
-\DoxyCodeLine{3 -\/> 5 [ label = "{}ε"{} ];}
-\DoxyCodeLine{4 -\/> 0 [ label = "{}ε"{} ];}
-\DoxyCodeLine{4 -\/> 2 [ label = "{}ε"{} ];}
-\DoxyCodeLine{5 -\/> 7 [ label = "{}ε"{} ];}
-\DoxyCodeLine{6 -\/> 4 [ label = "{}ε"{} ];}
-\DoxyCodeLine{6 -\/> 7 [ label = "{}ε"{} ];}
+\DoxyCodeLine{1 -\/> 0 [ label = "{}ε"{} ];}
+\DoxyCodeLine{1 -\/> 3 [ label = "{}ε"{} ];}
+\DoxyCodeLine{2 -\/> 0 [ label = "{}ε"{} ];}
+\DoxyCodeLine{2 -\/> 3 [ label = "{}ε"{} ];}
+\DoxyCodeLine{3 -\/> 4 [ label = "{}ε"{} ];}
+\DoxyCodeLine{5 -\/> 12 [ label = "{}ε"{} ];}
+\DoxyCodeLine{7 -\/> 11 [ label = "{}ε"{} ];}
+\DoxyCodeLine{9 -\/> 11 [ label = "{}ε"{} ];}
+\DoxyCodeLine{10 -\/> 6 [ label = "{}ε"{} ];}
+\DoxyCodeLine{10 -\/> 8 [ label = "{}ε"{} ];}
+\DoxyCodeLine{11 -\/> 10 [ label = "{}ε"{} ];}
+\DoxyCodeLine{11 -\/> 13 [ label = "{}ε"{} ];}
+\DoxyCodeLine{12 -\/> 10 [ label = "{}ε"{} ];}
+\DoxyCodeLine{12 -\/> 13 [ label = "{}ε"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{0 [color = green];}
+\DoxyCodeLine{node [shape = circle];}
+\DoxyCodeLine{1 [shape=doublecircle];}
+\DoxyCodeLine{3 [shape=doublecircle];}
+\DoxyCodeLine{4 [shape=doublecircle];}
+\DoxyCodeLine{0 -\/> 1 [ label = "{}0"{} ];}
+\DoxyCodeLine{0 -\/> 2 [ label = "{}1"{} ];}
+\DoxyCodeLine{1 -\/> 3 [ label = "{}0"{} ];}
+\DoxyCodeLine{1 -\/> 4 [ label = "{}1"{} ];}
+\DoxyCodeLine{2 -\/> 1 [ label = "{}0"{} ];}
+\DoxyCodeLine{2 -\/> 2 [ label = "{}1"{} ];}
+\DoxyCodeLine{3 -\/> 3 [ label = "{}0"{} ];}
+\DoxyCodeLine{3 -\/> 4 [ label = "{}1"{} ];}
+\DoxyCodeLine{4 -\/> 3 [ label = "{}0"{} ];}
+\DoxyCodeLine{4 -\/> 4 [ label = "{}1"{} ];}
 \DoxyCodeLine{}
 \DoxyCodeLine{\}}
 
