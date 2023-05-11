@@ -4,7 +4,6 @@
 #include <fmt/format.h>
 #include <string>
 
-
 // (D)eterministic (F)inite (A)utomata
 class DFA: public FSA
 {
@@ -31,12 +30,12 @@ private:
         return _state_count++;
     }
 
-    void _toMarkdown(std::ostream& os) const noexcept;
-    void _toDotFile(std::ostream& os) const noexcept;
+    void _toMarkdown(std::ostream& os) noexcept;
+    void _toDotFile(std::ostream& os) noexcept;
 
-    void _toMarkdown(const str_t&, const std::ios_base::openmode) const noexcept;
-    void _toDotFile(const str_t&, const std::ios_base::openmode) const noexcept;
-    void _toImage(const str_t&) const noexcept;
+    void _toMarkdown(const str_t& filename, const std::ios_base::openmode) noexcept;
+    void _toDotFile(const str_t& filename, const std::ios_base::openmode) noexcept;
+    void _toImage(const str_t& filename)  noexcept;
 
 private: // INFO :Private members
     /**
@@ -47,7 +46,7 @@ private: // INFO :Private members
     /**
      * @brief final state info
      */
-    map_t<state_t, std::pair<NFA::priority_t, NFA::str_t>> _state_info {};
+    map_t<state_t, std::pair<NFA::priority_t, str_t>> _state_info {};
 
     /**
      * @brief state transition map
@@ -71,7 +70,6 @@ private: // INFO :Private members
 inline DFA::DFA(const NFA& nfa) noexcept:
     // _state_count { 1 },
     // _start_state { 0 },
-    // WARN : this will destroy the nfa charset
     _charset { nfa.getCharset() }
 
 {
@@ -115,36 +113,34 @@ inline DFA::DFA(const NFA& nfa) noexcept:
     }
 }
 
-inline void
-    DFA::_toMarkdown(const str_t& filename, const std::ios_base::openmode openmode) const noexcept
+inline void DFA::_toMarkdown(const str_t& filename, const std::ios_base::openmode openmode) noexcept
 {
     std::ofstream fout { filename, openmode };
     assert(fout.is_open());
     _toMarkdown(fout);
 }
 
-inline void
-    DFA::_toDotFile(const str_t& filename, const std::ios_base::openmode openmode) const noexcept
+inline void DFA::_toDotFile(const str_t& filename, const std::ios_base::openmode openmode) noexcept
 {
     std::ofstream fout { filename, openmode };
     assert(fout.is_open());
     _toDotFile(fout);
 }
 
-inline void DFA::_toImage(const str_t& filename) const noexcept
+inline void DFA::_toImage(const str_t& filename) noexcept
 {
     // std::remove(filename.c_str());
     // TODO :use system call to generate image
 }
 
-inline void DFA::_toMarkdown(std::ostream& os) const noexcept
+inline void DFA::_toMarkdown(std::ostream& os) noexcept
 {
     os << "```dot\n";
     _toDotFile(os);
     os << "```\n";
 }
 
-inline void DFA::_toDotFile(std::ostream& os) const noexcept
+inline void DFA::_toDotFile(std::ostream& os) noexcept
 {
     using namespace fmt::literals;
     auto get_final_state_set = [this]() {

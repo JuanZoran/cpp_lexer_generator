@@ -64,21 +64,28 @@ subprocess.run(
 
 import gdb
 import json
-class SendMessage(gdb.Command):
+
+
+class Visual(gdb.Command):
     """Send a message to all WebSocket clients."""
 
     def __init__(self):
-        super(SendMessage, self).__init__("send-message", gdb.COMMAND_USER)
+        super(Visual, self).__init__("visual", gdb.COMMAND_USER)
 
     def invoke(self, arg, from_tty):
-        graph = gdb.parse_and_eval(arg)
-        print(graph)
+        fsa = str(gdb.parse_and_eval("nfa._toDotString()"))
+        fsa = fsa[1:-1].replace("\\n", "\n").replace('\\"', '"')
+        # fsa = gdb.parse_and_eval(arg)
+        # type = gdb.lookup_type("NFA").pointer()
+        # fsa = fsa.cast(type)
+        # result = fsa.dereference()["test"]()
+
         # json.dumps(arg)
         # 使用asyncio.run_coroutine_threadsafe将任务提交给事件循环
-        asyncio.run_coroutine_threadsafe(notify_clients(arg), loop)
+        asyncio.run_coroutine_threadsafe(notify_clients(fsa), loop)
 
 
-SendMessage()
+Visual()
 
 
 def exit_handler(event):

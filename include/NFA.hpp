@@ -103,12 +103,15 @@ private: // INFO : private static member method
 
 
 private: // INFO : private member method
-    void _toMarkdown(const str_t& filename, const std::ios_base::openmode flag) noexcept;
-
+    void _toMarkdown(std::ostream& os) noexcept;
+    void _toDotFile(std::ostream& os) noexcept;
 
     // TODO :
-    void _toDotFile(const str_t& filename, const std::ios_base::openmode flag) const noexcept;
-    void _toImage(const str_t& filename) const noexcept;
+    void _toMarkdown(const str_t& filename, const std::ios_base::openmode flag) noexcept;
+    void _toDotFile(const str_t& filename, const std::ios_base::openmode flag) noexcept;
+    void _toImage(const str_t& filename) noexcept;
+
+    str_t _toDotString() noexcept;
 
 
 private: // INFO : private member variable
@@ -190,23 +193,34 @@ struct fmt::formatter<NFA::epsilon_treansion_map_t>
     }
 };
 
-// inline str
-
-inline void NFA::_toMarkdown(const str_t& filename, const std::ios_base::openmode flag) noexcept
+inline void NFA::_toMarkdown(std::ostream& os) noexcept
 {
     using namespace fmt::literals;
-    using ofs = std::ofstream;
-
-
-    ofs fout { filename, flag };
-    assert(fout.is_open());
-
-    fout << fmt::format(
+    os << fmt::format(
         "## RE: {RE}\n"
         "### Preprocess : {pre_process}\n"
         "### Postfix : {postfix}\n"
-        "\n"
         "```dot\n"
+        "\n"
+        "{dot_string}"
+        "```\n",
+
+        "RE"_a = _RE,
+        "pre_process"_a = _pre_process,
+        "postfix"_a = _postfix,
+        "dot_string"_a = _toDotString());
+}
+
+inline void NFA::_toDotFile(std::ostream& os) noexcept
+{
+    // TODO :
+    os << _toDotString();
+}
+
+inline NFA::str_t NFA::_toDotString() noexcept
+{
+    using namespace fmt::literals;
+    return fmt::format(
         "digraph NFA {{\n"
         "{graph_style}"
         "{start} [color = green];\n"
@@ -214,14 +228,9 @@ inline void NFA::_toMarkdown(const str_t& filename, const std::ios_base::openmod
 
         "{_state_transition_map}\n"
         "{_epsilon_transition_map}"
-        "}}\n"
-        "```\n",
+        "}}\n",
 
 
-
-        "RE"_a = _RE,
-        "pre_process"_a = _pre_process,
-        "postfix"_a = _postfix,
         "graph_style"_a = graph_style,
         "start"_a = _start_state,
         "end"_a = _final_state,
@@ -229,13 +238,23 @@ inline void NFA::_toMarkdown(const str_t& filename, const std::ios_base::openmod
         "_epsilon_transition_map"_a = _epsilon_transition_map);
 }
 
-inline void
-    NFA::_toDotFile(const str_t& filename, const std::ios_base::openmode flag) const noexcept
+// inline str
+
+inline void NFA::_toMarkdown(const str_t& filename, const std::ios_base::openmode openmode) noexcept
 {
-    // TODO :
+    std::ofstream fout { filename, openmode };
+    assert(fout.is_open());
+    _toMarkdown(fout);
 }
 
-inline void NFA::_toImage(const str_t& filename) const noexcept
+inline void NFA::_toDotFile(const str_t& filename, const std::ios_base::openmode openmode) noexcept
+{
+    std::ofstream fout { filename, openmode };
+    assert(fout.is_open());
+    _toDotFile(fout);
+}
+
+inline void NFA::_toImage(const str_t& filename) noexcept
 {
     // TODO :
 }

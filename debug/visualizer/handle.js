@@ -2,6 +2,7 @@ const automatonContainer = document.getElementById("automatonContainer");
 const websocket = new WebSocket("ws://localhost:8001");
 websocket.onmessage = async function(event) {
     const dotString = event.data;
+    console.log('received message: ' + dotString);
     d3.select("#graph").graphviz().renderDot(dotString);
 };
 // var dotIndex = 0;
