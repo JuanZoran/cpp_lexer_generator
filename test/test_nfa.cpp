@@ -3,9 +3,8 @@
 #include <doctest/doctest.h>
 
 NFA::str_t test_str = "a+b";
-using namespace Type;
 
-set_t<std::pair<NFA::state_t, state_set_t>> test_case {
+NFA::set_t<std::pair<NFA::state_t, NFA::state_set_t>> test_case {
     {0,  { 0 }         },
     { 1, { 0, 1, 3, 4 }},
     { 2, { 0, 2 }      },
@@ -15,10 +14,10 @@ set_t<std::pair<NFA::state_t, state_set_t>> test_case {
 };
 
 
-map_t<std::pair<state_set_t, char_t>, state_set_t> transition_test_case {
-    // {{ { 0 }, 'a' },           { 0, 1, 3, 4 }},
-    // { { { 0, 1, 3, 4 }, 'a' }, { 0, 1, 3, 4 }},
-    { { { 0, 1, 3, 4 }, 'b' }, { 5 }         },
+NFA::map_t<std::pair<NFA::state_set_t, NFA::char_t>, NFA::state_set_t> transition_test_case {
+  // {{ { 0 }, 'a' },           { 0, 1, 3, 4 }},
+  // { { { 0, 1, 3, 4 }, 'a' }, { 0, 1, 3, 4 }},
+    {{ { 0, 1, 3, 4 }, 'b' }, { 5 }},
 };
 
 TEST_CASE("NFA")
@@ -28,7 +27,7 @@ TEST_CASE("NFA")
     {
         SUBCASE("Param: state")
         {
-            state_set_t reachedStates;
+            NFA::state_set_t reachedStates;
             for (auto test : test_case) {
                 reachedStates = *nfa.getReachedStates(test.first);
                 CHECK_EQ(reachedStates, test.second);

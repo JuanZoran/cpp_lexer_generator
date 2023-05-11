@@ -9,17 +9,26 @@ Thompson algorithm\textquotesingle{}s \mbox{\hyperlink{classNFA}{NFA}}.
 
 {\ttfamily \#include $<$NFA.\+hpp$>$}
 
+
+
+Inheritance diagram for NFA\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=115pt]{classNFA__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for NFA\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=115pt]{classNFA__coll__graph}
+\end{center}
+\end{figure}
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
-\item 
-\mbox{\Hypertarget{classNFA_a08fe01459c115453621137748473a3ae}\label{classNFA_a08fe01459c115453621137748473a3ae}} 
-using {\bfseries state\+\_\+t} = Type\+::state\+\_\+t
-\item 
-\mbox{\Hypertarget{classNFA_ab4ff263158b3a7217efc40c111fe3112}\label{classNFA_ab4ff263158b3a7217efc40c111fe3112}} 
-using {\bfseries size\+\_\+t} = uint32\+\_\+t
-\item 
-\mbox{\Hypertarget{classNFA_a72aad70bf8a0924e2ea28af61e10e77c}\label{classNFA_a72aad70bf8a0924e2ea28af61e10e77c}} 
-using {\bfseries str\+\_\+t} = std\+::string
 \item 
 \mbox{\Hypertarget{classNFA_acea6db16b1f17741b28f6eebe7c08a67}\label{classNFA_acea6db16b1f17741b28f6eebe7c08a67}} 
 using {\bfseries priority\+\_\+t} = uint32\+\_\+t
@@ -27,11 +36,8 @@ using {\bfseries priority\+\_\+t} = uint32\+\_\+t
 \mbox{\Hypertarget{classNFA_a1e8918697c4e3e0e6f7302d9da86ead7}\label{classNFA_a1e8918697c4e3e0e6f7302d9da86ead7}} 
 using {\bfseries str\+\_\+view\+\_\+t} = std\+::string\+\_\+view
 \item 
-\mbox{\Hypertarget{classNFA_a3bfe366b5b9961121e0dc068f34dbd15}\label{classNFA_a3bfe366b5b9961121e0dc068f34dbd15}} 
-using {\bfseries state\+\_\+set\+\_\+t} = Type\+::state\+\_\+set\+\_\+t
-\item 
-\mbox{\Hypertarget{classNFA_ad7bd8ae6e336672e6bb7c7c0987c81a9}\label{classNFA_ad7bd8ae6e336672e6bb7c7c0987c81a9}} 
-using {\bfseries epsilon\+\_\+treansion\+\_\+map\+\_\+t} = Type\+::map\+\_\+t$<$ state\+\_\+t, NFA\+::state\+\_\+set\+\_\+t $>$
+\mbox{\Hypertarget{classNFA_a863f67478c63de8c7676ef9ea3d8f6bb}\label{classNFA_a863f67478c63de8c7676ef9ea3d8f6bb}} 
+using {\bfseries epsilon\+\_\+treansion\+\_\+map\+\_\+t} = FSA\+::map\+\_\+t$<$ state\+\_\+t, NFA\+::state\+\_\+set\+\_\+t $>$
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -53,8 +59,8 @@ using {\bfseries epsilon\+\_\+treansion\+\_\+map\+\_\+t} = Type\+::map\+\_\+t$<$
 \mbox{\Hypertarget{classNFA_a03f526ba52023a5f9dbb31382fb99d2d}\label{classNFA_a03f526ba52023a5f9dbb31382fb99d2d}} 
 void {\bfseries parse} (str\+\_\+t \&RE) noexcept
 \item 
-\mbox{\Hypertarget{classNFA_a24a2bfc4559ebd589084955c8a65dbe8}\label{classNFA_a24a2bfc4559ebd589084955c8a65dbe8}} 
-void {\bfseries parse} (str\+\_\+t \&RE, Type\+::str\+\_\+auto\+\_\+ref\+\_\+c auto \&\&info, NFA\+::priority\+\_\+t priority=1) noexcept
+\mbox{\Hypertarget{classNFA_af93d4a709ddd53be9edc792bb4080bd6}\label{classNFA_af93d4a709ddd53be9edc792bb4080bd6}} 
+void {\bfseries parse} (str\+\_\+t \&RE, str\+\_\+t \&info, NFA\+::priority\+\_\+t priority=1) noexcept
 \item 
 \mbox{\Hypertarget{classNFA_ade2bfc58327f41594168dd8e733f3329}\label{classNFA_ade2bfc58327f41594168dd8e733f3329}} 
 void {\bfseries clear} () noexcept
@@ -67,17 +73,26 @@ bool {\bfseries match} (const str\+\_\+view\+\_\+t \&str) const noexcept
 \item 
 std\+::optional$<$ state\+\_\+set\+\_\+t $>$ \mbox{\hyperlink{classNFA_a06c9f20d265c7769fb0ff72288a83c38}{get\+Reached\+States}} (const state\+\_\+t state) const noexcept
 \begin{DoxyCompactList}\small\item\em Get the set of stated reached by the given string. \end{DoxyCompactList}\item 
-\mbox{\Hypertarget{classNFA_a0e717a7f422c31ba72240a880d237530}\label{classNFA_a0e717a7f422c31ba72240a880d237530}} 
-std\+::optional$<$ state\+\_\+set\+\_\+t $>$ {\bfseries get\+Reached\+States} (const state\+\_\+t state, Type\+::char\+\_\+t ch) const noexcept
+\mbox{\Hypertarget{classNFA_a6acf4232e85772697c6c2f68f3295fce}\label{classNFA_a6acf4232e85772697c6c2f68f3295fce}} 
+std\+::optional$<$ state\+\_\+set\+\_\+t $>$ {\bfseries get\+Reached\+States} (const state\+\_\+t state, char\+\_\+t ch) const noexcept
 \item 
-\mbox{\Hypertarget{classNFA_a6f53bd9467188c93e5d03f38b4816a42}\label{classNFA_a6f53bd9467188c93e5d03f38b4816a42}} 
-std\+::optional$<$ state\+\_\+set\+\_\+t $>$ {\bfseries get\+Reached\+States} (const state\+\_\+set\+\_\+t \&state\+\_\+set, Type\+::char\+\_\+t ch) const noexcept
+\mbox{\Hypertarget{classNFA_aa36060fbdf9d64af7142f83f38c2c069}\label{classNFA_aa36060fbdf9d64af7142f83f38c2c069}} 
+std\+::optional$<$ state\+\_\+set\+\_\+t $>$ {\bfseries get\+Reached\+States} (const state\+\_\+set\+\_\+t \&state\+\_\+set, char\+\_\+t ch) const noexcept
 \item 
 \mbox{\Hypertarget{classNFA_a4af9a7cdf48a659387286b0197ee98b9}\label{classNFA_a4af9a7cdf48a659387286b0197ee98b9}} 
 void {\bfseries get\+Reached\+States} (const state\+\_\+t state, state\+\_\+set\+\_\+t \&reached\+\_\+states) const noexcept
 \item 
-\mbox{\Hypertarget{classNFA_a68f3a3b4bfbfb8913c61b48a739ce66d}\label{classNFA_a68f3a3b4bfbfb8913c61b48a739ce66d}} 
-void {\bfseries get\+Reached\+States} (const state\+\_\+t state, Type\+::char\+\_\+t ch, state\+\_\+set\+\_\+t \&reached\+\_\+states) const noexcept
+\mbox{\Hypertarget{classNFA_a7177ca9a8ce8f7b81a4ef833084a5d40}\label{classNFA_a7177ca9a8ce8f7b81a4ef833084a5d40}} 
+void {\bfseries get\+Reached\+States} (const state\+\_\+t state, char\+\_\+t ch, state\+\_\+set\+\_\+t \&reached\+\_\+states) const noexcept
+\item 
+\mbox{\Hypertarget{classNFA_a7ca4718397dfb34460ca92003c7c7e34}\label{classNFA_a7ca4718397dfb34460ca92003c7c7e34}} 
+set\+\_\+t$<$ char\+\_\+t $>$ {\bfseries get\+Charset} () const noexcept
+\item 
+\mbox{\Hypertarget{classNFA_a24b2f3ef26b79d9993e5187dacb0b20c}\label{classNFA_a24b2f3ef26b79d9993e5187dacb0b20c}} 
+state\+\_\+t {\bfseries get\+Start\+State} () const noexcept
+\item 
+\mbox{\Hypertarget{classNFA_ac669767b4d6799de2213f78e7276b3f3}\label{classNFA_ac669767b4d6799de2213f78e7276b3f3}} 
+state\+\_\+t {\bfseries get\+Final\+State} () const noexcept
 \end{DoxyCompactItemize}
 \doxysubsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
@@ -94,12 +109,10 @@ static NFA\+::str\+\_\+t {\bfseries state\+Info} () noexcept
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classNFA_af49c8bac914a5cca9044a10bfb74eac1}\label{classNFA_af49c8bac914a5cca9044a10bfb74eac1}} 
-class {\bfseries DFA}
-\item 
 \mbox{\Hypertarget{classNFA_ae9844cbbc66ed759befe66946c14fc22}\label{classNFA_ae9844cbbc66ed759befe66946c14fc22}} 
 std\+::ostream \& {\bfseries operator$<$$<$} (std\+::ostream \&os, const \mbox{\hyperlink{classNFA}{NFA}} \&nfa) noexcept
 \end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
 
 
 \doxysubsection{Detailed Description}

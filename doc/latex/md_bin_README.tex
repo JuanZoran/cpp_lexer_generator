@@ -2,11 +2,13 @@
 \hypertarget{md_bin_README_autotoc_md2}{}\doxysubsection{Postfix \+: 1$\ast$0$^\wedge$01$\vert$$\ast$$^\wedge$}\label{md_bin_README_autotoc_md2}
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{digraph G \{}
+\DoxyCodeLine{digraph NFA \{}
 \DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
 \DoxyCodeLine{2 [color = green];}
 \DoxyCodeLine{13 [shape = doublecircle];}
-\DoxyCodeLine{node [shape = circle];}
 \DoxyCodeLine{0 -\/> 1 [ label = "{}1"{} ];}
 \DoxyCodeLine{4 -\/> 5 [ label = "{}0"{} ];}
 \DoxyCodeLine{6 -\/> 7 [ label = "{}0"{} ];}
@@ -26,15 +28,18 @@
 \DoxyCodeLine{11 -\/> 13 [ label = "{}ε"{} ];}
 \DoxyCodeLine{12 -\/> 10 [ label = "{}ε"{} ];}
 \DoxyCodeLine{12 -\/> 13 [ label = "{}ε"{} ];}
-\DoxyCodeLine{}
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
  
 \begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
 \DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
 \DoxyCodeLine{0 [color = green];}
-\DoxyCodeLine{node [shape = circle];}
 \DoxyCodeLine{1 [shape=doublecircle];}
 \DoxyCodeLine{3 [shape=doublecircle];}
 \DoxyCodeLine{4 [shape=doublecircle];}

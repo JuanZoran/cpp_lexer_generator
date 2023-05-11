@@ -1,18 +1,15 @@
 #pragma once
+#include <FSA.hpp>
 #include <NFA.hpp>
-#include <Type.hpp>
 #include <fmt/format.h>
 #include <string>
 
-class DFA
+
+// (D)eterministic (F)inite (A)utomata
+class DFA: public FSA
 {
 public:
-    using state_t = Type::state_t;
-    using size_t = uint32_t;
-    using str_t = Type::str_t;
-
-public:
-    DFA(NFA&& nfa) noexcept;
+    DFA(const NFA& nfa) noexcept;
 
 
     // clang-format off
@@ -50,50 +47,49 @@ private: // INFO :Private members
     /**
      * @brief final state info
      */
-    Type::map_t<state_t, std::pair<NFA::priority_t, NFA::str_t>> _state_info {};
+    map_t<state_t, std::pair<NFA::priority_t, NFA::str_t>> _state_info {};
 
     /**
      * @brief state transition map
      */
-    Type::transition_map_t _state_transition_map {};
+    transition_map_t _state_transition_map {};
 
     /**
      * @brief final state set
      */
-    Type::state_set_t _final_state_set {};
+    state_set_t _final_state_set {};
 
     /**
      * @brief input charset
      */
-    Type::set_t<Type::char_t> _charset {};
+    set_t<char_t> _charset {};
 
     state_t _start_state {};
     size_t _state_count {};
 };
 
-inline DFA::DFA(NFA&& nfa) noexcept:
+inline DFA::DFA(const NFA& nfa) noexcept:
     // _state_count { 1 },
     // _start_state { 0 },
     // WARN : this will destroy the nfa charset
-    _charset { std::move(nfa._charset) }
+    _charset { nfa.getCharset() }
 
 {
-    using state_set = Type::state_set_t;
-    auto result = nfa.getReachedStates(nfa._start_state);
+    auto result = nfa.getReachedStates(nfa.getStartState());
     assert(result);
     auto q0 = *result;
 
     // TODO :improve memory usage via use pointer to store state_set
-    std::stack<state_set> st {};
-    Type::map_t<state_set, state_t> states_map {};
+    std::stack<state_set_t> st {};
+    map_t<state_set_t, state_t> states_map {};
 
-    auto create_new_state = [this, &states_map, &st, &nfa](const state_set& q) {
+    auto create_new_state = [this, &states_map, &st, &nfa](const state_set_t& q) {
         auto new_state = _newState();
         states_map[q] = new_state;
         st.push(q);
 
         // check if this state is final state
-        if (q.find(nfa._final_state) != q.end())
+        if (q.find(nfa.getFinalState()) != q.end())
             _final_state_set.insert(new_state);
     };
     create_new_state(q0);
@@ -162,10 +158,10 @@ inline void DFA::_toDotFile(std::ostream& os) const noexcept
 
     // clang-format off
     constexpr auto fmt = 
+        "digraph DFA {{\n"
         "rankdir=LR;\n"
+        "{graph_style}"
          "{start} [color = green];\n"
-         "node [shape = circle];\n"
-
          "{_final_state_set}"
 
          "{transition_map}\n"
@@ -176,6 +172,7 @@ inline void DFA::_toDotFile(std::ostream& os) const noexcept
     os << fmt::format(
         fmt,
         "start"_a = _start_state,
+        "graph_style"_a = graph_style,
         "_final_state_set"_a = get_final_state_set(),
         "transition_map"_a = _state_transition_map);
 }

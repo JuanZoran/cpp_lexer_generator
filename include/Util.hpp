@@ -1,11 +1,11 @@
 #pragma once
-#include <Type.hpp>
+#include <FSA.hpp>
 #include <ios>
 #include <stack>
 #include <string>
 
 namespace Util {
-using str = std::string;
+using str = FSA::str_t;
 
 /**
  * @brief Add concat operator to regex string
@@ -67,9 +67,9 @@ inline void addConcatOperator(str& str)
  * @param infix expression
  * @param inputCharSet reference to a set of characters to store the input character set
  */
-inline void getPostfixAndChatSet(str& infix, Type::set_t<char>& inputCharSet)
+inline void getPostfixAndChatSet(str& infix, FSA::set_t<char>& inputCharSet)
 {
-    static const Type::map_t<char, int> Priorities = {
+    static const FSA::map_t<char, int> Priorities = {
         {'|',  2},
         { '^', 4},
         { '*', 8},
@@ -131,8 +131,8 @@ inline void getPostfixAndChatSet(str& infix, Type::set_t<char>& inputCharSet)
     template <typename T>               \
     friend inline void Util::toDiagram( \
         T value,                        \
-        const Type::str_t& filename,    \
-        Type::DiagramFmt format,        \
+        const FSA::str_t& filename,     \
+        FSA::DiagramFmt format,         \
         const std::ios_base::openmode flag) noexcept
 
 /**
@@ -144,23 +144,22 @@ inline void getPostfixAndChatSet(str& infix, Type::set_t<char>& inputCharSet)
 template <typename T>
 inline void toDiagram(
     T value,
-    const Type::str_t& filename,
-    Type::DiagramFmt format = Type::DiagramFmt::MARKDOWN,
+    const FSA::str_t& filename,
+    FSA::DiagramFmt format = FSA::DiagramFmt::MARKDOWN,
     const std::ios_base::openmode flag = std::ios::app) noexcept
 {
     switch (format) {
-        case Type::DiagramFmt::MARKDOWN:
+        case FSA::DiagramFmt::MARKDOWN:
             value._toMarkdown(filename, flag);
             break;
-        case Type::DiagramFmt::DOTFILE:
+        case FSA::DiagramFmt::DOTFILE:
             value._toDotFile(filename, flag);
             break;
-        case Type::DiagramFmt::IMAGE:
+        case FSA::DiagramFmt::IMAGE:
             value._toImage(filename);
             break;
         default:
             break;
     }
 }
-
 } // namespace Util

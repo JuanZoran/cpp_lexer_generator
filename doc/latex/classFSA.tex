@@ -1,0 +1,89 @@
+\hypertarget{classFSA}{}\doxysection{FSA Class Reference}
+\label{classFSA}\index{FSA@{FSA}}
+
+
+Inheritance diagram for FSA\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=168pt]{classFSA__inherit__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFSA_ad7a18d4df8d06c14fd16a935ccf0be73}\label{classFSA_ad7a18d4df8d06c14fd16a935ccf0be73}} 
+enum class {\bfseries Diagram\+Fmt} \{ {\bfseries MARKDOWN}
+, {\bfseries DOTFILE}
+, {\bfseries IMAGE}
+ \}
+\item 
+\mbox{\Hypertarget{classFSA_a13c05baeda3fae556188b9e274d36991}\label{classFSA_a13c05baeda3fae556188b9e274d36991}} 
+{\footnotesize template$<$typename key , typename value $>$ }\\using {\bfseries map\+\_\+t} = std\+::map$<$ key, value $>$
+\item 
+\mbox{\Hypertarget{classFSA_ae461ee6b4dbdcf3862d10b25d66cd792}\label{classFSA_ae461ee6b4dbdcf3862d10b25d66cd792}} 
+{\footnotesize template$<$typename value $>$ }\\using {\bfseries set\+\_\+t} = std\+::set$<$ value $>$
+\item 
+\mbox{\Hypertarget{classFSA_accd6b25d0232d2ad05a294c2cc79aaad}\label{classFSA_accd6b25d0232d2ad05a294c2cc79aaad}} 
+using {\bfseries char\+\_\+t} = char
+\item 
+\mbox{\Hypertarget{classFSA_acb52822212b8b8f8bf72c483502856f4}\label{classFSA_acb52822212b8b8f8bf72c483502856f4}} 
+using {\bfseries state\+\_\+t} = uint32\+\_\+t
+\item 
+\mbox{\Hypertarget{classFSA_ab695caf8ddd228b409682d4d77278e53}\label{classFSA_ab695caf8ddd228b409682d4d77278e53}} 
+using {\bfseries size\+\_\+t} = uint32\+\_\+t
+\item 
+\mbox{\Hypertarget{classFSA_a6327f124c4d7044495b7adcd495f2854}\label{classFSA_a6327f124c4d7044495b7adcd495f2854}} 
+using {\bfseries transition\+\_\+t} = std\+::pair$<$ state\+\_\+t, char\+\_\+t $>$
+\item 
+\mbox{\Hypertarget{classFSA_a5e4884e55475659f85f68248799019ee}\label{classFSA_a5e4884e55475659f85f68248799019ee}} 
+using {\bfseries transition\+\_\+map\+\_\+t} = map\+\_\+t$<$ transition\+\_\+t, state\+\_\+t $>$
+\item 
+\mbox{\Hypertarget{classFSA_a74c497612dc5081d172b5907eafa281c}\label{classFSA_a74c497612dc5081d172b5907eafa281c}} 
+using {\bfseries state\+\_\+set\+\_\+t} = set\+\_\+t$<$ state\+\_\+t $>$
+\item 
+\mbox{\Hypertarget{classFSA_a1d4f01c6cc269ced451b240f60e4c3c5}\label{classFSA_a1d4f01c6cc269ced451b240f60e4c3c5}} 
+using {\bfseries str\+\_\+t} = std\+::string
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classFSA_a43cca7886b5a2f3d1a5dfb345e0a9a0a}\label{classFSA_a43cca7886b5a2f3d1a5dfb345e0a9a0a}} 
+{\bfseries FSA} (\mbox{\hyperlink{classFSA}{FSA}} \&\&)=default
+\item 
+\mbox{\Hypertarget{classFSA_af26381ed484f0c88bf9f80d53f400fd7}\label{classFSA_af26381ed484f0c88bf9f80d53f400fd7}} 
+{\bfseries FSA} (const \mbox{\hyperlink{classFSA}{FSA}} \&)=default
+\item 
+\mbox{\Hypertarget{classFSA_a7b01679fe96549f80df9b9a30e5e023d}\label{classFSA_a7b01679fe96549f80df9b9a30e5e023d}} 
+\mbox{\hyperlink{classFSA}{FSA}} \& {\bfseries operator=} (\mbox{\hyperlink{classFSA}{FSA}} \&\&)=default
+\item 
+\mbox{\Hypertarget{classFSA_afb11e9826b4f1b4bde689934d6d3d269}\label{classFSA_afb11e9826b4f1b4bde689934d6d3d269}} 
+\mbox{\hyperlink{classFSA}{FSA}} \& {\bfseries operator=} (const \mbox{\hyperlink{classFSA}{FSA}} \&)=default
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+constexpr static auto {\bfseries graph\+\_\+style}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classFSA_a6af5acfd303e8a494050981a98a60774}\label{classFSA_a6af5acfd303e8a494050981a98a60774}} 
+\index{FSA@{FSA}!graph\_style@{graph\_style}}
+\index{graph\_style@{graph\_style}!FSA@{FSA}}
+\doxysubsubsection{\texorpdfstring{graph\_style}{graph\_style}}
+{\footnotesize\ttfamily constexpr static auto FSA\+::graph\+\_\+style\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [constexpr]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \textcolor{stringliteral}{"{}rankdir=LR;\(\backslash\)n"{}}}
+\DoxyCodeLine{                                        \textcolor{stringliteral}{"{}graph [bgcolor = transparent];\(\backslash\)n"{}}}
+\DoxyCodeLine{                                        \textcolor{stringliteral}{"{}node [color = blue, fontcolor = white]\(\backslash\)n"{}}}
+\DoxyCodeLine{                                        \textcolor{stringliteral}{"{}edge [color = blue];\(\backslash\)n"{}}}
+
+\end{DoxyCode}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/FSA.\+hpp\end{DoxyCompactItemize}

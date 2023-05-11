@@ -7,11 +7,10 @@ using namespace std;
 using namespace fmt;
 
 
-
 #if 1
 int main(int argc, char* argv[])
 {
-    vector<Type::str_t> tests { "1*0(0|1)*" };
+    vector<FSA::str_t> tests { "1*0(0|1)*" };
     // vector<Type::str_t> tests {
     //     "a+b",
     //     // "a",
@@ -19,11 +18,13 @@ int main(int argc, char* argv[])
     constexpr auto filename = "README.md";
     remove(filename);
 
+
+    auto nfa = NFA();
     for (auto& RE : tests) {
         print("Current RE: {}\n", Color::Green_s(RE));
-        auto nfa = NFA(RE);
+        nfa.parse(RE);
         Util::toDiagram(nfa, filename);
-        auto dfa = DFA(std::move(nfa));
+        auto dfa = DFA(nfa);
         Util::toDiagram(dfa, filename);
     }
 

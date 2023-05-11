@@ -1,5 +1,5 @@
 #pragma once
-#include <Type.hpp>
+#include <FSA.hpp>
 #include <Util.hpp>
 #include <cassert>
 #include <color.h>
@@ -17,19 +17,15 @@
  * @brief Thompson algorithm's NFA
  *
  */
-class NFA
+
+// (N)on-Deterministic (F)inite (A)utomata
+class NFA: public FSA
 {
 public: // INFO : type alias
-    friend class DFA;
-
     // clang-format off
-    using state_t    = Type::state_t;
-    using size_t     = uint32_t;
-    using str_t      = std::string;
     using priority_t = uint32_t;
     using str_view_t = std::string_view;
-    using state_set_t = Type::state_set_t;
-    using epsilon_treansion_map_t = Type::map_t<state_t, NFA::state_set_t>;
+    using epsilon_treansion_map_t = FSA::map_t<state_t, NFA::state_set_t>;
     // clang-format on
 
 public: // INFO : built-in method
@@ -54,8 +50,7 @@ public: // INFO : member method
     friend std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept;
 
     void parse(str_t& RE) noexcept;
-
-    void parse(str_t& RE, Type::str_auto_ref_c auto&& info, NFA::priority_t priority = 1) noexcept;
+    void parse(str_t& RE, str_t& info, NFA::priority_t priority = 1) noexcept;
 
     void clear() noexcept;
     NFA& operator+ (NFA& rhs) noexcept;
@@ -69,16 +64,33 @@ public: // INFO : member method
      */
     std::optional<state_set_t> getReachedStates(const state_t state) const noexcept;
 
-    std::optional<state_set_t>
-        getReachedStates(const state_t state, Type::char_t ch) const noexcept;
+    std::optional<state_set_t> getReachedStates(const state_t state, char_t ch) const noexcept;
 
     std::optional<state_set_t>
-        getReachedStates(const state_set_t& state_set, Type::char_t ch) const noexcept;
+        getReachedStates(const state_set_t& state_set, char_t ch) const noexcept;
 
     // TODO :
     void getReachedStates(const state_t state, state_set_t& reached_states) const noexcept;
     void getReachedStates(
-        const state_t state, Type::char_t ch, state_set_t& reached_states) const noexcept;
+        const state_t state, char_t ch, state_set_t& reached_states) const noexcept;
+
+    set_t<char_t> getCharset() const noexcept
+    {
+        return _charset;
+    }
+
+    state_t getStartState() const noexcept
+    {
+        return _start_state;
+    }
+
+    state_t getFinalState() const noexcept
+    {
+        return _final_state;
+    }
+
+
+
 
 public: // INFO : static method
     static NFA::str_t stateInfo() noexcept;
@@ -88,6 +100,7 @@ private: // INFO : private static member method
     {
         return _state_count++;
     }
+
 
 private: // INFO : private member method
     void _toMarkdown(const str_t& filename, const std::ios_base::openmode flag) noexcept;
@@ -99,23 +112,23 @@ private: // INFO : private member method
 
 
 private: // INFO : private member variable
-    Type::transition_map_t _state_transition_map {};
+    transition_map_t _state_transition_map {};
     epsilon_treansion_map_t _epsilon_transition_map {};
     state_t _start_state {};
     state_t _final_state {};
 
 
 private:
-    static Type::map_t<state_t, std::pair<priority_t, str_t>> _state_info;
+    static map_t<state_t, std::pair<priority_t, str_t>> _state_info;
     static size_t _state_count;
     str_t _RE {};
     str_t _postfix {};
-    Type::set_t<Type::char_t> _charset;
+    set_t<char_t> _charset;
     str_t _pre_process {};
 };
 
 inline NFA::size_t NFA::_state_count {};
-inline Type::map_t<NFA::state_t, std::pair<NFA::priority_t, NFA::str_t>> NFA::_state_info {};
+inline FSA::map_t<NFA::state_t, std::pair<NFA::priority_t, NFA::str_t>> NFA::_state_info {};
 
 /*
  *
@@ -194,16 +207,13 @@ inline void NFA::_toMarkdown(const str_t& filename, const std::ios_base::openmod
         "### Postfix : {postfix}\n"
         "\n"
         "```dot\n"
-        "digraph G {{\n"
-        "rankdir=LR;\n"
+        "digraph NFA {{\n"
+        "{graph_style}"
         "{start} [color = green];\n"
         "{end} [shape = doublecircle];\n"
-        "node [shape = circle];\n"
 
         "{_state_transition_map}\n"
-
-        "{_epsilon_transition_map}\n"
-
+        "{_epsilon_transition_map}"
         "}}\n"
         "```\n",
 
@@ -212,6 +222,7 @@ inline void NFA::_toMarkdown(const str_t& filename, const std::ios_base::openmod
         "RE"_a = _RE,
         "pre_process"_a = _pre_process,
         "postfix"_a = _postfix,
+        "graph_style"_a = graph_style,
         "start"_a = _start_state,
         "end"_a = _final_state,
         "_state_transition_map"_a = _state_transition_map,
@@ -300,7 +311,7 @@ inline void NFA::parse(NFA::str_t& RE) noexcept
         st.top() = { new_start, new_end };
     };
 
-    auto Char = [this, &st](const Type::char_t ch) {
+    auto Char = [this, &st](const char_t ch) {
         auto start = _newState(), end = _newState();
         _state_transition_map[{ start, ch }] = end;
         st.push({ start, end });
@@ -369,10 +380,9 @@ inline void NFA::parse(NFA::str_t& RE) noexcept
     _final_state = st.top().second;
 }
 
-inline void
-    NFA::parse(NFA::str_t& RE, Type::str_auto_ref_c auto&& info, NFA::priority_t priority) noexcept
+inline void NFA::parse(NFA::str_t& RE, str_t& info, NFA::priority_t priority) noexcept
 {
-    _state_info[_final_state] = { priority, std::forward(info) };
+    _state_info[_final_state] = { priority, info };
     parse(RE);
 }
 
@@ -427,7 +437,7 @@ inline std::optional<NFA::state_set_t> NFA::getReachedStates(const state_t state
 }
 
 inline std::optional<NFA::state_set_t>
-    NFA::getReachedStates(const NFA::state_t state, Type::char_t ch) const noexcept
+    NFA::getReachedStates(const NFA::state_t state, char_t ch) const noexcept
 {
     auto it = _state_transition_map.find({ state, ch });
     if (it == _state_transition_map.end()) {
@@ -438,7 +448,7 @@ inline std::optional<NFA::state_set_t>
 }
 
 inline void NFA::getReachedStates(
-    const NFA::state_t state, Type::char_t ch, NFA::state_set_t& reached_states) const noexcept
+    const NFA::state_t state, char_t ch, NFA::state_set_t& reached_states) const noexcept
 {
     auto it = _state_transition_map.find({ state, ch });
     if (it == _state_transition_map.end()) {
@@ -472,7 +482,7 @@ inline void
 }
 
 inline std::optional<NFA::state_set_t>
-    NFA::getReachedStates(const NFA::state_set_t& state_set, Type::char_t ch) const noexcept
+    NFA::getReachedStates(const NFA::state_set_t& state_set, char_t ch) const noexcept
 {
     NFA::state_set_t reached_states {};
 

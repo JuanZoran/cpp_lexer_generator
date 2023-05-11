@@ -70,24 +70,29 @@ task('debug')
 
         for _, target_name in ipairs(all_targets) do
             if option.get(target_name) then
+                -- build target
                 os.exec('xmake build ' .. target_name)
-                print(target_name)
 
 
                 local projectdir = os.projectdir()
                 local debugdir = projectdir .. '/debug'
                 local cmd = format('gdb %s/bin/%s', projectdir, target_name)
 
-                local init_script = debugdir .. '/' .. target_name .. '_init'
-                if os.isfile(init_script) then
-                    os.exec(init_script .. ' > /tmp/gdb.log &')
-                end
+                -- check and run init script
+                -- local init_script = debugdir .. '/' .. target_name .. '_init'
+                -- if os.isfile(init_script) then
+                --     os.run(format("zsh -c '%s &'", init_script))
+                -- end
 
+                -- check and run debug script
                 local debug_script = debugdir .. '/' .. target_name .. '.gdb'
                 if os.isfile(debug_script) then
                     cmd = cmd .. ' -x ' .. debug_script
                 end
                 os.exec(cmd)
+
+                -- kill init script
+                -- os.exec('pkill -f ' .. init_script)
                 break
             end
         end

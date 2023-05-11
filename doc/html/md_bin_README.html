@@ -69,11 +69,13 @@ $(function() {
 Preprocess : 1*^0^(0|1)*</h2>
 <h2><a class="anchor" id="autotoc_md2"></a>
 Postfix : 1*0^01|*^</h2>
-<div class="fragment"><div class="line">digraph G {</div>
+<div class="fragment"><div class="line">digraph NFA {</div>
 <div class="line">rankdir=LR;</div>
+<div class="line">graph [bgcolor = transparent];</div>
+<div class="line">node [color = blue, fontcolor = white]</div>
+<div class="line">edge [color = blue];</div>
 <div class="line">2 [color = green];</div>
 <div class="line">13 [shape = doublecircle];</div>
-<div class="line">node [shape = circle];</div>
 <div class="line">0 -&gt; 1 [ label = &quot;1&quot; ];</div>
 <div class="line">4 -&gt; 5 [ label = &quot;0&quot; ];</div>
 <div class="line">6 -&gt; 7 [ label = &quot;0&quot; ];</div>
@@ -93,11 +95,14 @@ Postfix : 1*0^01|*^</h2>
 <div class="line">11 -&gt; 13 [ label = &quot;ε&quot; ];</div>
 <div class="line">12 -&gt; 10 [ label = &quot;ε&quot; ];</div>
 <div class="line">12 -&gt; 13 [ label = &quot;ε&quot; ];</div>
-<div class="line"> </div>
 <div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">rankdir=LR;</div>
+</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
+<div class="line">rankdir=LR;</div>
+<div class="line">rankdir=LR;</div>
+<div class="line">graph [bgcolor = transparent];</div>
+<div class="line">node [color = blue, fontcolor = white]</div>
+<div class="line">edge [color = blue];</div>
 <div class="line">0 [color = green];</div>
-<div class="line">node [shape = circle];</div>
 <div class="line">1 [shape=doublecircle];</div>
 <div class="line">3 [shape=doublecircle];</div>
 <div class="line">4 [shape=doublecircle];</div>

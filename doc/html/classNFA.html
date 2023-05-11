@@ -77,30 +77,71 @@ $(function() {
  <a href="classNFA.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="NFA_8hpp_source.html">NFA.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for NFA:</div>
+<div class="dyncontent">
+<div class="center"><img src="classNFA__inherit__graph.png" border="0" usemap="#aNFA_inherit__map" alt="Inheritance graph"/></div>
+<map name="aNFA_inherit__map" id="aNFA_inherit__map">
+<area shape="rect" title="Thompson algorithm&#39;s NFA." alt="" coords="5,80,52,107"/>
+<area shape="rect" href="classFSA.html" title=" " alt="" coords="5,5,52,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for NFA:</div>
+<div class="dyncontent">
+<div class="center"><img src="classNFA__coll__graph.png" border="0" usemap="#aNFA_coll__map" alt="Collaboration graph"/></div>
+<map name="aNFA_coll__map" id="aNFA_coll__map">
+<area shape="rect" title="Thompson algorithm&#39;s NFA." alt="" coords="5,80,52,107"/>
+<area shape="rect" href="classFSA.html" title=" " alt="" coords="5,5,52,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a08fe01459c115453621137748473a3ae"><td class="memItemLeft" align="right" valign="top"><a id="a08fe01459c115453621137748473a3ae"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>state_t</b> = Type::state_t</td></tr>
-<tr class="separator:a08fe01459c115453621137748473a3ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab4ff263158b3a7217efc40c111fe3112"><td class="memItemLeft" align="right" valign="top"><a id="ab4ff263158b3a7217efc40c111fe3112"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>size_t</b> = uint32_t</td></tr>
-<tr class="separator:ab4ff263158b3a7217efc40c111fe3112"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a72aad70bf8a0924e2ea28af61e10e77c"><td class="memItemLeft" align="right" valign="top"><a id="a72aad70bf8a0924e2ea28af61e10e77c"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>str_t</b> = std::string</td></tr>
-<tr class="separator:a72aad70bf8a0924e2ea28af61e10e77c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acea6db16b1f17741b28f6eebe7c08a67"><td class="memItemLeft" align="right" valign="top"><a id="acea6db16b1f17741b28f6eebe7c08a67"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>priority_t</b> = uint32_t</td></tr>
 <tr class="separator:acea6db16b1f17741b28f6eebe7c08a67"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e8918697c4e3e0e6f7302d9da86ead7"><td class="memItemLeft" align="right" valign="top"><a id="a1e8918697c4e3e0e6f7302d9da86ead7"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>str_view_t</b> = std::string_view</td></tr>
 <tr class="separator:a1e8918697c4e3e0e6f7302d9da86ead7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3bfe366b5b9961121e0dc068f34dbd15"><td class="memItemLeft" align="right" valign="top"><a id="a3bfe366b5b9961121e0dc068f34dbd15"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>state_set_t</b> = Type::state_set_t</td></tr>
-<tr class="separator:a3bfe366b5b9961121e0dc068f34dbd15"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad7bd8ae6e336672e6bb7c7c0987c81a9"><td class="memItemLeft" align="right" valign="top"><a id="ad7bd8ae6e336672e6bb7c7c0987c81a9"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>epsilon_treansion_map_t</b> = Type::map_t&lt; state_t, NFA::state_set_t &gt;</td></tr>
-<tr class="separator:ad7bd8ae6e336672e6bb7c7c0987c81a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a863f67478c63de8c7676ef9ea3d8f6bb"><td class="memItemLeft" align="right" valign="top"><a id="a863f67478c63de8c7676ef9ea3d8f6bb"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>epsilon_treansion_map_t</b> = FSA::map_t&lt; state_t, NFA::state_set_t &gt;</td></tr>
+<tr class="separator:a863f67478c63de8c7676ef9ea3d8f6bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_types_classFSA"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classFSA')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classFSA.html">FSA</a></td></tr>
+<tr class="memitem:ad7a18d4df8d06c14fd16a935ccf0be73 inherit pub_types_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="ad7a18d4df8d06c14fd16a935ccf0be73"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>DiagramFmt</b> { <b>MARKDOWN</b>
+, <b>DOTFILE</b>
+, <b>IMAGE</b>
+ }</td></tr>
+<tr class="separator:ad7a18d4df8d06c14fd16a935ccf0be73 inherit pub_types_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a13c05baeda3fae556188b9e274d36991 inherit pub_types_classFSA"><td class="memTemplParams" colspan="2"><a id="a13c05baeda3fae556188b9e274d36991"></a>
+template&lt;typename key , typename value &gt; </td></tr>
+<tr class="memitem:a13c05baeda3fae556188b9e274d36991 inherit pub_types_classFSA"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>map_t</b> = std::map&lt; key, value &gt;</td></tr>
+<tr class="separator:a13c05baeda3fae556188b9e274d36991 inherit pub_types_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae461ee6b4dbdcf3862d10b25d66cd792 inherit pub_types_classFSA"><td class="memTemplParams" colspan="2"><a id="ae461ee6b4dbdcf3862d10b25d66cd792"></a>
+template&lt;typename value &gt; </td></tr>
+<tr class="memitem:ae461ee6b4dbdcf3862d10b25d66cd792 inherit pub_types_classFSA"><td class="memTemplItemLeft" align="right" valign="top">using&#160;</td><td class="memTemplItemRight" valign="bottom"><b>set_t</b> = std::set&lt; value &gt;</td></tr>
+<tr class="separator:ae461ee6b4dbdcf3862d10b25d66cd792 inherit pub_types_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:accd6b25d0232d2ad05a294c2cc79aaad inherit pub_types_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="accd6b25d0232d2ad05a294c2cc79aaad"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>char_t</b> = char</td></tr>
+<tr class="separator:accd6b25d0232d2ad05a294c2cc79aaad inherit pub_types_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb52822212b8b8f8bf72c483502856f4 inherit pub_types_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="acb52822212b8b8f8bf72c483502856f4"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>state_t</b> = uint32_t</td></tr>
+<tr class="separator:acb52822212b8b8f8bf72c483502856f4 inherit pub_types_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab695caf8ddd228b409682d4d77278e53 inherit pub_types_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="ab695caf8ddd228b409682d4d77278e53"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>size_t</b> = uint32_t</td></tr>
+<tr class="separator:ab695caf8ddd228b409682d4d77278e53 inherit pub_types_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6327f124c4d7044495b7adcd495f2854 inherit pub_types_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="a6327f124c4d7044495b7adcd495f2854"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>transition_t</b> = std::pair&lt; state_t, char_t &gt;</td></tr>
+<tr class="separator:a6327f124c4d7044495b7adcd495f2854 inherit pub_types_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e4884e55475659f85f68248799019ee inherit pub_types_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="a5e4884e55475659f85f68248799019ee"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>transition_map_t</b> = map_t&lt; transition_t, state_t &gt;</td></tr>
+<tr class="separator:a5e4884e55475659f85f68248799019ee inherit pub_types_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a74c497612dc5081d172b5907eafa281c inherit pub_types_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="a74c497612dc5081d172b5907eafa281c"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>state_set_t</b> = set_t&lt; state_t &gt;</td></tr>
+<tr class="separator:a74c497612dc5081d172b5907eafa281c inherit pub_types_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1d4f01c6cc269ced451b240f60e4c3c5 inherit pub_types_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="a1d4f01c6cc269ced451b240f60e4c3c5"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>str_t</b> = std::string</td></tr>
+<tr class="separator:a1d4f01c6cc269ced451b240f60e4c3c5 inherit pub_types_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -123,9 +164,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a03f526ba52023a5f9dbb31382fb99d2d"><td class="memItemLeft" align="right" valign="top"><a id="a03f526ba52023a5f9dbb31382fb99d2d"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>parse</b> (str_t &amp;RE) noexcept</td></tr>
 <tr class="separator:a03f526ba52023a5f9dbb31382fb99d2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a24a2bfc4559ebd589084955c8a65dbe8"><td class="memItemLeft" align="right" valign="top"><a id="a24a2bfc4559ebd589084955c8a65dbe8"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>parse</b> (str_t &amp;RE, Type::str_auto_ref_c auto &amp;&amp;info, NFA::priority_t priority=1) noexcept</td></tr>
-<tr class="separator:a24a2bfc4559ebd589084955c8a65dbe8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af93d4a709ddd53be9edc792bb4080bd6"><td class="memItemLeft" align="right" valign="top"><a id="af93d4a709ddd53be9edc792bb4080bd6"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>parse</b> (str_t &amp;RE, str_t &amp;info, NFA::priority_t priority=1) noexcept</td></tr>
+<tr class="separator:af93d4a709ddd53be9edc792bb4080bd6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ade2bfc58327f41594168dd8e733f3329"><td class="memItemLeft" align="right" valign="top"><a id="ade2bfc58327f41594168dd8e733f3329"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>clear</b> () noexcept</td></tr>
 <tr class="separator:ade2bfc58327f41594168dd8e733f3329"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -138,18 +179,40 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>match</b> (const str_
 <tr class="memitem:a06c9f20d265c7769fb0ff72288a83c38"><td class="memItemLeft" align="right" valign="top">std::optional&lt; state_set_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNFA.html#a06c9f20d265c7769fb0ff72288a83c38">getReachedStates</a> (const state_t state) const noexcept</td></tr>
 <tr class="memdesc:a06c9f20d265c7769fb0ff72288a83c38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the set of stated reached by the given string.  <a href="classNFA.html#a06c9f20d265c7769fb0ff72288a83c38">More...</a><br /></td></tr>
 <tr class="separator:a06c9f20d265c7769fb0ff72288a83c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e717a7f422c31ba72240a880d237530"><td class="memItemLeft" align="right" valign="top"><a id="a0e717a7f422c31ba72240a880d237530"></a>
-std::optional&lt; state_set_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getReachedStates</b> (const state_t state, Type::char_t ch) const noexcept</td></tr>
-<tr class="separator:a0e717a7f422c31ba72240a880d237530"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6f53bd9467188c93e5d03f38b4816a42"><td class="memItemLeft" align="right" valign="top"><a id="a6f53bd9467188c93e5d03f38b4816a42"></a>
-std::optional&lt; state_set_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getReachedStates</b> (const state_set_t &amp;state_set, Type::char_t ch) const noexcept</td></tr>
-<tr class="separator:a6f53bd9467188c93e5d03f38b4816a42"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6acf4232e85772697c6c2f68f3295fce"><td class="memItemLeft" align="right" valign="top"><a id="a6acf4232e85772697c6c2f68f3295fce"></a>
+std::optional&lt; state_set_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getReachedStates</b> (const state_t state, char_t ch) const noexcept</td></tr>
+<tr class="separator:a6acf4232e85772697c6c2f68f3295fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa36060fbdf9d64af7142f83f38c2c069"><td class="memItemLeft" align="right" valign="top"><a id="aa36060fbdf9d64af7142f83f38c2c069"></a>
+std::optional&lt; state_set_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getReachedStates</b> (const state_set_t &amp;state_set, char_t ch) const noexcept</td></tr>
+<tr class="separator:aa36060fbdf9d64af7142f83f38c2c069"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4af9a7cdf48a659387286b0197ee98b9"><td class="memItemLeft" align="right" valign="top"><a id="a4af9a7cdf48a659387286b0197ee98b9"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>getReachedStates</b> (const state_t state, state_set_t &amp;reached_states) const noexcept</td></tr>
 <tr class="separator:a4af9a7cdf48a659387286b0197ee98b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68f3a3b4bfbfb8913c61b48a739ce66d"><td class="memItemLeft" align="right" valign="top"><a id="a68f3a3b4bfbfb8913c61b48a739ce66d"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>getReachedStates</b> (const state_t state, Type::char_t ch, state_set_t &amp;reached_states) const noexcept</td></tr>
-<tr class="separator:a68f3a3b4bfbfb8913c61b48a739ce66d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7177ca9a8ce8f7b81a4ef833084a5d40"><td class="memItemLeft" align="right" valign="top"><a id="a7177ca9a8ce8f7b81a4ef833084a5d40"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>getReachedStates</b> (const state_t state, char_t ch, state_set_t &amp;reached_states) const noexcept</td></tr>
+<tr class="separator:a7177ca9a8ce8f7b81a4ef833084a5d40"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ca4718397dfb34460ca92003c7c7e34"><td class="memItemLeft" align="right" valign="top"><a id="a7ca4718397dfb34460ca92003c7c7e34"></a>
+set_t&lt; char_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getCharset</b> () const noexcept</td></tr>
+<tr class="separator:a7ca4718397dfb34460ca92003c7c7e34"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24b2f3ef26b79d9993e5187dacb0b20c"><td class="memItemLeft" align="right" valign="top"><a id="a24b2f3ef26b79d9993e5187dacb0b20c"></a>
+state_t&#160;</td><td class="memItemRight" valign="bottom"><b>getStartState</b> () const noexcept</td></tr>
+<tr class="separator:a24b2f3ef26b79d9993e5187dacb0b20c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac669767b4d6799de2213f78e7276b3f3"><td class="memItemLeft" align="right" valign="top"><a id="ac669767b4d6799de2213f78e7276b3f3"></a>
+state_t&#160;</td><td class="memItemRight" valign="bottom"><b>getFinalState</b> () const noexcept</td></tr>
+<tr class="separator:ac669767b4d6799de2213f78e7276b3f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="inherit_header pub_methods_classFSA"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classFSA')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classFSA.html">FSA</a></td></tr>
+<tr class="memitem:a43cca7886b5a2f3d1a5dfb345e0a9a0a inherit pub_methods_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="a43cca7886b5a2f3d1a5dfb345e0a9a0a"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FSA</b> (<a class="el" href="classFSA.html">FSA</a> &amp;&amp;)=default</td></tr>
+<tr class="separator:a43cca7886b5a2f3d1a5dfb345e0a9a0a inherit pub_methods_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af26381ed484f0c88bf9f80d53f400fd7 inherit pub_methods_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="af26381ed484f0c88bf9f80d53f400fd7"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>FSA</b> (const <a class="el" href="classFSA.html">FSA</a> &amp;)=default</td></tr>
+<tr class="separator:af26381ed484f0c88bf9f80d53f400fd7 inherit pub_methods_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7b01679fe96549f80df9b9a30e5e023d inherit pub_methods_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="a7b01679fe96549f80df9b9a30e5e023d"></a>
+<a class="el" href="classFSA.html">FSA</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classFSA.html">FSA</a> &amp;&amp;)=default</td></tr>
+<tr class="separator:a7b01679fe96549f80df9b9a30e5e023d inherit pub_methods_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb11e9826b4f1b4bde689934d6d3d269 inherit pub_methods_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="afb11e9826b4f1b4bde689934d6d3d269"></a>
+<a class="el" href="classFSA.html">FSA</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classFSA.html">FSA</a> &amp;)=default</td></tr>
+<tr class="separator:afb11e9826b4f1b4bde689934d6d3d269 inherit pub_methods_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
@@ -165,12 +228,15 @@ Public Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:af49c8bac914a5cca9044a10bfb74eac1"><td class="memItemLeft" align="right" valign="top"><a id="af49c8bac914a5cca9044a10bfb74eac1"></a>
-class&#160;</td><td class="memItemRight" valign="bottom"><b>DFA</b></td></tr>
-<tr class="separator:af49c8bac914a5cca9044a10bfb74eac1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9844cbbc66ed759befe66946c14fc22"><td class="memItemLeft" align="right" valign="top"><a id="ae9844cbbc66ed759befe66946c14fc22"></a>
 std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator&lt;&lt;</b> (std::ostream &amp;os, const <a class="el" href="classNFA.html">NFA</a> &amp;nfa) noexcept</td></tr>
 <tr class="separator:ae9844cbbc66ed759befe66946c14fc22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
+Additional Inherited Members</h2></td></tr>
+<tr class="inherit_header pub_static_attribs_classFSA"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classFSA')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classFSA.html">FSA</a></td></tr>
+<tr class="memitem:a6af5acfd303e8a494050981a98a60774 inherit pub_static_attribs_classFSA"><td class="memItemLeft" align="right" valign="top">constexpr static auto&#160;</td><td class="memItemRight" valign="bottom"><b>graph_style</b></td></tr>
+<tr class="separator:a6af5acfd303e8a494050981a98a60774 inherit pub_static_attribs_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Thompson algorithm's <a class="el" href="classNFA.html" title="Thompson algorithm&#39;s NFA.">NFA</a>. </p>
