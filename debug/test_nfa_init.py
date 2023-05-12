@@ -9,7 +9,6 @@ clients = set()
 # 保存事件循环的引用
 loop = None
 
-
 async def notify_clients(message):
     if clients:
         await asyncio.wait([client.send(message) for client in clients])
@@ -56,6 +55,7 @@ subprocess.run(
         "/home/zoran/project/Cpp/project/Principle-of-compilation-from-scratch/cpp_lexer_generator/debug/visualizer/index.html",
     ],
     stdout=subprocess.DEVNULL,
+    stderr=subprocess.DEVNULL,
 )
 # NOTE :
 #  ╭──────────────────────────────────────────────────────────╮
@@ -73,23 +73,30 @@ class Visual(gdb.Command):
         super(Visual, self).__init__("visual", gdb.COMMAND_USER)
 
     def invoke(self, arg, from_tty):
-        fsa = str(gdb.parse_and_eval("nfa._toDotString()"))
-        fsa = fsa[1:-1].replace("\\n", "\n").replace('\\"', '"')
-        # fsa = gdb.parse_and_eval(arg)
-        # type = gdb.lookup_type("NFA").pointer()
-        # fsa = fsa.cast(type)
-        # result = fsa.dereference()["test"]()
+        assert loop, "Event loop is not initialized"
+        fsa = gdb.parse_and_eval(arg)
+
+        result = ""
+        if fsa.type.code == gdb.TYPE_CODE_PTR:
+            # fsa = fsa.dereference()
+            result = str(gdb.parse_and_eval(f"{arg}->_toDotString()"))
+
+        else:
+            result = str(gdb.parse_and_eval(f"{arg}._toDotString()"))
+
+        # result = fsa["_toDotString"]()
+        result = result[1:-1].replace(r"\n", "\n").replace(r"\"", '"')
 
         # json.dumps(arg)
         # 使用asyncio.run_coroutine_threadsafe将任务提交给事件循环
-        asyncio.run_coroutine_threadsafe(notify_clients(fsa), loop)
-
+        asyncio.run_coroutine_threadsafe(notify_clients(result), loop)
 
 Visual()
 
 
 def exit_handler(event):
-    loop.stop()
+    if loop:
+        loop.stop()
 
 
 gdb.events.exited.connect(exit_handler)
