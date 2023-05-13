@@ -4,7 +4,12 @@ set_toolchains 'clang'
 
 add_rules 'plugin.compile_commands.autoupdate'
 add_rules('mode.debug', 'mode.release')
-add_requires('fmt' , 'gtest', 'benchmark')
+add_requires(
+    'fmt',
+    'gtest',
+    'benchmark', -- TODO : add benchmark
+    'range-v3'   -- TODO :
+)
 add_includedirs 'include'
 set_languages 'cxxlatest'
 set_targetdir '$(projectdir)/bin'
@@ -21,7 +26,7 @@ target = function(name)
 end
 
 
-add_packages 'fmt'
+add_packages('fmt', 'range-v3')
 -- Debug模式设置
 if is_mode 'debug' then
     set_optimize 'none'

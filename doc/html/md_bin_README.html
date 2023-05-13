@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>cpp_lexer_generator: RE: 1*0(0|1)*</title>
+<title>cpp_lexer_generator: RE: ab*|c</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,39 +62,33 @@ $(function() {
 </div><!-- top -->
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">RE: 1*0(0|1)* </div>  </div>
+<div class="title">RE: ab*|c </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h2><a class="anchor" id="autotoc_md1"></a>
-Preprocess : 1*^0^(0|1)*</h2>
+Preprocess : a^b*|c</h2>
 <h2><a class="anchor" id="autotoc_md2"></a>
-Postfix : 1*0^01|*^</h2>
+Postfix : ab*^c|</h2>
 <div class="fragment"><div class="line">digraph NFA {</div>
 <div class="line">rankdir=LR;</div>
 <div class="line">graph [bgcolor = transparent];</div>
 <div class="line">node [color = blue, fontcolor = white]</div>
 <div class="line">edge [color = blue];</div>
-<div class="line">2 [color = green];</div>
-<div class="line">13 [shape = doublecircle];</div>
-<div class="line">0 -&gt; 1 [ label = &quot;1&quot; ];</div>
-<div class="line">4 -&gt; 5 [ label = &quot;0&quot; ];</div>
-<div class="line">6 -&gt; 7 [ label = &quot;0&quot; ];</div>
-<div class="line">8 -&gt; 9 [ label = &quot;1&quot; ];</div>
+<div class="line">8 [color = green];</div>
+<div class="line">9 [shape = doublecircle];</div>
+<div class="line">0 -&gt; 1 [ label = &quot;a&quot; ];</div>
+<div class="line">2 -&gt; 3 [ label = &quot;b&quot; ];</div>
+<div class="line">6 -&gt; 7 [ label = &quot;c&quot; ];</div>
 <div class="line"> </div>
-<div class="line">1 -&gt; 0 [ label = &quot;ε&quot; ];</div>
-<div class="line">1 -&gt; 3 [ label = &quot;ε&quot; ];</div>
-<div class="line">2 -&gt; 0 [ label = &quot;ε&quot; ];</div>
-<div class="line">2 -&gt; 3 [ label = &quot;ε&quot; ];</div>
-<div class="line">3 -&gt; 4 [ label = &quot;ε&quot; ];</div>
-<div class="line">5 -&gt; 12 [ label = &quot;ε&quot; ];</div>
-<div class="line">7 -&gt; 11 [ label = &quot;ε&quot; ];</div>
-<div class="line">9 -&gt; 11 [ label = &quot;ε&quot; ];</div>
-<div class="line">10 -&gt; 6 [ label = &quot;ε&quot; ];</div>
-<div class="line">10 -&gt; 8 [ label = &quot;ε&quot; ];</div>
-<div class="line">11 -&gt; 10 [ label = &quot;ε&quot; ];</div>
-<div class="line">11 -&gt; 13 [ label = &quot;ε&quot; ];</div>
-<div class="line">12 -&gt; 10 [ label = &quot;ε&quot; ];</div>
-<div class="line">12 -&gt; 13 [ label = &quot;ε&quot; ];</div>
+<div class="line">1 -&gt; 4 [ label = &quot;ε&quot; ];</div>
+<div class="line">3 -&gt; 2 [ label = &quot;ε&quot; ];</div>
+<div class="line">3 -&gt; 5 [ label = &quot;ε&quot; ];</div>
+<div class="line">4 -&gt; 2 [ label = &quot;ε&quot; ];</div>
+<div class="line">4 -&gt; 5 [ label = &quot;ε&quot; ];</div>
+<div class="line">5 -&gt; 9 [ label = &quot;ε&quot; ];</div>
+<div class="line">7 -&gt; 9 [ label = &quot;ε&quot; ];</div>
+<div class="line">8 -&gt; 0 [ label = &quot;ε&quot; ];</div>
+<div class="line">8 -&gt; 6 [ label = &quot;ε&quot; ];</div>
 <div class="line">}</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
 <div class="line">rankdir=LR;</div>
@@ -104,18 +98,12 @@ Postfix : 1*0^01|*^</h2>
 <div class="line">edge [color = blue];</div>
 <div class="line">0 [color = green];</div>
 <div class="line">1 [shape=doublecircle];</div>
+<div class="line">2 [shape=doublecircle];</div>
 <div class="line">3 [shape=doublecircle];</div>
-<div class="line">4 [shape=doublecircle];</div>
-<div class="line">0 -&gt; 1 [ label = &quot;0&quot; ];</div>
-<div class="line">0 -&gt; 2 [ label = &quot;1&quot; ];</div>
-<div class="line">1 -&gt; 3 [ label = &quot;0&quot; ];</div>
-<div class="line">1 -&gt; 4 [ label = &quot;1&quot; ];</div>
-<div class="line">2 -&gt; 1 [ label = &quot;0&quot; ];</div>
-<div class="line">2 -&gt; 2 [ label = &quot;1&quot; ];</div>
-<div class="line">3 -&gt; 3 [ label = &quot;0&quot; ];</div>
-<div class="line">3 -&gt; 4 [ label = &quot;1&quot; ];</div>
-<div class="line">4 -&gt; 3 [ label = &quot;0&quot; ];</div>
-<div class="line">4 -&gt; 4 [ label = &quot;1&quot; ];</div>
+<div class="line">0 -&gt; 1 [ label = &quot;a&quot; ];</div>
+<div class="line">0 -&gt; 2 [ label = &quot;c&quot; ];</div>
+<div class="line">1 -&gt; 3 [ label = &quot;b&quot; ];</div>
+<div class="line">3 -&gt; 3 [ label = &quot;b&quot; ];</div>
 <div class="line"> </div>
 <div class="line">}</div>
 </div><!-- fragment --> </div></div><!-- contents -->

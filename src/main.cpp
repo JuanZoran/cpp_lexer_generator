@@ -10,7 +10,7 @@ using namespace fmt;
 #if 1
 int main(int argc, char* argv[])
 {
-    vector<FSA::str_t> tests { "1*0(0|1)*" };
+    vector<FSA::str_t> tests { "ab*|c" };
     // vector<Type::str_t> tests {
     //     "a+b",
     //     // "a",

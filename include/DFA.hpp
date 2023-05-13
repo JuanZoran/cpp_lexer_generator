@@ -2,6 +2,8 @@
 #include <FSA.hpp>
 #include <NFA.hpp>
 #include <fmt/format.h>
+#include <queue>
+#include <range/v3/all.hpp>
 #include <string>
 
 // (D)eterministic (F)inite (A)utomata
@@ -23,6 +25,12 @@ public:
 public:
     IMPL_DRAGRAM;
 
+    std::optional<state_t> getReachedState(state_t state, char_t ch) const noexcept
+    {
+        return (_state_transition_map.count({ state, ch }) == 0)
+                 ? std::nullopt
+                 : std::make_optional(_state_transition_map.at({ state, ch }));
+    }
 
 private:
     state_t _newState() noexcept
@@ -37,12 +45,12 @@ private:
     void _toDotFile(const str_t& filename, const std::ios_base::openmode) noexcept;
     void _toImage(const str_t& filename) noexcept;
 
-private: // INFO :Private members
-    /**
-     * @brief All states of this DFA
-     */
-    // Type::state_set_t _state_set {};
+    str_t _toDotString() noexcept;
 
+    void _minimal() noexcept;
+
+
+private: // INFO :Private members
     /**
      * @brief final state info
      */
@@ -111,6 +119,8 @@ inline DFA::DFA(const NFA& nfa) noexcept:
             _state_transition_map[{ states_map[q], ch }] = states_map[*q_next_ptr];
         }
     }
+
+    _minimal();
 }
 
 inline void DFA::_toMarkdown(const str_t& filename, const std::ios_base::openmode openmode) noexcept
@@ -142,6 +152,11 @@ inline void DFA::_toMarkdown(std::ostream& os) noexcept
 
 inline void DFA::_toDotFile(std::ostream& os) noexcept
 {
+    os << _toDotString();
+}
+
+inline DFA::str_t DFA::_toDotString() noexcept
+{
     using namespace fmt::literals;
     auto get_final_state_set = [this]() {
         DFA::str_t str;
@@ -153,7 +168,7 @@ inline void DFA::_toDotFile(std::ostream& os) noexcept
 
 
     // clang-format off
-    constexpr auto fmt = 
+    constexpr auto fmt =
         "digraph DFA {{\n"
         "rankdir=LR;\n"
         "{graph_style}"
@@ -165,10 +180,103 @@ inline void DFA::_toDotFile(std::ostream& os) noexcept
          "}}\n";
     // clang-format on
 
-    os << fmt::format(
+    return fmt::format(
         fmt,
         "start"_a = _start_state,
         "graph_style"_a = graph_style,
         "_final_state_set"_a = get_final_state_set(),
         "transition_map"_a = _state_transition_map);
+}
+
+inline void DFA::_minimal() noexcept
+{
+    using namespace ranges;
+
+    // INFO :Hopcroft's Algorith for DFA minimization
+
+    // clang-format off
+    set_t<state_set_t> groups { 
+        views::ints(state_t{0}, _state_count) 
+        | views::filter([&](state_t state) { return _final_state_set.count(state) == 0; })
+        | to<state_set_t>(), 
+
+        _final_state_set
+    };
+    // clang-format on
+    std::stack<state_set_t> st;
+    st.emplace(groups.begin(), groups.end());
+
+
+    auto split = [this](state_set_t& set) -> std::optional<state_set_t> {
+        for (auto ch : _charset) {
+            auto cur = set.begin();
+            auto should_be = _state_transition_map.count({ *cur++, ch });
+            // TODO :
+            for (; cur != set.end(); cur++)
+                ;
+        }
+
+        return std::nullopt;
+    };
+
+    while (st.size()) {
+        auto cur = st.top();
+        st.pop();
+
+        if (cur.size() == 1)
+            continue;
+    }
+
+    // for (auto& group : groups) {
+    //     auto changed = true;
+    //     while (changed) {
+    //     }
+    // }
+
+    // INFO :Brzozowski's Algorithm for DFA minimization
+
+    // Step 1: Initialize partition with non-final and final states
+    // set_t<state_set_t> partition { _final_state_set };
+    // {
+    //     state_set_t non_final_states;
+    //     for (state_t state = 0; state < _state_count; ++state)
+    //         if (_final_state_set.count(state) == 0)
+    //             non_final_states.insert(state);
+    //     partition.insert(non_final_states);
+    // }
+
+    // // Step 2: Refine partition
+    // bool changed = true;
+    // while (changed) {
+    //     changed = false;
+    //     set_t<state_set_t> new_partition;
+
+    //     for (const state_set_t& part : partition) {
+    //         map_t<state_set_t, state_set_t> split_parts;
+    //         for (state_t state : part) {
+    //             state_set_t part_key;
+    //             for (char_t ch : _charset) {
+    //                 auto reached_state = getReachedState(state, ch);
+    //                 if (!reached_state)
+    //                     continue;
+
+    //                 for (const state_set_t& p : partition) {
+    //                     if (p.count(*reached_state)) {
+    //                         part_key.insert(p.begin(), p.end());
+    //                         break;
+    //                     }
+    //                 }
+    //             }
+    //             split_parts[part_key].insert(state);
+    //         }
+
+    //         for (const auto& split_part : split_parts)
+    //             new_partition.insert(split_part.second);
+
+    //         if (split_parts.size())
+    //             changed = true;
+    //     }
+
+    //     partition = new_partition;
+    // }
 }
