@@ -1,7 +1,6 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <Util.hpp>
 #include <array>
-#include <doctest/doctest.h>
+#include <gtest/gtest.h>
 #include <vector>
 
 using namespace Util;
@@ -81,120 +80,33 @@ const std::vector<std::array<Util::str, 4>> all_test {
   // { "a?(b|c)*d",  "a?^(b|c)*^d", "a?b*c|*^d^", "abcd"},
 };
 
-TEST_CASE("Util")
+TEST(UtilTest, addConcatOperatorTest)
 {
-    SUBCASE("addConcatOperator")
-    {
-        for (auto test : all_test) {
-            str input = test[0];
-            str right = test[1];
+    for (auto test : all_test) {
+        str input = test[0];
+        str right = test[1];
 
-            addConcatOperator(input);
-            CHECK_EQ(right, input);
-        }
-    }
-
-    SUBCASE("toPostfix")
-    {
-        for (auto test : all_test) {
-            std::set<char> inputCharSet;
-            str input = test[0];
-            str right = test[2];
-
-            addConcatOperator(input);
-            getPostfixAndChatSet(input, inputCharSet);
-            CHECK_EQ(right, input);
-            CHECK_EQ(inputCharSet, std::set<char>(test[3].begin(), test[3].end()));
-        }
+        addConcatOperator(input);
+        EXPECT_EQ(right, input);
     }
 }
 
-#if 0
-#include <Util.hpp>
-#include <array>
-#include <gtest/gtest.h>
-#include <vector>
+TEST(UtilTest, toPostfixTest)
+{
+    for (auto test : all_test) {
+        std::set<char> inputCharSet;
+        str input = test[0];
+        str right = test[2];
 
+        addConcatOperator(input);
+        getPostfixAndChatSet(input, inputCharSet);
+        EXPECT_EQ(right, input);
+        EXPECT_EQ(inputCharSet, std::set<char>(test[3].begin(), test[3].end()));
+    }
+}
 
-    int
-    main(int argc, char** argv)
+int main(int argc, char** argv)
 {
     testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }
-
-// TEST :
-// TEST(Unit Name, Test Name) {
-//     TODO : Your Test
-// }
-
-
-const vector<array<Util::str, 3>> all_tests {
- {"ab",         "a^b"        },
-  { "a|b",       "a|b"        },
-  { "a*b",       "a*^b"       },
-  { "(a)b",      "(a)^b"      },
-  { "a(b)",      "a^(b)"      },
-  { "a(b)",      "a^(b)"      },
-  { "a|b*c",     "a|b*^c"     },
-  { "a*b|c",     "a*^b|c"     },
-  { "a*(b|c)",   "a*^(b|c)"   },
-  { "(a|b)c*",   "(a|b)^c*"   },
-  { "(a*b)|c",   "(a*^b)|c"   },
-  { "a*(b*c)",   "a*^(b*^c)"  },
-  { "a|b|c",     "a|b|c"      },
-  { "a*b*c",     "a*^b*^c"    },
-  { "a|b*c|d",   "a|b*^c|d"   },
-  { "a*(b|c)*d", "a*^(b|c)*^d"},
-  { "(a*b*)*",   "(a*^b*)*"   },
-  { "a|b|(cd)*", "a|b|(c^d)*" },
-};
-
-TEST(Util, addConcatOperator)
-{
-    const vector<pair<Util::str, Util::str>> all_tests {
-        {"ab",         "a^b"        },
-        { "a|b",       "a|b"        },
-        { "a*b",       "a*^b"       },
-        { "(a)b",      "(a)^b"      },
-        { "a(b)",      "a^(b)"      },
-        { "a(b)",      "a^(b)"      },
-        { "a|b*c",     "a|b*^c"     },
-        { "a*b|c",     "a*^b|c"     },
-        { "a*(b|c)",   "a*^(b|c)"   },
-        { "(a|b)c*",   "(a|b)^c*"   },
-        { "(a*b)|c",   "(a*^b)|c"   },
-        { "a*(b*c)",   "a*^(b*^c)"  },
-        { "a|b|c",     "a|b|c"      },
-        { "a*b*c",     "a*^b*^c"    },
-        { "a|b*c|d",   "a|b*^c|d"   },
-        { "a*(b|c)*d", "a*^(b|c)*^d"},
-        { "(a*b*)*",   "(a*^b*)*"   },
-
-        { "a|b|(cd)*", "a|b|(c^d)*" },
-    };
-
-
-    for (auto& [input, right] : all_tests) {
-        auto left = std::move(input);
-        addConcatOperator(left);
-        EXPECT_EQ(right, left);
-    }
-}
-
-TEST(Util, toPostfix)
-{
-    const std::vector<pair<Util::str, Util::str>> all_test {
-        {"(a|b)",    "ab|"  },
-        { "(ab)*",   "ab*"  },
-        { "(a|b)*",  "ab|*" },
-        { "ab(c|d)", "abcd|"},
-        { "c*(a|b)", "c*ab|"},
-    };
-
-    for (auto& [input, expected] : all_test) {
-        EXPECT_EQ(expected, toPostfix(input));
-    }
-}
-
-#endif

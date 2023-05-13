@@ -4,7 +4,7 @@ set_toolchains 'clang'
 
 add_rules 'plugin.compile_commands.autoupdate'
 add_rules('mode.debug', 'mode.release')
-add_requires('fmt' --[[ , 'gtest' ]], 'doctest')
+add_requires('fmt' , 'gtest', 'benchmark')
 add_includedirs 'include'
 set_languages 'cxxlatest'
 set_targetdir '$(projectdir)/bin'
@@ -56,7 +56,7 @@ for name, option in pairs(test_cases) do
         set_kind('binary')
         set_group('test')
         add_files('test/' .. target_name .. '.cpp')
-        add_packages('doctest')
+        add_packages('gtest')
 
     for method, opt in pairs(option) do
         _G[method](opt)

@@ -104,9 +104,9 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>priority_t</b> = uin
 <tr class="memitem:a1e8918697c4e3e0e6f7302d9da86ead7"><td class="memItemLeft" align="right" valign="top"><a id="a1e8918697c4e3e0e6f7302d9da86ead7"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>str_view_t</b> = std::string_view</td></tr>
 <tr class="separator:a1e8918697c4e3e0e6f7302d9da86ead7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a863f67478c63de8c7676ef9ea3d8f6bb"><td class="memItemLeft" align="right" valign="top"><a id="a863f67478c63de8c7676ef9ea3d8f6bb"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>epsilon_treansion_map_t</b> = FSA::map_t&lt; state_t, NFA::state_set_t &gt;</td></tr>
-<tr class="separator:a863f67478c63de8c7676ef9ea3d8f6bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac9d1c5e85ea38f142e4b64f80096517b"><td class="memItemLeft" align="right" valign="top"><a id="ac9d1c5e85ea38f142e4b64f80096517b"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>epsilon_transition_map_t</b> = FSA::map_t&lt; state_t, NFA::state_set_t &gt;</td></tr>
+<tr class="separator:ac9d1c5e85ea38f142e4b64f80096517b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_types_classFSA"><td colspan="2" onclick="javascript:toggleInherit('pub_types_classFSA')"><img src="closed.png" alt="-"/>&#160;Public Types inherited from <a class="el" href="classFSA.html">FSA</a></td></tr>
 <tr class="memitem:ad7a18d4df8d06c14fd16a935ccf0be73 inherit pub_types_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="ad7a18d4df8d06c14fd16a935ccf0be73"></a>enum class &#160;</td><td class="memItemRight" valign="bottom"><b>DiagramFmt</b> { <b>MARKDOWN</b>
 , <b>DOTFILE</b>
@@ -179,8 +179,8 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>match</b> (const str_
 <tr class="memitem:a06c9f20d265c7769fb0ff72288a83c38"><td class="memItemLeft" align="right" valign="top">std::optional&lt; state_set_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNFA.html#a06c9f20d265c7769fb0ff72288a83c38">getReachedStates</a> (const state_t state) const noexcept</td></tr>
 <tr class="memdesc:a06c9f20d265c7769fb0ff72288a83c38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the set of stated reached by the given string.  <a href="classNFA.html#a06c9f20d265c7769fb0ff72288a83c38">More...</a><br /></td></tr>
 <tr class="separator:a06c9f20d265c7769fb0ff72288a83c38"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6acf4232e85772697c6c2f68f3295fce"><td class="memItemLeft" align="right" valign="top"><a id="a6acf4232e85772697c6c2f68f3295fce"></a>
-std::optional&lt; state_set_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getReachedStates</b> (const state_t state, char_t ch) const noexcept</td></tr>
+<tr class="memitem:a6acf4232e85772697c6c2f68f3295fce"><td class="memItemLeft" align="right" valign="top">std::optional&lt; state_set_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNFA.html#a6acf4232e85772697c6c2f68f3295fce">getReachedStates</a> (const state_t state, char_t ch) const noexcept</td></tr>
+<tr class="memdesc:a6acf4232e85772697c6c2f68f3295fce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get next states_set which reached by the given state and char this will return empty set if the given state and char is not in the transition map.  <a href="classNFA.html#a6acf4232e85772697c6c2f68f3295fce">More...</a><br /></td></tr>
 <tr class="separator:a6acf4232e85772697c6c2f68f3295fce"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa36060fbdf9d64af7142f83f38c2c069"><td class="memItemLeft" align="right" valign="top"><a id="aa36060fbdf9d64af7142f83f38c2c069"></a>
 std::optional&lt; state_set_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getReachedStates</b> (const state_set_t &amp;state_set, char_t ch) const noexcept</td></tr>
@@ -285,7 +285,7 @@ template&lt;typename... Args&gt; </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
 <a id="a06c9f20d265c7769fb0ff72288a83c38"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a06c9f20d265c7769fb0ff72288a83c38">&#9670;&nbsp;</a></span>getReachedStates()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a06c9f20d265c7769fb0ff72288a83c38">&#9670;&nbsp;</a></span>getReachedStates() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -312,6 +312,51 @@ template&lt;typename... Args&gt; </div>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">state</td><td>the start state </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a6acf4232e85772697c6c2f68f3295fce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6acf4232e85772697c6c2f68f3295fce">&#9670;&nbsp;</a></span>getReachedStates() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; NFA::state_set_t &gt; NFA::getReachedStates </td>
+          <td>(</td>
+          <td class="paramtype">const state_t&#160;</td>
+          <td class="paramname"><em>state</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char_t&#160;</td>
+          <td class="paramname"><em>ch</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Get next states_set which reached by the given state and char this will return empty set if the given state and char is not in the transition map. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">state</td><td>current state </td></tr>
+    <tr><td class="paramname">ch</td><td>input char </td></tr>
   </table>
   </dd>
 </dl>

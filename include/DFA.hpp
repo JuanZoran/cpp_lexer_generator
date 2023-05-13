@@ -35,7 +35,7 @@ private:
 
     void _toMarkdown(const str_t& filename, const std::ios_base::openmode) noexcept;
     void _toDotFile(const str_t& filename, const std::ios_base::openmode) noexcept;
-    void _toImage(const str_t& filename)  noexcept;
+    void _toImage(const str_t& filename) noexcept;
 
 private: // INFO :Private members
     /**
@@ -75,28 +75,28 @@ inline DFA::DFA(const NFA& nfa) noexcept:
 {
     auto result = nfa.getReachedStates(nfa.getStartState());
     assert(result);
-    auto q0 = *result;
+    auto initial_state = *result;
 
     // TODO :improve memory usage via use pointer to store state_set
-    std::stack<state_set_t> st {};
+    std::stack<state_set_t> state_stack {};
     map_t<state_set_t, state_t> states_map {};
 
-    auto create_new_state = [this, &states_map, &st, &nfa](const state_set_t& q) {
+    auto create_new_state = [this, &states_map, &state_stack, &nfa](const state_set_t& q) {
         auto new_state = _newState();
         states_map[q] = new_state;
-        st.push(q);
+        state_stack.push(q);
 
         // check if this state is final state
         if (q.find(nfa.getFinalState()) != q.end())
             _final_state_set.insert(new_state);
     };
-    create_new_state(q0);
+    create_new_state(initial_state);
 
-    while (!st.empty()) {
+    while (!state_stack.empty()) {
         // INFO :Bug
         // auto& q = st.top();
-        auto q = st.top();
-        st.pop();
+        auto q = state_stack.top();
+        state_stack.pop();
 
         for (auto ch : _charset) {
             auto q_next_ptr = nfa.getReachedStates(q, ch);

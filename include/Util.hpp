@@ -3,15 +3,11 @@
 #include <ios>
 #include <stack>
 #include <string>
+#include <cassert>
 
 namespace Util {
 using str = FSA::str_t;
 
-/**
- * @brief Add concat operator to regex string
- *
- * @param str Regex string
- */
 inline void addConcatOperator(str& str)
 {
     constexpr auto concatOperator = '^';
@@ -91,12 +87,12 @@ inline void getPostfixAndChatSet(str& infix, FSA::set_t<char>& inputCharSet)
             st.push(ch);
         }
         else if (ch == ')') {
-            // WARNING : if there is no '(' in the stack, it will cause an error
             while (st.top() != '(') {
                 postfix.push_back(st.top());
                 st.pop();
             }
 
+            assert(!st.empty());
             st.pop();
         }
 

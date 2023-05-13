@@ -12,6 +12,8 @@
 #include <string_view>
 #include <utility>
 
+// NOTE : Comments are grenarated by GPT4
+
 /**
  * @class NFA
  * @brief Thompson algorithm's NFA
@@ -22,13 +24,16 @@
 class NFA: public FSA
 {
 public: // INFO : type alias
+    // Define type aliases for readability
+
     // clang-format off
     using priority_t = uint32_t;
     using str_view_t = std::string_view;
-    using epsilon_treansion_map_t = FSA::map_t<state_t, NFA::state_set_t>;
+    using epsilon_transition_map_t = FSA::map_t<state_t, NFA::state_set_t>;
     // clang-format on
 
 public: // INFO : built-in method
+    // Define default and copy constructors, and assignment operators
     NFA() = default;
     /**
      * @brief The wrapper of parse function
@@ -42,7 +47,6 @@ public: // INFO : built-in method
     NFA(const NFA&) = default;
     NFA& operator= (NFA&&) = default;
     NFA& operator= (const NFA&) = default;
-    ~NFA() = default;
 
 
 public: // INFO : member method
@@ -57,6 +61,7 @@ public: // INFO : member method
     bool match(const str_view_t& str) const noexcept;
 
 
+    // Methods to get states reached by transitions
     /**
      * @brief Get the set of stated reached by the given string
      *
@@ -64,7 +69,14 @@ public: // INFO : member method
      */
     std::optional<state_set_t> getReachedStates(const state_t state) const noexcept;
 
+    /**
+     * @brief Get next states_set which reached by the given state and char
+     * this will return empty set if the given state and char is not in the transition map
+     * @param state current state
+     * @param ch input char
+     */
     std::optional<state_set_t> getReachedStates(const state_t state, char_t ch) const noexcept;
+
 
     std::optional<state_set_t>
         getReachedStates(const state_set_t& state_set, char_t ch) const noexcept;
@@ -74,6 +86,7 @@ public: // INFO : member method
     void getReachedStates(
         const state_t state, char_t ch, state_set_t& reached_states) const noexcept;
 
+    // Getters for charset, start state, and final state
     set_t<char_t> getCharset() const noexcept
     {
         return _charset;
@@ -93,6 +106,7 @@ public: // INFO : member method
 
 
 public: // INFO : static method
+    // Static method to get state information
     static NFA::str_t stateInfo() noexcept;
 
 private: // INFO : private static member method
@@ -103,6 +117,7 @@ private: // INFO : private static member method
 
 
 private: // INFO : private member method
+    // Private methods to output the NFA to different formats
     void _toMarkdown(std::ostream& os) noexcept;
     void _toDotFile(std::ostream& os) noexcept;
 
@@ -116,7 +131,7 @@ private: // INFO : private member method
 
 private: // INFO : private member variable
     transition_map_t _state_transition_map {};
-    epsilon_treansion_map_t _epsilon_transition_map {};
+    epsilon_transition_map_t _epsilon_transition_map {};
     state_t _start_state {};
     state_t _final_state {};
 
@@ -172,7 +187,7 @@ inline std::ostream& operator<< (std::ostream& os, const NFA& nfa) noexcept
 }
 
 template <>
-struct fmt::formatter<NFA::epsilon_treansion_map_t>
+struct fmt::formatter<NFA::epsilon_transition_map_t>
 {
     // auto parse(format_parse_context& ctx) { return ctx.begin(); }
     constexpr auto parse(format_parse_context& ctx)
@@ -181,7 +196,7 @@ struct fmt::formatter<NFA::epsilon_treansion_map_t>
     }
 
     template <typename FormatContext>
-    auto format(NFA::epsilon_treansion_map_t& m, FormatContext& ctx)
+    auto format(NFA::epsilon_transition_map_t& m, FormatContext& ctx)
     {
         auto out = ctx.out();
         for (const auto& [key, value] : m) {
@@ -290,6 +305,7 @@ inline void NFA::parse(NFA::str_t& RE) noexcept
 
     auto Kleene = [this, &st]() {
         auto new_start = _newState(), new_end = _newState();
+        assert(st.size() >= 1);
         auto [start, end] = st.top();
 
         _epsilon_transition_map[new_start].emplace(start);
@@ -302,23 +318,22 @@ inline void NFA::parse(NFA::str_t& RE) noexcept
     };
 
     auto Concat = [this, &st]() {
+        assert(st.size() >= 2);
         auto [start1, end1] = st.top();
         st.pop();
         auto [start2, end2] = st.top();
-        // st.pop();
 
         _epsilon_transition_map[end2].emplace(start1);
 
-        // st.push({ start2, end1 });
         st.top() = { start2, end1 };
     };
 
     auto Union = [this, &st]() {
+        assert(st.size() >= 2);
         auto new_start = _newState(), new_end = _newState();
         auto [start1, end1] = st.top();
         st.pop();
         auto [start2, end2] = st.top();
-        // st.pop();
 
         _epsilon_transition_map[new_start].emplace(start1);
         _epsilon_transition_map[new_start].emplace(start2);
@@ -326,7 +341,6 @@ inline void NFA::parse(NFA::str_t& RE) noexcept
         _epsilon_transition_map[end1].emplace(new_end);
         _epsilon_transition_map[end2].emplace(new_end);
 
-        // st.push({ new_start, new_end });
         st.top() = { new_start, new_end };
     };
 
@@ -337,6 +351,8 @@ inline void NFA::parse(NFA::str_t& RE) noexcept
     };
 
     auto OneOrMore = [this, &st]() {
+        assert(st.size() >= 1);
+
         auto new_start = _newState(), new_end = _newState();
         auto [start, end] = st.top();
         // st.pop();
@@ -350,16 +366,15 @@ inline void NFA::parse(NFA::str_t& RE) noexcept
     };
 
     auto Optional = [this, &st]() {
+        assert(st.size() >= 1);
         auto new_start = _newState(), new_end = _newState();
         auto [start, end] = st.top();
-        // st.pop();
 
         _epsilon_transition_map[new_start].emplace(start);
         _epsilon_transition_map[new_start].emplace(new_end);
 
         _epsilon_transition_map[end].emplace(new_end);
 
-        // st.push({ new_start, new_end });
         st.top() = { new_start, new_end };
     };
 
@@ -427,7 +442,7 @@ inline NFA& NFA::operator+ (NFA& other) noexcept
 inline bool NFA::match(const NFA::str_view_t& str) const noexcept
 {
     fmt::print("TODO: {}", __func__);
-    return false;
+    assert(false);
 }
 
 inline NFA::str_t NFA::stateInfo() noexcept
@@ -455,6 +470,7 @@ inline std::optional<NFA::state_set_t> NFA::getReachedStates(const state_t state
     return std::nullopt;
 }
 
+// 获取通过给定字符从当前状态转移到的状态集合
 inline std::optional<NFA::state_set_t>
     NFA::getReachedStates(const NFA::state_t state, char_t ch) const noexcept
 {
@@ -466,6 +482,7 @@ inline std::optional<NFA::state_set_t>
     return getReachedStates(it->second);
 }
 
+// 获取通过给定字符从当前状态集合转移到的状态集合
 inline void NFA::getReachedStates(
     const NFA::state_t state, char_t ch, NFA::state_set_t& reached_states) const noexcept
 {
@@ -477,6 +494,7 @@ inline void NFA::getReachedStates(
     getReachedStates(it->second, reached_states);
 }
 
+// 将通过空字符从当前状态转移到的状态集合添加到 reached_states 中
 inline void
     NFA::getReachedStates(const NFA::state_t state, NFA::state_set_t& reached_states) const noexcept
 {
@@ -494,21 +512,20 @@ inline void
         for (const auto& s : _epsilon_transition_map.at(state)) {
             if (reached_states.find(s) != reached_states.end())
                 continue;
+
             st.emplace(s);
             reached_states.emplace(s);
         }
     }
 }
 
+// 获取通过给定字符从当前状态集合转移到的状态集合
 inline std::optional<NFA::state_set_t>
     NFA::getReachedStates(const NFA::state_set_t& state_set, char_t ch) const noexcept
 {
     NFA::state_set_t reached_states {};
-
-    for (const auto state : state_set)
+    for (const auto& state : state_set) {
         getReachedStates(state, ch, reached_states);
-
-    if (reached_states.empty())
-        return std::nullopt;
-    return reached_states;
+    }
+    return reached_states.empty() ? std::nullopt : std::make_optional(reached_states);
 }

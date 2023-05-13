@@ -1,6 +1,5 @@
-#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN
 #include <NFA.hpp>
-#include <doctest/doctest.h>
+#include <gtest/gtest.h>
 
 NFA::str_t test_str = "a+b";
 
@@ -13,53 +12,58 @@ NFA::set_t<std::pair<NFA::state_t, NFA::state_set_t>> test_case {
     { 5, { 5 }         },
 };
 
-
 NFA::map_t<std::pair<NFA::state_set_t, NFA::char_t>, NFA::state_set_t> transition_test_case {
   // {{ { 0 }, 'a' },           { 0, 1, 3, 4 }},
   // { { { 0, 1, 3, 4 }, 'a' }, { 0, 1, 3, 4 }},
     {{ { 0, 1, 3, 4 }, 'b' }, { 5 }},
 };
 
-TEST_CASE("NFA")
+class NFATest: public ::testing::Test
 {
-    NFA nfa(test_str);
-    SUBCASE("getReachedStates")
+protected:
+    NFA nfa;
+
+    NFATest():
+        nfa(test_str)
     {
-        SUBCASE("Param: state")
-        {
-            NFA::state_set_t reachedStates;
-            for (auto test : test_case) {
-                reachedStates = *nfa.getReachedStates(test.first);
-                CHECK_EQ(reachedStates, test.second);
-            }
-        }
-        // FIXME :
-        // SUBCASE("Param: state_set char")
-        // {
-        //     state_set_t reachedStates;
-        //     for (auto [test, expected] : transition_test_case) {
-        //         reachedStates = *nfa.getReachedStates(test.first, test.second);
-        //         CHECK_EQ(reachedStates, expected);
-        //     }
-        // }
     }
+};
 
-    //     SUBCASE("toPostfix")
-    //     {
-    //         for (auto test : all_test) {
-    //             std::set<char> inputCharSet;
-    //             str input = test[0];
-    //             str right = test[2];
-
-    //             addConcatOperator(input);
-    //             processRegex(input, inputCharSet);
-    //             CHECK_EQ(right, input);
-    //             CHECK_EQ(inputCharSet, std::set<char>(test[3].begin(), test[3].end()));
-    //         }
-    //     }
+TEST_F(NFATest, getReachedStates)
+{
+    NFA::state_set_t reachedStates;
+    for (auto test : test_case) {
+        reachedStates = *nfa.getReachedStates(test.first);
+        EXPECT_EQ(reachedStates, test.second);
+    }
 }
 
-// TEST :
-// TEST(Unit Name, Test Name) {
-//     TODO : Your Test
+// FIXME:
+// TEST_F(NFATest, getReachedStatesWithStateSetChar)
+// {
+//     NFA::state_set_t reachedStates;
+//     for (auto [test, expected] : transition_test_case) {
+//         reachedStates = *nfa.getReachedStates(test.first, test.second);
+//         EXPECT_EQ(reachedStates, expected);
+//     }
 // }
+
+// TEST_F(NFATest, toPostfix)
+// {
+//     for (auto test : all_test) {
+//         std::set<char> inputCharSet;
+//         NFA::str input = test[0];
+//         NFA::str right = test[2];
+
+//         addConcatOperator(input);
+//         processRegex(input, inputCharSet);
+//         EXPECT_EQ(right, input);
+//         EXPECT_EQ(inputCharSet, std::set<char>(test[3].begin(), test[3].end()));
+//     }
+// }
+
+int main(int argc, char** argv)
+{
+    ::testing::InitGoogleTest(&argc, argv);
+    return RUN_ALL_TESTS();
+}
