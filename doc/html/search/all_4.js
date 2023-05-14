@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['re_3a_20ab_2a_7cc_7',['RE: ab*|c',['../md_bin_README.html',1,'(Global Namespace)'],['../md_README.html',1,'(Global Namespace)']]]
+  ['re_3a_20a_2bb_7',['RE: a+b',['../md_bin_README.html',1,'']]],
+  ['re_3a_20a_3f_8',['RE: a?',['../md_README.html',1,'']]]
 ];

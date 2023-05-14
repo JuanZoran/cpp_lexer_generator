@@ -1,5 +1,61 @@
-\hypertarget{md_bin_README_autotoc_md1}{}\doxysubsection{Preprocess \+: a$^\wedge$b$\ast$$\vert$c}\label{md_bin_README_autotoc_md1}
-\hypertarget{md_bin_README_autotoc_md2}{}\doxysubsection{Postfix \+: ab$\ast$$^\wedge$c$\vert$}\label{md_bin_README_autotoc_md2}
+\hypertarget{md_bin_README_autotoc_md1}{}\doxysubsection{Preprocess \+: a+$^\wedge$b}\label{md_bin_README_autotoc_md1}
+\hypertarget{md_bin_README_autotoc_md2}{}\doxysubsection{Postfix \+: a+b$^\wedge$}\label{md_bin_README_autotoc_md2}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph NFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{2 [color = green];}
+\DoxyCodeLine{5 [shape = doublecircle];}
+\DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
+\DoxyCodeLine{4 -\/> 5 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{1 -\/> 0 [ label = "{}ε"{} ];}
+\DoxyCodeLine{1 -\/> 3 [ label = "{}ε"{} ];}
+\DoxyCodeLine{2 -\/> 0 [ label = "{}ε"{} ];}
+\DoxyCodeLine{3 -\/> 4 [ label = "{}ε"{} ];}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{0 [color = green];}
+\DoxyCodeLine{2 [shape=doublecircle];}
+\DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
+\DoxyCodeLine{1 -\/> 1 [ label = "{}a"{} ];}
+\DoxyCodeLine{1 -\/> 2 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{3 [color = green];}
+\DoxyCodeLine{5 [shape=doublecircle];}
+\DoxyCodeLine{3 -\/> 4 [ label = "{}a"{} ];}
+\DoxyCodeLine{4 -\/> 4 [ label = "{}a"{} ];}
+\DoxyCodeLine{4 -\/> 5 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{md_bin_README_autotoc_md3}{}\doxysection{RE\+: a+}\label{md_bin_README_autotoc_md3}
+\hypertarget{md_bin_README_autotoc_md4}{}\doxysubsection{Preprocess \+: a+}\label{md_bin_README_autotoc_md4}
+\hypertarget{md_bin_README_autotoc_md5}{}\doxysubsection{Postfix \+: a+}\label{md_bin_README_autotoc_md5}
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{digraph NFA \{}
@@ -9,19 +65,422 @@
 \DoxyCodeLine{edge [color = blue];}
 \DoxyCodeLine{8 [color = green];}
 \DoxyCodeLine{9 [shape = doublecircle];}
-\DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
-\DoxyCodeLine{2 -\/> 3 [ label = "{}b"{} ];}
-\DoxyCodeLine{6 -\/> 7 [ label = "{}c"{} ];}
+\DoxyCodeLine{6 -\/> 7 [ label = "{}a"{} ];}
 \DoxyCodeLine{}
-\DoxyCodeLine{1 -\/> 4 [ label = "{}ε"{} ];}
-\DoxyCodeLine{3 -\/> 2 [ label = "{}ε"{} ];}
-\DoxyCodeLine{3 -\/> 5 [ label = "{}ε"{} ];}
-\DoxyCodeLine{4 -\/> 2 [ label = "{}ε"{} ];}
-\DoxyCodeLine{4 -\/> 5 [ label = "{}ε"{} ];}
-\DoxyCodeLine{5 -\/> 9 [ label = "{}ε"{} ];}
+\DoxyCodeLine{7 -\/> 6 [ label = "{}ε"{} ];}
 \DoxyCodeLine{7 -\/> 9 [ label = "{}ε"{} ];}
-\DoxyCodeLine{8 -\/> 0 [ label = "{}ε"{} ];}
 \DoxyCodeLine{8 -\/> 6 [ label = "{}ε"{} ];}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{0 [color = green];}
+\DoxyCodeLine{1 [shape=doublecircle];}
+\DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
+\DoxyCodeLine{1 -\/> 1 [ label = "{}a"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{2 [color = green];}
+\DoxyCodeLine{3 [shape=doublecircle];}
+\DoxyCodeLine{2 -\/> 3 [ label = "{}a"{} ];}
+\DoxyCodeLine{3 -\/> 3 [ label = "{}a"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{md_bin_README_autotoc_md6}{}\doxysection{RE\+: a?}\label{md_bin_README_autotoc_md6}
+\hypertarget{md_bin_README_autotoc_md7}{}\doxysubsection{Preprocess \+: a?}\label{md_bin_README_autotoc_md7}
+\hypertarget{md_bin_README_autotoc_md8}{}\doxysubsection{Postfix \+: a?}\label{md_bin_README_autotoc_md8}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph NFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{12 [color = green];}
+\DoxyCodeLine{13 [shape = doublecircle];}
+\DoxyCodeLine{10 -\/> 11 [ label = "{}a"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{11 -\/> 13 [ label = "{}ε"{} ];}
+\DoxyCodeLine{12 -\/> 10 [ label = "{}ε"{} ];}
+\DoxyCodeLine{12 -\/> 13 [ label = "{}ε"{} ];}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{0 [color = green];}
+\DoxyCodeLine{0 [shape=doublecircle];}
+\DoxyCodeLine{1 [shape=doublecircle];}
+\DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{3 [color = green];}
+\DoxyCodeLine{3 [shape=doublecircle];}
+\DoxyCodeLine{4 [shape=doublecircle];}
+\DoxyCodeLine{3 -\/> 4 [ label = "{}a"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{md_bin_README_autotoc_md9}{}\doxysection{RE\+: a$\vert$b}\label{md_bin_README_autotoc_md9}
+\hypertarget{md_bin_README_autotoc_md10}{}\doxysubsection{Preprocess \+: a$\vert$b}\label{md_bin_README_autotoc_md10}
+\hypertarget{md_bin_README_autotoc_md11}{}\doxysubsection{Postfix \+: ab$\vert$}\label{md_bin_README_autotoc_md11}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph NFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{18 [color = green];}
+\DoxyCodeLine{19 [shape = doublecircle];}
+\DoxyCodeLine{14 -\/> 15 [ label = "{}a"{} ];}
+\DoxyCodeLine{16 -\/> 17 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{15 -\/> 19 [ label = "{}ε"{} ];}
+\DoxyCodeLine{17 -\/> 19 [ label = "{}ε"{} ];}
+\DoxyCodeLine{18 -\/> 14 [ label = "{}ε"{} ];}
+\DoxyCodeLine{18 -\/> 16 [ label = "{}ε"{} ];}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{0 [color = green];}
+\DoxyCodeLine{1 [shape=doublecircle];}
+\DoxyCodeLine{2 [shape=doublecircle];}
+\DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
+\DoxyCodeLine{0 -\/> 2 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{3 [color = green];}
+\DoxyCodeLine{4 [shape=doublecircle];}
+\DoxyCodeLine{3 -\/> 4 [ label = "{}a"{} ];}
+\DoxyCodeLine{3 -\/> 4 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{md_bin_README_autotoc_md12}{}\doxysection{RE\+: (a$\vert$b)?}\label{md_bin_README_autotoc_md12}
+\hypertarget{md_bin_README_autotoc_md13}{}\doxysubsection{Preprocess \+: (a$\vert$b)?}\label{md_bin_README_autotoc_md13}
+\hypertarget{md_bin_README_autotoc_md14}{}\doxysubsection{Postfix \+: ab$\vert$?}\label{md_bin_README_autotoc_md14}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph NFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{26 [color = green];}
+\DoxyCodeLine{27 [shape = doublecircle];}
+\DoxyCodeLine{20 -\/> 21 [ label = "{}a"{} ];}
+\DoxyCodeLine{22 -\/> 23 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{21 -\/> 25 [ label = "{}ε"{} ];}
+\DoxyCodeLine{23 -\/> 25 [ label = "{}ε"{} ];}
+\DoxyCodeLine{24 -\/> 20 [ label = "{}ε"{} ];}
+\DoxyCodeLine{24 -\/> 22 [ label = "{}ε"{} ];}
+\DoxyCodeLine{25 -\/> 27 [ label = "{}ε"{} ];}
+\DoxyCodeLine{26 -\/> 24 [ label = "{}ε"{} ];}
+\DoxyCodeLine{26 -\/> 27 [ label = "{}ε"{} ];}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{0 [color = green];}
+\DoxyCodeLine{0 [shape=doublecircle];}
+\DoxyCodeLine{1 [shape=doublecircle];}
+\DoxyCodeLine{2 [shape=doublecircle];}
+\DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
+\DoxyCodeLine{0 -\/> 2 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{4 [color = green];}
+\DoxyCodeLine{4 [shape=doublecircle];}
+\DoxyCodeLine{5 [shape=doublecircle];}
+\DoxyCodeLine{4 -\/> 5 [ label = "{}a"{} ];}
+\DoxyCodeLine{4 -\/> 5 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{md_bin_README_autotoc_md15}{}\doxysection{RE\+: a$\vert$b$\ast$}\label{md_bin_README_autotoc_md15}
+\hypertarget{md_bin_README_autotoc_md16}{}\doxysubsection{Preprocess \+: a$\vert$b$\ast$}\label{md_bin_README_autotoc_md16}
+\hypertarget{md_bin_README_autotoc_md17}{}\doxysubsection{Postfix \+: ab$\ast$$\vert$}\label{md_bin_README_autotoc_md17}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph NFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{34 [color = green];}
+\DoxyCodeLine{35 [shape = doublecircle];}
+\DoxyCodeLine{28 -\/> 29 [ label = "{}a"{} ];}
+\DoxyCodeLine{30 -\/> 31 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{29 -\/> 35 [ label = "{}ε"{} ];}
+\DoxyCodeLine{31 -\/> 30 [ label = "{}ε"{} ];}
+\DoxyCodeLine{31 -\/> 33 [ label = "{}ε"{} ];}
+\DoxyCodeLine{32 -\/> 30 [ label = "{}ε"{} ];}
+\DoxyCodeLine{32 -\/> 33 [ label = "{}ε"{} ];}
+\DoxyCodeLine{33 -\/> 35 [ label = "{}ε"{} ];}
+\DoxyCodeLine{34 -\/> 28 [ label = "{}ε"{} ];}
+\DoxyCodeLine{34 -\/> 32 [ label = "{}ε"{} ];}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{0 [color = green];}
+\DoxyCodeLine{0 [shape=doublecircle];}
+\DoxyCodeLine{1 [shape=doublecircle];}
+\DoxyCodeLine{2 [shape=doublecircle];}
+\DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
+\DoxyCodeLine{0 -\/> 2 [ label = "{}b"{} ];}
+\DoxyCodeLine{2 -\/> 2 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{4 [color = green];}
+\DoxyCodeLine{4 [shape=doublecircle];}
+\DoxyCodeLine{5 [shape=doublecircle];}
+\DoxyCodeLine{6 [shape=doublecircle];}
+\DoxyCodeLine{4 -\/> 5 [ label = "{}a"{} ];}
+\DoxyCodeLine{4 -\/> 6 [ label = "{}b"{} ];}
+\DoxyCodeLine{6 -\/> 6 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{md_bin_README_autotoc_md18}{}\doxysection{RE\+: a$\vert$b+}\label{md_bin_README_autotoc_md18}
+\hypertarget{md_bin_README_autotoc_md19}{}\doxysubsection{Preprocess \+: a$\vert$b+}\label{md_bin_README_autotoc_md19}
+\hypertarget{md_bin_README_autotoc_md20}{}\doxysubsection{Postfix \+: ab+$\vert$}\label{md_bin_README_autotoc_md20}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph NFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{42 [color = green];}
+\DoxyCodeLine{43 [shape = doublecircle];}
+\DoxyCodeLine{36 -\/> 37 [ label = "{}a"{} ];}
+\DoxyCodeLine{38 -\/> 39 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{37 -\/> 43 [ label = "{}ε"{} ];}
+\DoxyCodeLine{39 -\/> 38 [ label = "{}ε"{} ];}
+\DoxyCodeLine{39 -\/> 41 [ label = "{}ε"{} ];}
+\DoxyCodeLine{40 -\/> 38 [ label = "{}ε"{} ];}
+\DoxyCodeLine{41 -\/> 43 [ label = "{}ε"{} ];}
+\DoxyCodeLine{42 -\/> 36 [ label = "{}ε"{} ];}
+\DoxyCodeLine{42 -\/> 40 [ label = "{}ε"{} ];}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{0 [color = green];}
+\DoxyCodeLine{1 [shape=doublecircle];}
+\DoxyCodeLine{2 [shape=doublecircle];}
+\DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
+\DoxyCodeLine{0 -\/> 2 [ label = "{}b"{} ];}
+\DoxyCodeLine{2 -\/> 2 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{3 [color = green];}
+\DoxyCodeLine{4 [shape=doublecircle];}
+\DoxyCodeLine{5 [shape=doublecircle];}
+\DoxyCodeLine{3 -\/> 4 [ label = "{}a"{} ];}
+\DoxyCodeLine{3 -\/> 5 [ label = "{}b"{} ];}
+\DoxyCodeLine{5 -\/> 5 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{md_bin_README_autotoc_md21}{}\doxysection{RE\+: a$\vert$b?}\label{md_bin_README_autotoc_md21}
+\hypertarget{md_bin_README_autotoc_md22}{}\doxysubsection{Preprocess \+: a$\vert$b?}\label{md_bin_README_autotoc_md22}
+\hypertarget{md_bin_README_autotoc_md23}{}\doxysubsection{Postfix \+: ab?$\vert$}\label{md_bin_README_autotoc_md23}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph NFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{50 [color = green];}
+\DoxyCodeLine{51 [shape = doublecircle];}
+\DoxyCodeLine{44 -\/> 45 [ label = "{}a"{} ];}
+\DoxyCodeLine{46 -\/> 47 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{45 -\/> 51 [ label = "{}ε"{} ];}
+\DoxyCodeLine{47 -\/> 49 [ label = "{}ε"{} ];}
+\DoxyCodeLine{48 -\/> 46 [ label = "{}ε"{} ];}
+\DoxyCodeLine{48 -\/> 49 [ label = "{}ε"{} ];}
+\DoxyCodeLine{49 -\/> 51 [ label = "{}ε"{} ];}
+\DoxyCodeLine{50 -\/> 44 [ label = "{}ε"{} ];}
+\DoxyCodeLine{50 -\/> 48 [ label = "{}ε"{} ];}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{0 [color = green];}
+\DoxyCodeLine{0 [shape=doublecircle];}
+\DoxyCodeLine{1 [shape=doublecircle];}
+\DoxyCodeLine{2 [shape=doublecircle];}
+\DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
+\DoxyCodeLine{0 -\/> 2 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{4 [color = green];}
+\DoxyCodeLine{4 [shape=doublecircle];}
+\DoxyCodeLine{5 [shape=doublecircle];}
+\DoxyCodeLine{4 -\/> 5 [ label = "{}a"{} ];}
+\DoxyCodeLine{4 -\/> 5 [ label = "{}b"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ \hypertarget{md_bin_README_autotoc_md24}{}\doxysection{RE\+: a$\vert$b$\vert$c}\label{md_bin_README_autotoc_md24}
+\hypertarget{md_bin_README_autotoc_md25}{}\doxysubsection{Preprocess \+: a$\vert$b$\vert$c}\label{md_bin_README_autotoc_md25}
+\hypertarget{md_bin_README_autotoc_md26}{}\doxysubsection{Postfix \+: ab$\vert$c$\vert$}\label{md_bin_README_autotoc_md26}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph NFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{60 [color = green];}
+\DoxyCodeLine{61 [shape = doublecircle];}
+\DoxyCodeLine{52 -\/> 53 [ label = "{}a"{} ];}
+\DoxyCodeLine{54 -\/> 55 [ label = "{}b"{} ];}
+\DoxyCodeLine{58 -\/> 59 [ label = "{}c"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{53 -\/> 57 [ label = "{}ε"{} ];}
+\DoxyCodeLine{55 -\/> 57 [ label = "{}ε"{} ];}
+\DoxyCodeLine{56 -\/> 52 [ label = "{}ε"{} ];}
+\DoxyCodeLine{56 -\/> 54 [ label = "{}ε"{} ];}
+\DoxyCodeLine{57 -\/> 61 [ label = "{}ε"{} ];}
+\DoxyCodeLine{59 -\/> 61 [ label = "{}ε"{} ];}
+\DoxyCodeLine{60 -\/> 56 [ label = "{}ε"{} ];}
+\DoxyCodeLine{60 -\/> 58 [ label = "{}ε"{} ];}
 \DoxyCodeLine{\}}
 
 \end{DoxyCode}
@@ -38,9 +497,25 @@
 \DoxyCodeLine{2 [shape=doublecircle];}
 \DoxyCodeLine{3 [shape=doublecircle];}
 \DoxyCodeLine{0 -\/> 1 [ label = "{}a"{} ];}
-\DoxyCodeLine{0 -\/> 2 [ label = "{}c"{} ];}
-\DoxyCodeLine{1 -\/> 3 [ label = "{}b"{} ];}
-\DoxyCodeLine{3 -\/> 3 [ label = "{}b"{} ];}
+\DoxyCodeLine{0 -\/> 2 [ label = "{}b"{} ];}
+\DoxyCodeLine{0 -\/> 3 [ label = "{}c"{} ];}
+\DoxyCodeLine{}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+ 
+\begin{DoxyCode}{0}
+\DoxyCodeLine{digraph DFA \{}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{rankdir=LR;}
+\DoxyCodeLine{graph [bgcolor = transparent];}
+\DoxyCodeLine{node [color = blue, fontcolor = white]}
+\DoxyCodeLine{edge [color = blue];}
+\DoxyCodeLine{4 [color = green];}
+\DoxyCodeLine{5 [shape=doublecircle];}
+\DoxyCodeLine{4 -\/> 5 [ label = "{}a"{} ];}
+\DoxyCodeLine{4 -\/> 5 [ label = "{}b"{} ];}
+\DoxyCodeLine{4 -\/> 5 [ label = "{}c"{} ];}
 \DoxyCodeLine{}
 \DoxyCodeLine{\}}
 

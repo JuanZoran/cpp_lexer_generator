@@ -10,7 +10,17 @@ using namespace fmt;
 #if 1
 int main(int argc, char* argv[])
 {
-    vector<FSA::str_t> tests { "ab*|c" };
+    vector<FSA::str_t> tests {
+        "a+b",
+        "a+",
+        "a?",
+        "a|b",
+        "(a|b)?",
+        "a|b*",
+        "a|b+",
+        "a|b?",
+        "a|b|c",
+    };
     // vector<Type::str_t> tests {
     //     "a+b",
     //     // "a",
@@ -25,6 +35,8 @@ int main(int argc, char* argv[])
         nfa.parse(RE);
         Util::toDiagram(nfa, filename);
         auto dfa = DFA(nfa);
+        Util::toDiagram(dfa, filename);
+        dfa.minimal();
         Util::toDiagram(dfa, filename);
     }
 
