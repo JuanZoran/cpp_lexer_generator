@@ -7,8 +7,7 @@
 #include <string>
 
 // (D)eterministic (F)inite (A)utomata
-class DFA: public FSA
-{
+class DFA: public FSA {
 public:
     DFA(const NFA& nfa) noexcept;
 
@@ -34,6 +33,21 @@ public:
 
     void minimal() noexcept;
 
+    state_t getStartState() const noexcept
+    {
+        return _start_state;
+    }
+
+    bool isFinalState(state_t state) const noexcept
+    {
+        return _final_state_set.count(state) != 0;
+    }
+
+    state_info_t getStateInfo(state_t state) const noexcept
+    {
+        return _state_info.at(state).second;
+    }
+
 private:
     state_t _newState() noexcept
     {
@@ -46,16 +60,14 @@ private:
     void _toMarkdown(const str_t& filename, const std::ios_base::openmode) noexcept;
     void _toDotFile(const str_t& filename, const std::ios_base::openmode) noexcept;
     void _toImage(const str_t& filename) noexcept;
-
     str_t _toDotString() noexcept;
-
 
 
 private: // INFO :Private members
     /**
      * @brief final state info
      */
-    map_t<state_t, std::pair<NFA::priority_t, str_t>> _state_info {};
+    map_t<state_t, std::pair<NFA::priority_t, state_info_t>> _state_info {};
 
     /**
      * @brief state transition map
@@ -96,7 +108,7 @@ inline DFA::DFA(const NFA& nfa) noexcept:
         state_stack.push(q);
 
         // check if this state is final state
-        if (q.find(nfa.getFinalState()) != q.end())
+        if (nfa.hasFinalState(q))
             _final_state_set.insert(new_state);
     };
     create_new_state(initial_state);

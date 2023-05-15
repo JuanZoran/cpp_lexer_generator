@@ -46,7 +46,7 @@ end
 ---@format disable
 target("lexer_generator")
     set_kind("binary")
-    add_files("src/*.cpp")
+    add_files("src/main.cpp")
 
 
 local test_cases = {

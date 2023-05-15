@@ -20,8 +20,7 @@
 
 
 // (F)inite (S)tate (A)utomata
-class FSA
-{
+class FSA {
 public:
     template <typename key, typename value>
     using map_t = std::map<key, value>;
@@ -36,8 +35,8 @@ public:
     using transition_t = std::pair<state_t, char_t>;
     using transition_map_t = map_t<transition_t, state_t>;
     using state_set_t = set_t<state_t>;
-
     using str_t = std::string;
+    using state_info_t = str_t;
 
 
     enum class DiagramFmt {
@@ -46,6 +45,7 @@ public:
         IMAGE,
     };
 
+    constexpr static state_t INVALID_STATE = -1;
     constexpr static auto graph_style = "rankdir=LR;\n"
                                         "graph [bgcolor = transparent];\n"
                                         "node [color = blue, fontcolor = white]\n"

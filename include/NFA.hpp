@@ -21,8 +21,7 @@
  */
 
 // (N)on-Deterministic (F)inite (A)utomata
-class NFA: public FSA
-{
+class NFA: public FSA {
 public: // INFO : type alias
     // Define type aliases for readability
 
@@ -97,12 +96,10 @@ public: // INFO : member method
         return _start_state;
     }
 
-    state_t getFinalState() const noexcept
+    bool hasFinalState(const set_t<state_t> set) const noexcept
     {
-        return _final_state;
+        return set.count(_final_state) == 1;
     }
-
-
 
 
 public: // INFO : static method

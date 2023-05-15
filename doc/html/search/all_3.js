@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['nfa_5',['NFA',['../classNFA.html',1,'NFA'],['../classNFA.html#a7e4991fd3e64cf437252defe335cfe09',1,'NFA::NFA()']]],
-  ['nfatest_6',['NFATest',['../classNFATest.html',1,'']]]
+  ['getreachedstates_5',['getReachedStates',['../classNFA.html#a06c9f20d265c7769fb0ff72288a83c38',1,'NFA::getReachedStates(const state_t state) const noexcept'],['../classNFA.html#a6acf4232e85772697c6c2f68f3295fce',1,'NFA::getReachedStates(const state_t state, char_t ch) const noexcept']]]
 ];

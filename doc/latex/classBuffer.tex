@@ -1,0 +1,64 @@
+\hypertarget{classBuffer}{}\doxysection{Buffer Class Reference}
+\label{classBuffer}\index{Buffer@{Buffer}}
+\doxysubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBuffer_a54895bf3cb77917c8d48dd4440c70237}\label{classBuffer_a54895bf3cb77917c8d48dd4440c70237}} 
+using {\bfseries line\+\_\+t} = uint32\+\_\+t
+\item 
+\mbox{\Hypertarget{classBuffer_ab716f3bcecced6b277fd82ab441b99d3}\label{classBuffer_ab716f3bcecced6b277fd82ab441b99d3}} 
+using {\bfseries column\+\_\+t} = uint32\+\_\+t
+\item 
+\mbox{\Hypertarget{classBuffer_a7c4ccb581630d4892297a0c8024017e7}\label{classBuffer_a7c4ccb581630d4892297a0c8024017e7}} 
+using {\bfseries pos\+\_\+t} = int32\+\_\+t
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBuffer_a0adf6608a51ead58f18432c727aaa1d6}\label{classBuffer_a0adf6608a51ead58f18432c727aaa1d6}} 
+\mbox{\hyperlink{classBuffer}{Buffer}} \& {\bfseries operator=} (\mbox{\hyperlink{classBuffer}{Buffer}} \&\&)=delete
+\item 
+\mbox{\Hypertarget{classBuffer_a870e0e46a4a3d4c25b5e03eb828aebfe}\label{classBuffer_a870e0e46a4a3d4c25b5e03eb828aebfe}} 
+\mbox{\hyperlink{classBuffer}{Buffer}} \& {\bfseries operator=} (const \mbox{\hyperlink{classBuffer}{Buffer}} \&)=delete
+\item 
+\mbox{\Hypertarget{classBuffer_abb784c39e50a5f0669ec8672c4a3f939}\label{classBuffer_abb784c39e50a5f0669ec8672c4a3f939}} 
+{\bfseries Buffer} (std\+::istream \&istream, std\+::size\+\_\+t BUFFER\+\_\+\+SIZE=1024)
+\item 
+\mbox{\Hypertarget{classBuffer_a7b2de208add213c01fd1e131e33735d2}\label{classBuffer_a7b2de208add213c01fd1e131e33735d2}} 
+{\bfseries Buffer} (\mbox{\hyperlink{classBuffer}{Buffer}} \&\&)=default
+\item 
+\mbox{\Hypertarget{classBuffer_afd7cfe4ad5985b6ecd299574fdb073ee}\label{classBuffer_afd7cfe4ad5985b6ecd299574fdb073ee}} 
+{\bfseries Buffer} (const \mbox{\hyperlink{classBuffer}{Buffer}} \&)=default
+\item 
+\mbox{\Hypertarget{classBuffer_a224eedd3e8b1f7c3f59068bb4a3d24cd}\label{classBuffer_a224eedd3e8b1f7c3f59068bb4a3d24cd}} 
+FSA\+::char\+\_\+t {\bfseries peek} () const
+\item 
+\mbox{\Hypertarget{classBuffer_aaaf02520c0fce781aefc91dfc1cae65c}\label{classBuffer_aaaf02520c0fce781aefc91dfc1cae65c}} 
+FSA\+::char\+\_\+t {\bfseries take} ()
+\item 
+\mbox{\Hypertarget{classBuffer_a55d3d4d761da3346d915be6c2824ef42}\label{classBuffer_a55d3d4d761da3346d915be6c2824ef42}} 
+void {\bfseries next} ()
+\item 
+\mbox{\Hypertarget{classBuffer_a37079b6189511f0f0b9771bbb17281cf}\label{classBuffer_a37079b6189511f0f0b9771bbb17281cf}} 
+FSA\+::char\+\_\+t {\bfseries get} (pos\+\_\+t pos) const
+\item 
+\mbox{\Hypertarget{classBuffer_abb289cc578b18d5cd6557f629dd2b616}\label{classBuffer_abb289cc578b18d5cd6557f629dd2b616}} 
+void {\bfseries mark\+Lexeme\+Start} ()
+\item 
+\mbox{\Hypertarget{classBuffer_a7593e7e84345da0657af9938f23dd70f}\label{classBuffer_a7593e7e84345da0657af9938f23dd70f}} 
+\mbox{\hyperlink{structLexeme}{Lexeme}} {\bfseries take\+Lexeme} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classBuffer_af84662c5c0beaee70fe4d7bde8c222bc}\label{classBuffer_af84662c5c0beaee70fe4d7bde8c222bc}} 
+static constexpr pos\+\_\+t {\bfseries COLUMN\+\_\+\+START} = 1
+\item 
+\mbox{\Hypertarget{classBuffer_ac728891a8efe47e21bacc6de2eb6d5af}\label{classBuffer_ac728891a8efe47e21bacc6de2eb6d5af}} 
+static constexpr FSA\+::char\+\_\+t {\bfseries EOF\+\_\+\+CHAR} = -\/1
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+include/Buffer.\+hpp\end{DoxyCompactItemize}

@@ -111,6 +111,15 @@ std::optional&lt; state_t &gt;&#160;</td><td class="memItemRight" valign="bottom
 <tr class="memitem:ad6d943daad0e6c1e3e9a259e3cc33e90"><td class="memItemLeft" align="right" valign="top"><a id="ad6d943daad0e6c1e3e9a259e3cc33e90"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>minimal</b> () noexcept</td></tr>
 <tr class="separator:ad6d943daad0e6c1e3e9a259e3cc33e90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc6652a5c270094a5da493a6c36f55fc"><td class="memItemLeft" align="right" valign="top"><a id="abc6652a5c270094a5da493a6c36f55fc"></a>
+state_t&#160;</td><td class="memItemRight" valign="bottom"><b>getStartState</b> () const noexcept</td></tr>
+<tr class="separator:abc6652a5c270094a5da493a6c36f55fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac7c6f21f6c8eda8886193cf5549a882a"><td class="memItemLeft" align="right" valign="top"><a id="ac7c6f21f6c8eda8886193cf5549a882a"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>isFinalState</b> (state_t state) const noexcept</td></tr>
+<tr class="separator:ac7c6f21f6c8eda8886193cf5549a882a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac4a38cd6b4c6d8506d1bf77f9c18cbab"><td class="memItemLeft" align="right" valign="top"><a id="ac4a38cd6b4c6d8506d1bf77f9c18cbab"></a>
+state_info_t&#160;</td><td class="memItemRight" valign="bottom"><b>getStateInfo</b> (state_t state) const noexcept</td></tr>
+<tr class="separator:ac4a38cd6b4c6d8506d1bf77f9c18cbab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classFSA"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classFSA')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classFSA.html">FSA</a></td></tr>
 <tr class="memitem:a43cca7886b5a2f3d1a5dfb345e0a9a0a inherit pub_methods_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="a43cca7886b5a2f3d1a5dfb345e0a9a0a"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>FSA</b> (<a class="el" href="classFSA.html">FSA</a> &amp;&amp;)=default</td></tr>
@@ -168,7 +177,13 @@ using&#160;</td><td class="memItemRight" valign="bottom"><b>state_set_t</b> = se
 <tr class="memitem:a1d4f01c6cc269ced451b240f60e4c3c5 inherit pub_types_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="a1d4f01c6cc269ced451b240f60e4c3c5"></a>
 using&#160;</td><td class="memItemRight" valign="bottom"><b>str_t</b> = std::string</td></tr>
 <tr class="separator:a1d4f01c6cc269ced451b240f60e4c3c5 inherit pub_types_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a609d0c1236a6677c4fff5463b1f50ac3 inherit pub_types_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="a609d0c1236a6677c4fff5463b1f50ac3"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>state_info_t</b> = str_t</td></tr>
+<tr class="separator:a609d0c1236a6677c4fff5463b1f50ac3 inherit pub_types_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_static_attribs_classFSA"><td colspan="2" onclick="javascript:toggleInherit('pub_static_attribs_classFSA')"><img src="closed.png" alt="-"/>&#160;Static Public Attributes inherited from <a class="el" href="classFSA.html">FSA</a></td></tr>
+<tr class="memitem:a93a2d85af2cbd42460ad4073109cc9da inherit pub_static_attribs_classFSA"><td class="memItemLeft" align="right" valign="top"><a id="a93a2d85af2cbd42460ad4073109cc9da"></a>
+constexpr static state_t&#160;</td><td class="memItemRight" valign="bottom"><b>INVALID_STATE</b> = -1</td></tr>
+<tr class="separator:a93a2d85af2cbd42460ad4073109cc9da inherit pub_static_attribs_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6af5acfd303e8a494050981a98a60774 inherit pub_static_attribs_classFSA"><td class="memItemLeft" align="right" valign="top">constexpr static auto&#160;</td><td class="memItemRight" valign="bottom"><b>graph_style</b></td></tr>
 <tr class="separator:a6af5acfd303e8a494050981a98a60774 inherit pub_static_attribs_classFSA"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
