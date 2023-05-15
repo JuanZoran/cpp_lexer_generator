@@ -26,7 +26,7 @@ public: // INFO : type alias
     // Define type aliases for readability
 
     // clang-format off
-    using priority_t = uint32_t;
+    using priority_t = int32_t;
     using str_view_t = std::string_view;
     using epsilon_transition_map_t = FSA::map_t<state_t, NFA::state_set_t>;
     // clang-format on
@@ -101,10 +101,25 @@ public: // INFO : member method
         return set.count(_final_state) == 1;
     }
 
+    std::optional<std::pair<priority_t, state_info_t>>
+        getStateInfo(const state_t state) const noexcept
+    {
+        return _state_info.count(state) == 1 ? std::make_optional(_state_info.at(state))
+                                             : std::nullopt;
+    }
 
 public: // INFO : static method
     // Static method to get state information
-    static NFA::str_t stateInfo() noexcept;
+    void printStateInfo() const
+    {
+        assert(!_state_info.empty());
+        for (const auto& [key, value] : _state_info) {
+            fmt::print("state : {}\n", key);
+            fmt::print("priority : {}\n", value.first);
+            fmt::print("info : {}\n", value.second);
+        }
+    }
+
 
 private: // INFO : private static member method
     static state_t _newState()
@@ -279,7 +294,6 @@ inline void NFA::clear() noexcept
     _RE.clear();
     _postfix.clear();
     _pre_process.clear();
-    _state_info.erase(this->_final_state);
 }
 
 inline void NFA::parse(NFA::str_t& RE) noexcept
@@ -413,14 +427,15 @@ inline void NFA::parse(NFA::str_t& RE) noexcept
 
 inline void NFA::parse(NFA::str_t& RE, str_t& info, NFA::priority_t priority) noexcept
 {
-    _state_info[_final_state] = { priority, info };
     parse(RE);
+    _state_info[_final_state] = { priority, info };
 }
 
 inline NFA& NFA::operator+ (NFA& other) noexcept
 {
     _state_transition_map.merge(other._state_transition_map);
     _epsilon_transition_map.merge(other._epsilon_transition_map);
+    _charset.merge(other._charset);
 
 
     auto new_start = _newState();
@@ -440,21 +455,6 @@ inline bool NFA::match(const NFA::str_view_t& str) const noexcept
 {
     fmt::print("TODO: {}", __func__);
     assert(false);
-}
-
-inline NFA::str_t NFA::stateInfo() noexcept
-{
-    NFA::str_t info;
-    for (const auto& [key, value] : NFA::_state_info) {
-        info += fmt::format(
-            "Index: {} \n"
-            "\tpriority : {} \n"
-            "\tinfo: {} \n",
-            key,
-            value.first,
-            value.second);
-    }
-    return info;
 }
 
 inline std::optional<NFA::state_set_t> NFA::getReachedStates(const state_t state) const noexcept

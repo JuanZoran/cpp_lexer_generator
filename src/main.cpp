@@ -8,34 +8,32 @@ using namespace fmt;
 
 int main(int argc, char* argv[])
 {
-    vector<FSA::str_t> tests {
-        "a+b",
-        "a+",
-        "a?",
-        "a|b",
-        "(a|b)?",
-        "a|b*",
-        "a|b+",
-        "a|b?",
-        "a|b|c",
+    NFA nfa;
+    map<NFA::str_t, pair<NFA::priority_t, NFA::state_info_t>> test {
+        {"a?",  { 1, "test1" }},
+        { "a+", { 2, "test2" }},
+        { "a*", { 3, "test3" }},
     };
-    // vector<Type::str_t> tests {
-    //     "a+b",
-    //     // "a",
-    // };
-    constexpr auto filename = "README.md";
-    remove(filename);
 
-    auto nfa = NFA();
-    for (auto& RE : tests) {
-        print("Current RE: {}\n", Color::Green_s(RE));
-        nfa.parse(RE);
-        Util::toDiagram(nfa, filename);
-        auto dfa = DFA(nfa);
-        Util::toDiagram(dfa, filename);
-        dfa.minimal();
-        Util::toDiagram(dfa, filename);
+    for (auto& [key, value] : test) {
+        auto str1 = key;
+        auto str2 = value.second;
+        auto tmp = NFA(str1, str2, value.first);
+        nfa = nfa + tmp;
     }
 
-    return EXIT_SUCCESS;
+    constexpr auto filename = "README.md";
+    std::remove(filename);
+
+    Util::toDiagram(nfa, filename);
+    // nfa.printStateInfo();
+
+    DFA dfa(nfa);
+    // dfa.printStateInfo();
+    Util::toDiagram(dfa, filename);
+
+    dfa.minimal();
+    dfa.printStateInfo();
+    Util::toDiagram(dfa, filename);
+    return 0;
 }

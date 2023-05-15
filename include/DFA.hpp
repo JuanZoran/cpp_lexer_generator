@@ -45,8 +45,17 @@ public:
 
     state_info_t getStateInfo(state_t state) const noexcept
     {
-        return _state_info.at(state).second;
+        return _state_info.at(state);
     }
+
+    void printStateInfo() const
+    {
+        assert(!_state_info.empty());
+        for (auto& [state, info] : _state_info) {
+            fmt::print("state: {}, info: {}\n", state, info);
+        }
+    }
+
 
 private:
     state_t _newState() noexcept
@@ -67,7 +76,7 @@ private: // INFO :Private members
     /**
      * @brief final state info
      */
-    map_t<state_t, std::pair<NFA::priority_t, state_info_t>> _state_info {};
+    map_t<state_t, state_info_t> _state_info {};
 
     /**
      * @brief state transition map
@@ -89,8 +98,6 @@ private: // INFO :Private members
 };
 
 inline DFA::DFA(const NFA& nfa) noexcept:
-    // _state_count { 1 },
-    // _start_state { 0 },
     _charset { nfa.getCharset() }
 
 {
@@ -110,6 +117,18 @@ inline DFA::DFA(const NFA& nfa) noexcept:
         // check if this state is final state
         if (nfa.hasFinalState(q))
             _final_state_set.insert(new_state);
+
+        int priority = -1;
+        for (auto state : q) {
+            auto res = nfa.getStateInfo(state);
+            if (!res)
+                continue;
+
+            if (res->first > priority) {
+                priority = res->first;
+                _state_info[new_state] = std::move(res->second);
+            }
+        }
     };
     create_new_state(initial_state);
 
@@ -306,8 +325,6 @@ inline void DFA::minimal() noexcept
             | to<decltype(_state_info)>();
         // clang-format on
     }
-
-
 #endif
     // INFO :Brzozowski's Algorithm for DFA minimization
 }

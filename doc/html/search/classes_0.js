@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['buffer_14',['Buffer',['../classBuffer.html',1,'']]]
+  ['buffer_13',['Buffer',['../classBuffer.html',1,'']]]
 ];

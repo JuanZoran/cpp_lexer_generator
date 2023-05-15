@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=9"/>
 <meta name="generator" content="Doxygen 1.9.1"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>cpp_lexer_generator: RE: a+b</title>
+<title>cpp_lexer_generator: RE:</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -62,209 +62,46 @@ $(function() {
 </div><!-- top -->
 <div class="PageDoc"><div class="header">
   <div class="headertitle">
-<div class="title">RE: a+b </div>  </div>
+<div class="title">RE: </div>  </div>
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h2><a class="anchor" id="autotoc_md1"></a>
-Preprocess : a+^b</h2>
+Preprocess :</h2>
 <h2><a class="anchor" id="autotoc_md2"></a>
-Postfix : a+b^</h2>
+Postfix :</h2>
 <div class="fragment"><div class="line">digraph NFA {</div>
 <div class="line">rankdir=LR;</div>
 <div class="line">graph [bgcolor = transparent];</div>
 <div class="line">node [color = blue, fontcolor = white]</div>
 <div class="line">edge [color = blue];</div>
-<div class="line">2 [color = green];</div>
-<div class="line">5 [shape = doublecircle];</div>
+<div class="line">16 [color = green];</div>
+<div class="line">17 [shape = doublecircle];</div>
 <div class="line">0 -&gt; 1 [ label = &quot;a&quot; ];</div>
-<div class="line">4 -&gt; 5 [ label = &quot;b&quot; ];</div>
+<div class="line">6 -&gt; 7 [ label = &quot;a&quot; ];</div>
+<div class="line">12 -&gt; 13 [ label = &quot;a&quot; ];</div>
 <div class="line"> </div>
+<div class="line">0 -&gt; 5 [ label = &quot;ε&quot; ];</div>
 <div class="line">1 -&gt; 0 [ label = &quot;ε&quot; ];</div>
 <div class="line">1 -&gt; 3 [ label = &quot;ε&quot; ];</div>
 <div class="line">2 -&gt; 0 [ label = &quot;ε&quot; ];</div>
-<div class="line">3 -&gt; 4 [ label = &quot;ε&quot; ];</div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">0 [color = green];</div>
-<div class="line">2 [shape=doublecircle];</div>
-<div class="line">0 -&gt; 1 [ label = &quot;a&quot; ];</div>
-<div class="line">1 -&gt; 1 [ label = &quot;a&quot; ];</div>
-<div class="line">1 -&gt; 2 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">3 [color = green];</div>
-<div class="line">5 [shape=doublecircle];</div>
-<div class="line">3 -&gt; 4 [ label = &quot;a&quot; ];</div>
-<div class="line">4 -&gt; 4 [ label = &quot;a&quot; ];</div>
-<div class="line">4 -&gt; 5 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md3"></a>
-RE: a+</h1>
-<h2><a class="anchor" id="autotoc_md4"></a>
-Preprocess : a+</h2>
-<h2><a class="anchor" id="autotoc_md5"></a>
-Postfix : a+</h2>
-<div class="fragment"><div class="line">digraph NFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">8 [color = green];</div>
-<div class="line">9 [shape = doublecircle];</div>
-<div class="line">6 -&gt; 7 [ label = &quot;a&quot; ];</div>
-<div class="line"> </div>
+<div class="line">2 -&gt; 3 [ label = &quot;ε&quot; ];</div>
+<div class="line">3 -&gt; 5 [ label = &quot;ε&quot; ];</div>
+<div class="line">4 -&gt; 0 [ label = &quot;ε&quot; ];</div>
+<div class="line">4 -&gt; 2 [ label = &quot;ε&quot; ];</div>
+<div class="line">5 -&gt; 11 [ label = &quot;ε&quot; ];</div>
 <div class="line">7 -&gt; 6 [ label = &quot;ε&quot; ];</div>
 <div class="line">7 -&gt; 9 [ label = &quot;ε&quot; ];</div>
 <div class="line">8 -&gt; 6 [ label = &quot;ε&quot; ];</div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">0 [color = green];</div>
-<div class="line">1 [shape=doublecircle];</div>
-<div class="line">0 -&gt; 1 [ label = &quot;a&quot; ];</div>
-<div class="line">1 -&gt; 1 [ label = &quot;a&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">2 [color = green];</div>
-<div class="line">3 [shape=doublecircle];</div>
-<div class="line">2 -&gt; 3 [ label = &quot;a&quot; ];</div>
-<div class="line">3 -&gt; 3 [ label = &quot;a&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md6"></a>
-RE: a?</h1>
-<h2><a class="anchor" id="autotoc_md7"></a>
-Preprocess : a?</h2>
-<h2><a class="anchor" id="autotoc_md8"></a>
-Postfix : a?</h2>
-<div class="fragment"><div class="line">digraph NFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">12 [color = green];</div>
-<div class="line">13 [shape = doublecircle];</div>
-<div class="line">10 -&gt; 11 [ label = &quot;a&quot; ];</div>
-<div class="line"> </div>
-<div class="line">11 -&gt; 13 [ label = &quot;ε&quot; ];</div>
-<div class="line">12 -&gt; 10 [ label = &quot;ε&quot; ];</div>
-<div class="line">12 -&gt; 13 [ label = &quot;ε&quot; ];</div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">0 [color = green];</div>
-<div class="line">0 [shape=doublecircle];</div>
-<div class="line">1 [shape=doublecircle];</div>
-<div class="line">0 -&gt; 1 [ label = &quot;a&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">3 [color = green];</div>
-<div class="line">3 [shape=doublecircle];</div>
-<div class="line">4 [shape=doublecircle];</div>
-<div class="line">3 -&gt; 4 [ label = &quot;a&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md9"></a>
-RE: a|b</h1>
-<h2><a class="anchor" id="autotoc_md10"></a>
-Preprocess : a|b</h2>
-<h2><a class="anchor" id="autotoc_md11"></a>
-Postfix : ab|</h2>
-<div class="fragment"><div class="line">digraph NFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">18 [color = green];</div>
-<div class="line">19 [shape = doublecircle];</div>
-<div class="line">14 -&gt; 15 [ label = &quot;a&quot; ];</div>
-<div class="line">16 -&gt; 17 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">15 -&gt; 19 [ label = &quot;ε&quot; ];</div>
-<div class="line">17 -&gt; 19 [ label = &quot;ε&quot; ];</div>
-<div class="line">18 -&gt; 14 [ label = &quot;ε&quot; ];</div>
-<div class="line">18 -&gt; 16 [ label = &quot;ε&quot; ];</div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">0 [color = green];</div>
-<div class="line">1 [shape=doublecircle];</div>
-<div class="line">2 [shape=doublecircle];</div>
-<div class="line">0 -&gt; 1 [ label = &quot;a&quot; ];</div>
-<div class="line">0 -&gt; 2 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">3 [color = green];</div>
-<div class="line">4 [shape=doublecircle];</div>
-<div class="line">3 -&gt; 4 [ label = &quot;a&quot; ];</div>
-<div class="line">3 -&gt; 4 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md12"></a>
-RE: (a|b)?</h1>
-<h2><a class="anchor" id="autotoc_md13"></a>
-Preprocess : (a|b)?</h2>
-<h2><a class="anchor" id="autotoc_md14"></a>
-Postfix : ab|?</h2>
-<div class="fragment"><div class="line">digraph NFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">26 [color = green];</div>
-<div class="line">27 [shape = doublecircle];</div>
-<div class="line">20 -&gt; 21 [ label = &quot;a&quot; ];</div>
-<div class="line">22 -&gt; 23 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">21 -&gt; 25 [ label = &quot;ε&quot; ];</div>
-<div class="line">23 -&gt; 25 [ label = &quot;ε&quot; ];</div>
-<div class="line">24 -&gt; 20 [ label = &quot;ε&quot; ];</div>
-<div class="line">24 -&gt; 22 [ label = &quot;ε&quot; ];</div>
-<div class="line">25 -&gt; 27 [ label = &quot;ε&quot; ];</div>
-<div class="line">26 -&gt; 24 [ label = &quot;ε&quot; ];</div>
-<div class="line">26 -&gt; 27 [ label = &quot;ε&quot; ];</div>
+<div class="line">9 -&gt; 11 [ label = &quot;ε&quot; ];</div>
+<div class="line">10 -&gt; 4 [ label = &quot;ε&quot; ];</div>
+<div class="line">10 -&gt; 8 [ label = &quot;ε&quot; ];</div>
+<div class="line">11 -&gt; 17 [ label = &quot;ε&quot; ];</div>
+<div class="line">13 -&gt; 15 [ label = &quot;ε&quot; ];</div>
+<div class="line">14 -&gt; 12 [ label = &quot;ε&quot; ];</div>
+<div class="line">14 -&gt; 15 [ label = &quot;ε&quot; ];</div>
+<div class="line">15 -&gt; 17 [ label = &quot;ε&quot; ];</div>
+<div class="line">16 -&gt; 10 [ label = &quot;ε&quot; ];</div>
+<div class="line">16 -&gt; 14 [ label = &quot;ε&quot; ];</div>
 <div class="line">}</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
 <div class="line">rankdir=LR;</div>
@@ -277,7 +114,8 @@ Postfix : ab|?</h2>
 <div class="line">1 [shape=doublecircle];</div>
 <div class="line">2 [shape=doublecircle];</div>
 <div class="line">0 -&gt; 1 [ label = &quot;a&quot; ];</div>
-<div class="line">0 -&gt; 2 [ label = &quot;b&quot; ];</div>
+<div class="line">1 -&gt; 2 [ label = &quot;a&quot; ];</div>
+<div class="line">2 -&gt; 2 [ label = &quot;a&quot; ];</div>
 <div class="line"> </div>
 <div class="line">}</div>
 </div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
@@ -288,221 +126,7 @@ Postfix : ab|?</h2>
 <div class="line">edge [color = blue];</div>
 <div class="line">4 [color = green];</div>
 <div class="line">4 [shape=doublecircle];</div>
-<div class="line">5 [shape=doublecircle];</div>
-<div class="line">4 -&gt; 5 [ label = &quot;a&quot; ];</div>
-<div class="line">4 -&gt; 5 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md15"></a>
-RE: a|b*</h1>
-<h2><a class="anchor" id="autotoc_md16"></a>
-Preprocess : a|b*</h2>
-<h2><a class="anchor" id="autotoc_md17"></a>
-Postfix : ab*|</h2>
-<div class="fragment"><div class="line">digraph NFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">34 [color = green];</div>
-<div class="line">35 [shape = doublecircle];</div>
-<div class="line">28 -&gt; 29 [ label = &quot;a&quot; ];</div>
-<div class="line">30 -&gt; 31 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">29 -&gt; 35 [ label = &quot;ε&quot; ];</div>
-<div class="line">31 -&gt; 30 [ label = &quot;ε&quot; ];</div>
-<div class="line">31 -&gt; 33 [ label = &quot;ε&quot; ];</div>
-<div class="line">32 -&gt; 30 [ label = &quot;ε&quot; ];</div>
-<div class="line">32 -&gt; 33 [ label = &quot;ε&quot; ];</div>
-<div class="line">33 -&gt; 35 [ label = &quot;ε&quot; ];</div>
-<div class="line">34 -&gt; 28 [ label = &quot;ε&quot; ];</div>
-<div class="line">34 -&gt; 32 [ label = &quot;ε&quot; ];</div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">0 [color = green];</div>
-<div class="line">0 [shape=doublecircle];</div>
-<div class="line">1 [shape=doublecircle];</div>
-<div class="line">2 [shape=doublecircle];</div>
-<div class="line">0 -&gt; 1 [ label = &quot;a&quot; ];</div>
-<div class="line">0 -&gt; 2 [ label = &quot;b&quot; ];</div>
-<div class="line">2 -&gt; 2 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">4 [color = green];</div>
-<div class="line">4 [shape=doublecircle];</div>
-<div class="line">5 [shape=doublecircle];</div>
-<div class="line">6 [shape=doublecircle];</div>
-<div class="line">4 -&gt; 5 [ label = &quot;a&quot; ];</div>
-<div class="line">4 -&gt; 6 [ label = &quot;b&quot; ];</div>
-<div class="line">6 -&gt; 6 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md18"></a>
-RE: a|b+</h1>
-<h2><a class="anchor" id="autotoc_md19"></a>
-Preprocess : a|b+</h2>
-<h2><a class="anchor" id="autotoc_md20"></a>
-Postfix : ab+|</h2>
-<div class="fragment"><div class="line">digraph NFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">42 [color = green];</div>
-<div class="line">43 [shape = doublecircle];</div>
-<div class="line">36 -&gt; 37 [ label = &quot;a&quot; ];</div>
-<div class="line">38 -&gt; 39 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">37 -&gt; 43 [ label = &quot;ε&quot; ];</div>
-<div class="line">39 -&gt; 38 [ label = &quot;ε&quot; ];</div>
-<div class="line">39 -&gt; 41 [ label = &quot;ε&quot; ];</div>
-<div class="line">40 -&gt; 38 [ label = &quot;ε&quot; ];</div>
-<div class="line">41 -&gt; 43 [ label = &quot;ε&quot; ];</div>
-<div class="line">42 -&gt; 36 [ label = &quot;ε&quot; ];</div>
-<div class="line">42 -&gt; 40 [ label = &quot;ε&quot; ];</div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">0 [color = green];</div>
-<div class="line">1 [shape=doublecircle];</div>
-<div class="line">2 [shape=doublecircle];</div>
-<div class="line">0 -&gt; 1 [ label = &quot;a&quot; ];</div>
-<div class="line">0 -&gt; 2 [ label = &quot;b&quot; ];</div>
-<div class="line">2 -&gt; 2 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">3 [color = green];</div>
-<div class="line">4 [shape=doublecircle];</div>
-<div class="line">5 [shape=doublecircle];</div>
-<div class="line">3 -&gt; 4 [ label = &quot;a&quot; ];</div>
-<div class="line">3 -&gt; 5 [ label = &quot;b&quot; ];</div>
-<div class="line">5 -&gt; 5 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md21"></a>
-RE: a|b?</h1>
-<h2><a class="anchor" id="autotoc_md22"></a>
-Preprocess : a|b?</h2>
-<h2><a class="anchor" id="autotoc_md23"></a>
-Postfix : ab?|</h2>
-<div class="fragment"><div class="line">digraph NFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">50 [color = green];</div>
-<div class="line">51 [shape = doublecircle];</div>
-<div class="line">44 -&gt; 45 [ label = &quot;a&quot; ];</div>
-<div class="line">46 -&gt; 47 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">45 -&gt; 51 [ label = &quot;ε&quot; ];</div>
-<div class="line">47 -&gt; 49 [ label = &quot;ε&quot; ];</div>
-<div class="line">48 -&gt; 46 [ label = &quot;ε&quot; ];</div>
-<div class="line">48 -&gt; 49 [ label = &quot;ε&quot; ];</div>
-<div class="line">49 -&gt; 51 [ label = &quot;ε&quot; ];</div>
-<div class="line">50 -&gt; 44 [ label = &quot;ε&quot; ];</div>
-<div class="line">50 -&gt; 48 [ label = &quot;ε&quot; ];</div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">0 [color = green];</div>
-<div class="line">0 [shape=doublecircle];</div>
-<div class="line">1 [shape=doublecircle];</div>
-<div class="line">2 [shape=doublecircle];</div>
-<div class="line">0 -&gt; 1 [ label = &quot;a&quot; ];</div>
-<div class="line">0 -&gt; 2 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">4 [color = green];</div>
-<div class="line">4 [shape=doublecircle];</div>
-<div class="line">5 [shape=doublecircle];</div>
-<div class="line">4 -&gt; 5 [ label = &quot;a&quot; ];</div>
-<div class="line">4 -&gt; 5 [ label = &quot;b&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <h1><a class="anchor" id="autotoc_md24"></a>
-RE: a|b|c</h1>
-<h2><a class="anchor" id="autotoc_md25"></a>
-Preprocess : a|b|c</h2>
-<h2><a class="anchor" id="autotoc_md26"></a>
-Postfix : ab|c|</h2>
-<div class="fragment"><div class="line">digraph NFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">60 [color = green];</div>
-<div class="line">61 [shape = doublecircle];</div>
-<div class="line">52 -&gt; 53 [ label = &quot;a&quot; ];</div>
-<div class="line">54 -&gt; 55 [ label = &quot;b&quot; ];</div>
-<div class="line">58 -&gt; 59 [ label = &quot;c&quot; ];</div>
-<div class="line"> </div>
-<div class="line">53 -&gt; 57 [ label = &quot;ε&quot; ];</div>
-<div class="line">55 -&gt; 57 [ label = &quot;ε&quot; ];</div>
-<div class="line">56 -&gt; 52 [ label = &quot;ε&quot; ];</div>
-<div class="line">56 -&gt; 54 [ label = &quot;ε&quot; ];</div>
-<div class="line">57 -&gt; 61 [ label = &quot;ε&quot; ];</div>
-<div class="line">59 -&gt; 61 [ label = &quot;ε&quot; ];</div>
-<div class="line">60 -&gt; 56 [ label = &quot;ε&quot; ];</div>
-<div class="line">60 -&gt; 58 [ label = &quot;ε&quot; ];</div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">0 [color = green];</div>
-<div class="line">1 [shape=doublecircle];</div>
-<div class="line">2 [shape=doublecircle];</div>
-<div class="line">3 [shape=doublecircle];</div>
-<div class="line">0 -&gt; 1 [ label = &quot;a&quot; ];</div>
-<div class="line">0 -&gt; 2 [ label = &quot;b&quot; ];</div>
-<div class="line">0 -&gt; 3 [ label = &quot;c&quot; ];</div>
-<div class="line"> </div>
-<div class="line">}</div>
-</div><!-- fragment --> <div class="fragment"><div class="line">digraph DFA {</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">rankdir=LR;</div>
-<div class="line">graph [bgcolor = transparent];</div>
-<div class="line">node [color = blue, fontcolor = white]</div>
-<div class="line">edge [color = blue];</div>
-<div class="line">4 [color = green];</div>
-<div class="line">5 [shape=doublecircle];</div>
-<div class="line">4 -&gt; 5 [ label = &quot;a&quot; ];</div>
-<div class="line">4 -&gt; 5 [ label = &quot;b&quot; ];</div>
-<div class="line">4 -&gt; 5 [ label = &quot;c&quot; ];</div>
+<div class="line">4 -&gt; 4 [ label = &quot;a&quot; ];</div>
 <div class="line"> </div>
 <div class="line">}</div>
 </div><!-- fragment --> </div></div><!-- contents -->

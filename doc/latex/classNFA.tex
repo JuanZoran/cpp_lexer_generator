@@ -30,8 +30,8 @@ Collaboration diagram for NFA\+:\nopagebreak
 \doxysubsection*{Public Types}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classNFA_acea6db16b1f17741b28f6eebe7c08a67}\label{classNFA_acea6db16b1f17741b28f6eebe7c08a67}} 
-using {\bfseries priority\+\_\+t} = uint32\+\_\+t
+\mbox{\Hypertarget{classNFA_a3092845ec5804bfcfa84b79655ab5c01}\label{classNFA_a3092845ec5804bfcfa84b79655ab5c01}} 
+using {\bfseries priority\+\_\+t} = int32\+\_\+t
 \item 
 \mbox{\Hypertarget{classNFA_a1e8918697c4e3e0e6f7302d9da86ead7}\label{classNFA_a1e8918697c4e3e0e6f7302d9da86ead7}} 
 using {\bfseries str\+\_\+view\+\_\+t} = std\+::string\+\_\+view
@@ -92,12 +92,12 @@ state\+\_\+t {\bfseries get\+Start\+State} () const noexcept
 \item 
 \mbox{\Hypertarget{classNFA_a663edc7e7dea9f8dd082aed6fa700447}\label{classNFA_a663edc7e7dea9f8dd082aed6fa700447}} 
 bool {\bfseries has\+Final\+State} (const set\+\_\+t$<$ state\+\_\+t $>$ set) const noexcept
-\end{DoxyCompactItemize}
-\doxysubsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
 \item 
-\mbox{\Hypertarget{classNFA_aead8c02dc791014b75c26f3f640ba545}\label{classNFA_aead8c02dc791014b75c26f3f640ba545}} 
-static NFA\+::str\+\_\+t {\bfseries state\+Info} () noexcept
+\mbox{\Hypertarget{classNFA_a9580c60750e7f38951738ade55f1ff30}\label{classNFA_a9580c60750e7f38951738ade55f1ff30}} 
+std\+::optional$<$ std\+::pair$<$ priority\+\_\+t, state\+\_\+info\+\_\+t $>$ $>$ {\bfseries get\+State\+Info} (const state\+\_\+t state) const noexcept
+\item 
+\mbox{\Hypertarget{classNFA_af60074530b0861c79b216d2edf42252a}\label{classNFA_af60074530b0861c79b216d2edf42252a}} 
+void {\bfseries print\+State\+Info} () const
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
