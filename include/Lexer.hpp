@@ -16,8 +16,7 @@ public:
     Lexer(Lexer&&) = default;
     Lexer(const Lexer&) = default;
 
-    Lexer(std::istream& out, const DFA& dfa);
-
+    Lexer(Buffer buf, const DFA& dfa);
 
 public:
     std::optional<Token> nextToken();
@@ -28,10 +27,17 @@ private:
     Buffer _buffer;
 
 
-    DFA::state_t _current_state;
+    DFA::state_t _current_state {};
     // 4 padding
-    int32_t _padding;
+    int32_t _padding {};
 };
+
+inline Lexer::Lexer(Buffer buf, const DFA& dfa):
+    _dfa(dfa),
+    _buffer(buf)
+{
+}
+
 
 inline std::optional<Token> Lexer::nextToken()
 {

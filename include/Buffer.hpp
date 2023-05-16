@@ -114,9 +114,20 @@ inline std::string Buffer::takeLexeme()
     assert(_lexeme_start_linenr != INVALID_LINENR);
     assert(_lexeme_start_column != INVALID_COLUMN);
 
-    auto lexeme = std::string(
-        _buffer[_lexeme_start_linenr].begin() + _lexeme_start_column,
-        _buffer[_cur_linenr].begin() + _cur_column);
+    std::string lexeme;
+    if (_lexeme_start_linenr == _cur_linenr) {
+        lexeme = _buffer[_lexeme_start_linenr].substr(
+            _lexeme_start_column, _cur_column - _lexeme_start_column);
+    }
+    else {
+        lexeme = _buffer[_lexeme_start_linenr].substr(_lexeme_start_column);
+        for (auto i = _lexeme_start_linenr + 1; i < _cur_linenr; ++i) {
+            lexeme += _buffer[i];
+        }
+        lexeme += _buffer[_cur_linenr].substr(0, _cur_column);
+    }
+
+
     _lexeme_start_linenr = INVALID_LINENR;
     _lexeme_start_column = INVALID_COLUMN;
     return lexeme;

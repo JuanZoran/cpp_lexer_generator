@@ -1,4 +1,5 @@
 #pragma once
+#include <iostream>
 #include <string>
 
 struct Lexeme
@@ -10,4 +11,10 @@ struct Token
 {
     std::string type;
     std::string value;
+
+    void print()
+    {
+        std::cout << "type: " << type << " | "
+                  << "value: " << value << std::endl;
+    }
 };
