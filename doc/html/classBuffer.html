@@ -73,60 +73,69 @@ $(function() {
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-types"></a>
 Public Types</h2></td></tr>
-<tr class="memitem:a54895bf3cb77917c8d48dd4440c70237"><td class="memItemLeft" align="right" valign="top"><a id="a54895bf3cb77917c8d48dd4440c70237"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>line_t</b> = uint32_t</td></tr>
-<tr class="separator:a54895bf3cb77917c8d48dd4440c70237"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab716f3bcecced6b277fd82ab441b99d3"><td class="memItemLeft" align="right" valign="top"><a id="ab716f3bcecced6b277fd82ab441b99d3"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>column_t</b> = uint32_t</td></tr>
-<tr class="separator:ab716f3bcecced6b277fd82ab441b99d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c4ccb581630d4892297a0c8024017e7"><td class="memItemLeft" align="right" valign="top"><a id="a7c4ccb581630d4892297a0c8024017e7"></a>
-using&#160;</td><td class="memItemRight" valign="bottom"><b>pos_t</b> = int32_t</td></tr>
-<tr class="separator:a7c4ccb581630d4892297a0c8024017e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a38928927feb7b5a11546614ec40fee66"><td class="memItemLeft" align="right" valign="top"><a id="a38928927feb7b5a11546614ec40fee66"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>linenr_t</b> = int32_t</td></tr>
+<tr class="separator:a38928927feb7b5a11546614ec40fee66"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87517be940634517bdc315c067142f24"><td class="memItemLeft" align="right" valign="top"><a id="a87517be940634517bdc315c067142f24"></a>
+using&#160;</td><td class="memItemRight" valign="bottom"><b>column_t</b> = int32_t</td></tr>
+<tr class="separator:a87517be940634517bdc315c067142f24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a0adf6608a51ead58f18432c727aaa1d6"><td class="memItemLeft" align="right" valign="top"><a id="a0adf6608a51ead58f18432c727aaa1d6"></a>
-<a class="el" href="classBuffer.html">Buffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classBuffer.html">Buffer</a> &amp;&amp;)=delete</td></tr>
-<tr class="separator:a0adf6608a51ead58f18432c727aaa1d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a870e0e46a4a3d4c25b5e03eb828aebfe"><td class="memItemLeft" align="right" valign="top"><a id="a870e0e46a4a3d4c25b5e03eb828aebfe"></a>
-<a class="el" href="classBuffer.html">Buffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classBuffer.html">Buffer</a> &amp;)=delete</td></tr>
-<tr class="separator:a870e0e46a4a3d4c25b5e03eb828aebfe"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abb784c39e50a5f0669ec8672c4a3f939"><td class="memItemLeft" align="right" valign="top"><a id="abb784c39e50a5f0669ec8672c4a3f939"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer</b> (std::istream &amp;istream, std::size_t BUFFER_SIZE=1024)</td></tr>
-<tr class="separator:abb784c39e50a5f0669ec8672c4a3f939"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a877c300a74a35f288fb38ddde5102acc"><td class="memItemLeft" align="right" valign="top"><a id="a877c300a74a35f288fb38ddde5102acc"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Buffer</b> (std::istream &amp;istream)</td></tr>
+<tr class="separator:a877c300a74a35f288fb38ddde5102acc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b2de208add213c01fd1e131e33735d2"><td class="memItemLeft" align="right" valign="top"><a id="a7b2de208add213c01fd1e131e33735d2"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Buffer</b> (<a class="el" href="classBuffer.html">Buffer</a> &amp;&amp;)=default</td></tr>
 <tr class="separator:a7b2de208add213c01fd1e131e33735d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd7cfe4ad5985b6ecd299574fdb073ee"><td class="memItemLeft" align="right" valign="top"><a id="afd7cfe4ad5985b6ecd299574fdb073ee"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><b>Buffer</b> (const <a class="el" href="classBuffer.html">Buffer</a> &amp;)=default</td></tr>
 <tr class="separator:afd7cfe4ad5985b6ecd299574fdb073ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a224eedd3e8b1f7c3f59068bb4a3d24cd"><td class="memItemLeft" align="right" valign="top"><a id="a224eedd3e8b1f7c3f59068bb4a3d24cd"></a>
-FSA::char_t&#160;</td><td class="memItemRight" valign="bottom"><b>peek</b> () const</td></tr>
-<tr class="separator:a224eedd3e8b1f7c3f59068bb4a3d24cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaaf02520c0fce781aefc91dfc1cae65c"><td class="memItemLeft" align="right" valign="top"><a id="aaaf02520c0fce781aefc91dfc1cae65c"></a>
-FSA::char_t&#160;</td><td class="memItemRight" valign="bottom"><b>take</b> ()</td></tr>
-<tr class="separator:aaaf02520c0fce781aefc91dfc1cae65c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8a9a4c8527709acb5c6e7b83f6a33857"><td class="memItemLeft" align="right" valign="top"><a id="a8a9a4c8527709acb5c6e7b83f6a33857"></a>
+<a class="el" href="classBuffer.html">Buffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (<a class="el" href="classBuffer.html">Buffer</a> &amp;&amp;)=default</td></tr>
+<tr class="separator:a8a9a4c8527709acb5c6e7b83f6a33857"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a681d10f4d08ca7f906367389f2afee29"><td class="memItemLeft" align="right" valign="top"><a id="a681d10f4d08ca7f906367389f2afee29"></a>
+<a class="el" href="classBuffer.html">Buffer</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><b>operator=</b> (const <a class="el" href="classBuffer.html">Buffer</a> &amp;)=default</td></tr>
+<tr class="separator:a681d10f4d08ca7f906367389f2afee29"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2eeb609d14393c6648d8ffd954f2bc7e"><td class="memItemLeft" align="right" valign="top"><a id="a2eeb609d14393c6648d8ffd954f2bc7e"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>printLines</b> () const</td></tr>
+<tr class="separator:a2eeb609d14393c6648d8ffd954f2bc7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a62ddf164825674c59d2dbb4f5cf89d5a"><td class="memItemLeft" align="right" valign="top"><a id="a62ddf164825674c59d2dbb4f5cf89d5a"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><b>peek</b> () const</td></tr>
+<tr class="separator:a62ddf164825674c59d2dbb4f5cf89d5a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0d6a99bdde7a34a387b27d3f1afc2d87"><td class="memItemLeft" align="right" valign="top"><a id="a0d6a99bdde7a34a387b27d3f1afc2d87"></a>
+char&#160;</td><td class="memItemRight" valign="bottom"><b>take</b> ()</td></tr>
+<tr class="separator:a0d6a99bdde7a34a387b27d3f1afc2d87"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a55d3d4d761da3346d915be6c2824ef42"><td class="memItemLeft" align="right" valign="top"><a id="a55d3d4d761da3346d915be6c2824ef42"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>next</b> ()</td></tr>
 <tr class="separator:a55d3d4d761da3346d915be6c2824ef42"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a37079b6189511f0f0b9771bbb17281cf"><td class="memItemLeft" align="right" valign="top"><a id="a37079b6189511f0f0b9771bbb17281cf"></a>
-FSA::char_t&#160;</td><td class="memItemRight" valign="bottom"><b>get</b> (pos_t pos) const</td></tr>
-<tr class="separator:a37079b6189511f0f0b9771bbb17281cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad4f202c641efc644a22486923ec4851a"><td class="memItemLeft" align="right" valign="top"><a id="ad4f202c641efc644a22486923ec4851a"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>rollback</b> ()</td></tr>
+<tr class="separator:ad4f202c641efc644a22486923ec4851a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa85f26ff917209efe227af2aa0d7c060"><td class="memItemLeft" align="right" valign="top"><a id="aa85f26ff917209efe227af2aa0d7c060"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>rollback</b> (column_t column)</td></tr>
+<tr class="separator:aa85f26ff917209efe227af2aa0d7c060"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af282e11255cbcb3e9c6083d739a028dc"><td class="memItemLeft" align="right" valign="top"><a id="af282e11255cbcb3e9c6083d739a028dc"></a>
+void&#160;</td><td class="memItemRight" valign="bottom"><b>rollback</b> (linenr_t linenr, column_t column)</td></tr>
+<tr class="separator:af282e11255cbcb3e9c6083d739a028dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abb289cc578b18d5cd6557f629dd2b616"><td class="memItemLeft" align="right" valign="top"><a id="abb289cc578b18d5cd6557f629dd2b616"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>markLexemeStart</b> ()</td></tr>
 <tr class="separator:abb289cc578b18d5cd6557f629dd2b616"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7593e7e84345da0657af9938f23dd70f"><td class="memItemLeft" align="right" valign="top"><a id="a7593e7e84345da0657af9938f23dd70f"></a>
-<a class="el" href="structLexeme.html">Lexeme</a>&#160;</td><td class="memItemRight" valign="bottom"><b>takeLexeme</b> ()</td></tr>
-<tr class="separator:a7593e7e84345da0657af9938f23dd70f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a552391d437fa49f93deb153749b181c1"><td class="memItemLeft" align="right" valign="top"><a id="a552391d437fa49f93deb153749b181c1"></a>
+std::string&#160;</td><td class="memItemRight" valign="bottom"><b>takeLexeme</b> ()</td></tr>
+<tr class="separator:a552391d437fa49f93deb153749b181c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
-<tr class="memitem:af84662c5c0beaee70fe4d7bde8c222bc"><td class="memItemLeft" align="right" valign="top"><a id="af84662c5c0beaee70fe4d7bde8c222bc"></a>
-static constexpr pos_t&#160;</td><td class="memItemRight" valign="bottom"><b>COLUMN_START</b> = 1</td></tr>
-<tr class="separator:af84662c5c0beaee70fe4d7bde8c222bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac728891a8efe47e21bacc6de2eb6d5af"><td class="memItemLeft" align="right" valign="top"><a id="ac728891a8efe47e21bacc6de2eb6d5af"></a>
-static constexpr FSA::char_t&#160;</td><td class="memItemRight" valign="bottom"><b>EOF_CHAR</b> = -1</td></tr>
-<tr class="separator:ac728891a8efe47e21bacc6de2eb6d5af"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6edccec79fafdd3e009d7347136754aa"><td class="memItemLeft" align="right" valign="top"><a id="a6edccec79fafdd3e009d7347136754aa"></a>
+constexpr static linenr_t&#160;</td><td class="memItemRight" valign="bottom"><b>INVALID_LINENR</b> = -1</td></tr>
+<tr class="separator:a6edccec79fafdd3e009d7347136754aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7a8de7627f5222365e75bbb15e1d84c4"><td class="memItemLeft" align="right" valign="top"><a id="a7a8de7627f5222365e75bbb15e1d84c4"></a>
+constexpr static column_t&#160;</td><td class="memItemRight" valign="bottom"><b>INVALID_COLUMN</b> = -1</td></tr>
+<tr class="separator:a7a8de7627f5222365e75bbb15e1d84c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa71af02a47e0ec5de71b75399a7c6a6c"><td class="memItemLeft" align="right" valign="top"><a id="aa71af02a47e0ec5de71b75399a7c6a6c"></a>
+constexpr static char&#160;</td><td class="memItemRight" valign="bottom"><b>EOF_CHAR</b> = -1</td></tr>
+<tr class="separator:aa71af02a47e0ec5de71b75399a7c6a6c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>include/<a class="el" href="Buffer_8hpp_source.html">Buffer.hpp</a></li>

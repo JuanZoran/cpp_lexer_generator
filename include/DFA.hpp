@@ -45,17 +45,18 @@ public:
 
     state_info_t getStateInfo(state_t state) const noexcept
     {
-        return _state_info.at(state);
+        return _state_info_map.at(state);
     }
 
     void printStateInfo() const
     {
-        assert(!_state_info.empty());
-        for (auto& [state, info] : _state_info) {
+        assert(!_state_info_map.empty());
+        for (auto& [state, info] : _state_info_map) {
             fmt::print("state: {}, info: {}\n", state, info);
         }
     }
 
+    void saveTo(const str_t& filename) const noexcept;
 
 private:
     state_t _newState() noexcept
@@ -72,11 +73,35 @@ private:
     str_t _toDotString() noexcept;
 
 
+
+
+public:
+    struct Builder
+    {
+        map_t<state_t, state_info_t> state_info_map;
+        transition_map_t state_transition_map;
+        state_set_t final_state_set;
+        set_t<char_t> charset;
+        state_t start_state;
+        size_t state_count;
+    };
+
+    DFA(Builder&& builder) noexcept:
+        _state_info_map { std::move(builder.state_info_map) },
+        _state_transition_map { std::move(builder.state_transition_map) },
+        _final_state_set { std::move(builder.final_state_set) },
+        _charset { std::move(builder.charset) },
+        _start_state { std::move(builder.start_state) },
+        _state_count { std::move(builder.state_count) }
+    {
+    }
+
+
 private: // INFO :Private members
     /**
      * @brief final state info
      */
-    map_t<state_t, state_info_t> _state_info {};
+    map_t<state_t, state_info_t> _state_info_map {};
 
     /**
      * @brief state transition map
@@ -126,7 +151,7 @@ inline DFA::DFA(const NFA& nfa) noexcept:
 
             if (res->first > priority) {
                 priority = res->first;
-                _state_info[new_state] = std::move(res->second);
+                _state_info_map[new_state] = std::move(res->second);
             }
         }
     };
@@ -318,13 +343,81 @@ inline void DFA::minimal() noexcept
 
         // update state info
         // clang-format off
-        _state_info = _state_info
+        _state_info_map = _state_info_map
             | views::transform([&new_state_map](auto&& pair) {
                 return std::make_pair(new_state_map[pair.first], pair.second);
             })
-            | to<decltype(_state_info)>();
+            | to<decltype(_state_info_map)>();
         // clang-format on
     }
 #endif
     // INFO :Brzozowski's Algorithm for DFA minimization
+}
+
+inline void DFA::saveTo(const str_t& filename) const noexcept
+{
+    using namespace fmt::literals;
+    std::ofstream fout { filename, std::ios_base::out | std::ios_base::binary };
+    assert(fout.is_open());
+
+
+    auto saveStateInfoMap = [this]() {
+        str_t str;
+        for (const auto& [state, info] : _state_info_map) {
+            str += fmt::format("{{ {}, {} }},\n", state, info);
+        }
+        return str;
+    };
+
+    auto saveStateTransitionMap = [this]() {
+        str_t str;
+        for (const auto& [pair, state] : _state_transition_map) {
+            // {{from, ch} , to}
+            str += fmt::format("{{ {{ {}, '{}' }}, {}}},\n", pair.first, pair.second, state);
+        }
+        return str;
+    };
+
+    auto saveFinalStateSet = [this]() {
+        str_t str;
+        for (const auto& state : _final_state_set) {
+            str += fmt::format("{},\n", state);
+        }
+        return str;
+    };
+
+    auto saveCharset = [this]() {
+        str_t str;
+        for (const auto& ch : _charset) {
+            str += fmt::format(" '{}',\n", ch);
+        }
+        return str;
+    };
+    // clang-format off
+    fout << fmt::format(
+        "#include<DFA.hpp>\n"
+        "static const DFA dfa(DFA::Builder {{\n"
+        "    .state_info_map = {{\n"
+        "        {state_info_map}\n"
+        "    }},\n"
+        "    .state_transition_map = {{\n"
+        "        {state_transition_map}\n"
+        "    }},\n"
+        "    .final_state_set = {{\n"
+        "        {final_state_set}\n"
+        "    }},\n"
+        "    .charset = {{\n"
+        "        {charset}\n"
+        "    }},\n"
+        "    .start_state = {start_state},\n"
+        "    .state_count = {state_count}\n"
+        "}});\n",
+        "state_info_map"_a = saveStateInfoMap(),
+        "state_transition_map"_a = saveStateTransitionMap(),
+        "final_state_set"_a = saveFinalStateSet(),
+        "charset"_a = saveCharset(),
+        "start_state"_a = _start_state,
+        "state_count"_a = _state_count
+    );
+    // clang-format on
 }

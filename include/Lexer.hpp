@@ -59,7 +59,7 @@ inline std::optional<Token> Lexer::nextToken()
              ? std::nullopt
              : std::make_optional<Token>(Token {
                  .type = _dfa.getStateInfo(last_final_state),
-                 .value = _buffer.takeLexeme().value,
+                 .value = _buffer.takeLexeme(),
              });
     // clang-format on
 }

@@ -13,7 +13,6 @@ add_requires(
 add_includedirs 'include'
 set_languages 'cxxlatest'
 set_targetdir '$(projectdir)/bin'
-
 -- INFO :
 --  ╭──────────────────────────────────────────────────────────╮
 --  │                         pre_hook                         │
@@ -49,10 +48,17 @@ target("lexer_generator")
     add_files("src/main.cpp")
 
 
+-- INFO :
+--  ╭──────────────────────────────────────────────────────────╮
+--  │                        Unit Test                         │
+--  ╰──────────────────────────────────────────────────────────╯
+
 local test_cases = {
     util = {
     },
     nfa = {
+    },
+    buffer = {
     },
 }
 for name, option in pairs(test_cases) do
@@ -62,6 +68,7 @@ for name, option in pairs(test_cases) do
         set_group('test')
         add_files('test/' .. target_name .. '.cpp')
         add_packages('gtest')
+        set_targetdir '$(projectdir)/test/bin'
 
     for method, opt in pairs(option) do
         _G[method](opt)
