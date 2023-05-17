@@ -9,6 +9,7 @@ clients = set()
 # 保存事件循环的引用
 loop = None
 
+
 async def notify_clients(message):
     if clients:
         await asyncio.wait([client.send(message) for client in clients])
@@ -49,21 +50,14 @@ thread = threading.Thread(target=run_server)
 thread.daemon = True
 thread.start()
 
-subprocess.run(
-    [
-        "xdg-open",
-        "/home/zoran/project/Cpp/project/Principle-of-compilation-from-scratch/cpp_lexer_generator/debug/visualizer/index.html",
-    ],
-    stdout=subprocess.DEVNULL,
-    stderr=subprocess.DEVNULL,
-)
 # NOTE :
 #  ╭──────────────────────────────────────────────────────────╮
 #  │                       Gdb handler                        │
 #  ╰──────────────────────────────────────────────────────────╯
 
 import gdb
-import json
+
+# import json
 
 
 class Visual(gdb.Command):
@@ -79,10 +73,10 @@ class Visual(gdb.Command):
         result = ""
         if fsa.type.code == gdb.TYPE_CODE_PTR:
             # fsa = fsa.dereference()
-            result = str(gdb.parse_and_eval(f"{arg}->_toDotString()"))
+            result = str(gdb.parse_and_eval(f"{arg}->toDotString()"))
 
         else:
-            result = str(gdb.parse_and_eval(f"{arg}._toDotString()"))
+            result = str(gdb.parse_and_eval(f"{arg}.toDotString()"))
 
         # result = fsa["_toDotString"]()
         result = result[1:-1].replace(r"\n", "\n").replace(r"\"", '"')
@@ -91,7 +85,26 @@ class Visual(gdb.Command):
         # 使用asyncio.run_coroutine_threadsafe将任务提交给事件循环
         asyncio.run_coroutine_threadsafe(notify_clients(result), loop)
 
+
+class Open(gdb.Command):
+    """Open Browser."""
+
+    def __init__(self):
+        super(Open, self).__init__("open", gdb.COMMAND_USER)
+
+    def invoke(self, arg, from_tty):
+        subprocess.run(
+            [
+                "xdg-open",
+                "/home/zoran/project/Cpp/project/Principle-of-compilation-from-scratch/cpp_lexer_generator/debug/visualizer/index.html",
+            ],
+            stdout=subprocess.DEVNULL,
+            stderr=subprocess.DEVNULL,
+        )
+
+
 Visual()
+Open()
 
 
 def exit_handler(event):

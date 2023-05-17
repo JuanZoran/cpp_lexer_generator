@@ -30,6 +30,7 @@ add_packages('fmt', 'range-v3')
 if is_mode 'debug' then
     set_optimize 'none'
     set_symbols 'debug'
+    -- add_cxxflags '-fno-inline'
 end
 
 -- Release模式设置

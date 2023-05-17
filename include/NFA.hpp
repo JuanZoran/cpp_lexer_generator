@@ -127,6 +127,7 @@ private: // INFO : private static member method
         return _state_count++;
     }
 
+    __attribute__((used)) str_t toDotString() noexcept;
 
 private: // INFO : private member method
     // Private methods to output the NFA to different formats
@@ -138,7 +139,6 @@ private: // INFO : private member method
     void _toDotFile(const str_t& filename, const std::ios_base::openmode flag) noexcept;
     void _toImage(const str_t& filename) noexcept;
 
-    str_t _toDotString() noexcept;
 
 
 private: // INFO : private member variable
@@ -235,16 +235,16 @@ inline void NFA::_toMarkdown(std::ostream& os) noexcept
         "RE"_a = _RE,
         "pre_process"_a = _pre_process,
         "postfix"_a = _postfix,
-        "dot_string"_a = _toDotString());
+        "dot_string"_a = toDotString());
 }
 
 inline void NFA::_toDotFile(std::ostream& os) noexcept
 {
     // TODO :
-    os << _toDotString();
+    os << toDotString();
 }
 
-inline NFA::str_t NFA::_toDotString() noexcept
+inline NFA::str_t NFA::toDotString() noexcept
 {
     using namespace fmt::literals;
     return fmt::format(

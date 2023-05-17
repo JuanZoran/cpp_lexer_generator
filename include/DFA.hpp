@@ -57,6 +57,7 @@ public:
     }
 
     void saveTo(const str_t& filename) const noexcept;
+    __attribute__((used)) str_t toDotString() noexcept;
 
 private:
     state_t _newState() noexcept
@@ -70,7 +71,6 @@ private:
     void _toMarkdown(const str_t& filename, const std::ios_base::openmode) noexcept;
     void _toDotFile(const str_t& filename, const std::ios_base::openmode) noexcept;
     void _toImage(const str_t& filename) noexcept;
-    str_t _toDotString() noexcept;
 
 
 
@@ -207,10 +207,10 @@ inline void DFA::_toMarkdown(std::ostream& os) noexcept
 
 inline void DFA::_toDotFile(std::ostream& os) noexcept
 {
-    os << _toDotString();
+    os << toDotString();
 }
 
-inline DFA::str_t DFA::_toDotString() noexcept
+inline DFA::str_t DFA::toDotString() noexcept
 {
     using namespace fmt::literals;
     auto get_final_state_set = [this]() {

@@ -7,32 +7,49 @@
 
 using namespace std;
 using namespace fmt;
+using namespace Color;
+
 
 #if 1
 int main(int argc, char* argv[])
 {
     NFA nfa;
     map<FSA::str_t, pair<NFA::priority_t, FSA::str_t>> test_cases {
-        {"a",  { 1, "A" }},
-        { "b", { 2, "B" }},
-        { "c", { 3, "C" }},
+        {"<(Leader|Tab)>",  { 4, "Key" } },
+        { "b",  { 2, "B" } },
+        { "c",  { 3, "C" } },
+        { ">",  { 5, ">" } },
     };
 
+    cout << Green << "======================" << Endl;
     for (auto& [key, value] : test_cases) {
+        cout << Yellow << "Regex : " << key << " | "
+             << "Priority :" << value.first << " | "
+             << "Type : " << value.second << Endl;
         auto str1 = key;
         auto str2 = value.second;
         auto tmp = NFA(str1, str2, value.first);
+
+
         nfa = nfa + tmp;
     }
+
+    cout << Green << "======================" << Endl;
+
     DFA dfa(nfa);
-    dfa.minimal();
-
-
-    istringstream iss("abc");
-    Lexer lexer(iss, dfa);
-    // FIXME : 
+    // FIXME :
     // Error state info and priority
     // Error exception
+
+    // BUG : minimal dfa cause state info error
+    // dfa.minimal();
+
+
+    constexpr auto str = "bbc<b<Leader><Tab>cc";
+    cout << Color::Green << "Test Str:" << str << Color::Endl;
+
+    istringstream iss(str);
+    Lexer lexer(iss, dfa);
     while (true) {
         auto token = lexer.nextToken();
         if (!token)
