@@ -12,11 +12,11 @@ constexpr auto Endl = "\033[0m\n";
 #define __ATTR__(name)
 
 
-#define __DEFINE__(name, code)              \
-    constexpr auto name = "\033[" code "m"; \
-    inline str name##_s(str& s)             \
-    {                                       \
-        return name + s + End;              \
+#define __DEFINE__(name, code)                 \
+    constexpr auto name = "\033[" code "m";    \
+    inline str name##_s(auto&& s)              \
+    {                                          \
+        return name + std::to_string(s) + End; \
     }
 
 /// @brief attribute

@@ -175,18 +175,18 @@ $(function() {
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;        <span class="keywordflow">return</span> _state_count++;</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    }</div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160; </div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="keyword">private</span>: <span class="comment">// INFO : private member method</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="comment">// Private methods to output the NFA to different formats</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="keywordtype">void</span> _toMarkdown(std::ostream&amp; os) noexcept;</div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">void</span> _toDotFile(std::ostream&amp; os) noexcept;</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="comment">// TODO :</span></div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="keywordtype">void</span> _toMarkdown(<span class="keyword">const</span> str_t&amp; filename, <span class="keyword">const</span> std::ios_base::openmode flag) noexcept;</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">void</span> _toDotFile(<span class="keyword">const</span> str_t&amp; filename, <span class="keyword">const</span> std::ios_base::openmode flag) noexcept;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordtype">void</span> _toImage(<span class="keyword">const</span> str_t&amp; filename) noexcept;</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160; </div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    str_t _toDotString() noexcept;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    __attribute__((used)) str_t toDotString() noexcept;</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160; </div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="keyword">private</span>: <span class="comment">// INFO : private member method</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="comment">// Private methods to output the NFA to different formats</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <span class="keywordtype">void</span> _toMarkdown(std::ostream&amp; os) noexcept;</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="keywordtype">void</span> _toDotFile(std::ostream&amp; os) noexcept;</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="comment">// TODO :</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="keywordtype">void</span> _toMarkdown(<span class="keyword">const</span> str_t&amp; filename, <span class="keyword">const</span> std::ios_base::openmode flag) noexcept;</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="keywordtype">void</span> _toDotFile(<span class="keyword">const</span> str_t&amp; filename, <span class="keyword">const</span> std::ios_base::openmode flag) noexcept;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="keywordtype">void</span> _toImage(<span class="keyword">const</span> str_t&amp; filename) noexcept;</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
 <div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
 <div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160; </div>
 <div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="keyword">private</span>: <span class="comment">// INFO : private member variable</span></div>
@@ -283,16 +283,16 @@ $(function() {
 <div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <span class="stringliteral">&quot;RE&quot;</span>_a = _RE,</div>
 <div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;        <span class="stringliteral">&quot;pre_process&quot;</span>_a = _pre_process,</div>
 <div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;        <span class="stringliteral">&quot;postfix&quot;</span>_a = _postfix,</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <span class="stringliteral">&quot;dot_string&quot;</span>_a = _toDotString());</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;        <span class="stringliteral">&quot;dot_string&quot;</span>_a = toDotString());</div>
 <div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;}</div>
 <div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160; </div>
 <div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> NFA::_toDotFile(std::ostream&amp; os) noexcept</div>
 <div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;{</div>
 <div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;    <span class="comment">// TODO :</span></div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    os &lt;&lt; _toDotString();</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    os &lt;&lt; toDotString();</div>
 <div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;}</div>
 <div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="keyword">inline</span> NFA::str_t NFA::_toDotString() noexcept</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="keyword">inline</span> NFA::str_t NFA::toDotString() noexcept</div>
 <div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;{</div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    <span class="keyword">using namespace </span>fmt::literals;</div>
 <div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <span class="keywordflow">return</span> fmt::format(</div>

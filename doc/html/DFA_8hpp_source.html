@@ -128,20 +128,20 @@ $(function() {
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    }</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordtype">void</span> saveTo(<span class="keyword">const</span> str_t&amp; filename) <span class="keyword">const</span> noexcept;</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160; </div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="keyword">private</span>:</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    state_t _newState() noexcept</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;        <span class="keywordflow">return</span> _state_count++;</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    }</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;    <span class="keywordtype">void</span> _toMarkdown(std::ostream&amp; os) noexcept;</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> _toDotFile(std::ostream&amp; os) noexcept;</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160; </div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <span class="keywordtype">void</span> _toMarkdown(<span class="keyword">const</span> str_t&amp; filename, <span class="keyword">const</span> std::ios_base::openmode) noexcept;</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> _toDotFile(<span class="keyword">const</span> str_t&amp; filename, <span class="keyword">const</span> std::ios_base::openmode) noexcept;</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> _toImage(<span class="keyword">const</span> str_t&amp; filename) noexcept;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    str_t _toDotString() noexcept;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    __attribute__((used)) str_t toDotString() noexcept;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160; </div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="keyword">private</span>:</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    state_t _newState() noexcept</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;        <span class="keywordflow">return</span> _state_count++;</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    }</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160; </div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <span class="keywordtype">void</span> _toMarkdown(std::ostream&amp; os) noexcept;</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordtype">void</span> _toDotFile(std::ostream&amp; os) noexcept;</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordtype">void</span> _toMarkdown(<span class="keyword">const</span> str_t&amp; filename, <span class="keyword">const</span> std::ios_base::openmode) noexcept;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <span class="keywordtype">void</span> _toDotFile(<span class="keyword">const</span> str_t&amp; filename, <span class="keyword">const</span> std::ios_base::openmode) noexcept;</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordtype">void</span> _toImage(<span class="keyword">const</span> str_t&amp; filename) noexcept;</div>
 <div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160; </div>
 <div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
 <div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160; </div>
@@ -266,16 +266,16 @@ $(function() {
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="keyword">inline</span> <span class="keywordtype">void</span> DFA::_toDotFile(std::ostream&amp; os) noexcept</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;{</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    os &lt;&lt; _toDotString();</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    os &lt;&lt; toDotString();</div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;}</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160; </div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="keyword">inline</span> DFA::str_t DFA::_toDotString() noexcept</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="keyword">inline</span> DFA::str_t DFA::toDotString() noexcept</div>
 <div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;{</div>
 <div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    <span class="keyword">using namespace </span>fmt::literals;</div>
 <div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keyword">auto</span> get_final_state_set = [<span class="keyword">this</span>]() {</div>
 <div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;        DFA::str_t str;</div>
 <div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;        <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> state : _final_state_set) {</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            str += fmt::format(<span class="stringliteral">&quot;{} [shape=doublecircle];\n&quot;</span>, state);</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;            str += fmt::format(<span class="stringliteral">&quot;{} [shape=doublecircle, color=purple];\n&quot;</span>, state);</div>
 <div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;        }</div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;        <span class="keywordflow">return</span> str;</div>
 <div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    };</div>

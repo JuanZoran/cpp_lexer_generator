@@ -216,7 +216,7 @@ inline DFA::str_t DFA::toDotString() noexcept
     auto get_final_state_set = [this]() {
         DFA::str_t str;
         for (const auto state : _final_state_set) {
-            str += fmt::format("{} [shape=doublecircle];\n", state);
+            str += fmt::format("{} [shape=doublecircle, color=purple];\n", state);
         }
         return str;
     };

@@ -2,6 +2,8 @@
 #include <Buffer.hpp>
 #include <DFA.hpp>
 #include <Token.hpp>
+#include <color.h>
+#include <fmt/format.h>
 
 // TODO : Add filename, line, column support
 class Lexer {
@@ -38,7 +40,6 @@ inline Lexer::Lexer(Buffer buf, const DFA& dfa):
 {
 }
 
-
 inline std::optional<Token> Lexer::nextToken()
 {
     _current_state = _dfa.getStartState();
@@ -51,8 +52,19 @@ inline std::optional<Token> Lexer::nextToken()
             break;
 
         const auto reached_state = _dfa.getReachedState(_current_state, ch);
-        if (!reached_state)
+        if (!reached_state) {
+            if (last_final_state == DFA::INVALID_STATE) {
+                std::cout << Color::Red
+                          << fmt::format(
+                                 "Lexer error: Unexpected character {} at line [{}], column [{}]",
+                                 ch,
+                                 _buffer.getLineNr(),
+                                 _buffer.getColumn())
+                          << Color::Endl;
+                exit(1);
+            }
             break;
+        }
 
         _current_state = *reached_state;
         _buffer.next();

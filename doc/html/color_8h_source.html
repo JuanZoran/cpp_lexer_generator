@@ -83,11 +83,11 @@ $(function() {
 <div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#define __ATTR__(name)</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160; </div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define __DEFINE__(name, code)              \</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">    constexpr auto name = &quot;\033[&quot;</span> code &quot;m&quot;; \</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    inline str name##_s(str&amp; s)             \</div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    {                                       \</div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        return name + s + End;              \</div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#define __DEFINE__(name, code)                 \</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">    constexpr auto name = &quot;\033[&quot;</span> code &quot;m&quot;;    \</div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;    inline str name##_s(auto&amp;&amp; s)              \</div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    {                                          \</div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        return name + std::to_string(s) + End; \</div>
 <div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;    }</div>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
 <div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;__DEFINE__(HighLight, <span class="stringliteral">&quot;1&quot;</span>) <span class="comment">// 高亮</span></div>

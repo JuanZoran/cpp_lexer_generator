@@ -31,6 +31,8 @@ public:
     void rollback(column_t column);
     void rollback(linenr_t linenr, column_t column);
 
+    linenr_t getLineNr() const;
+    column_t getColumn() const;
     void markLexemeStart();
     std::string takeLexeme();
 
@@ -133,6 +135,15 @@ inline std::string Buffer::takeLexeme()
     return lexeme;
 }
 
+inline Buffer::linenr_t Buffer::getLineNr() const
+{
+    return _cur_linenr;
+}
+
+inline Buffer::column_t Buffer::getColumn() const
+{
+    return _cur_column;
+}
 
 #else // Version 1
 #include <FSA.hpp>
